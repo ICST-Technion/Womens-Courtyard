@@ -11,26 +11,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.purple,
       ),
-      home: MyHomePage(title: 'מסך ראשי'),
+      home: StatisticsPage(title: 'סטטיסטיקה'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-
+class StatisticsPage extends StatefulWidget {
+  StatisticsPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _StatisticsPageState createState() => _StatisticsPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _StatisticsPageState extends State<StatisticsPage> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -62,111 +59,115 @@ class _MyHomePageState extends State<MyHomePage> {
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(
-
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding:
+                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
                 child: Text(
-                  'שלום עו"סית',
+                  'סטטיסטיקה',
                   style: TextStyle(fontSize: 30),
                 ),
               ),
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
-                  child: TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'חיפוש...',
-                          prefixIcon: Icon(Icons.search),
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.more_vert),
-                          )))),
               Padding(
-                padding: const EdgeInsets.all(64.0),
-                child: ElevatedButton
-                  (child: Text("סטטיסטיקה"),
-                    onPressed: (){}, style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(150, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 64.0, vertical: 20.0),
+                child: OutlinedButton(child: Text("סטטיסטיקה אישית")),
               ),
               Padding(
-                padding: const EdgeInsets.all(64.0),
-                child: ElevatedButton
-                  (child: Text("הוספת לקוחה"),
-                    onPressed: (){}, style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(150, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              )
-
-
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'שם פרטי',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Flexible(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'שם משפחה',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      )
+                    ],
+                  )),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'מספר תעודת זהות',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Flexible(
+                          child: IconButton(
+                        autofocus: false,
+                        icon: const Icon(Icons.send),
+                      ))
+                    ],
+                  )),
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
-  AppBar getHomepageAppBar(){
-    return AppBar(title: Text('דף הבית'), actions: [
+
+  AppBar getHomepageAppBar() {
+    return AppBar(title: Text('סטטיסטיקה'), actions: [
       IconButton(
           icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.account_circle,
+        size: 30,
+        color: Colors.white,
+      )),
       IconButton(
           icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.info,
+        size: 30,
+        color: Colors.white,
+      )),
     ]);
   }
+
   Drawer getDrawer() {
     return Drawer(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-          color: Colors.purpleAccent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(children: [
-                Divider(),
-                getListTile('נוכחות יומית', Icons.calendar_today, () {
-                }),
-                Divider(),
-
-                getListTile('רשימת תיקים', Icons.insert_drive_file, () {
-
-                }),
-                Divider(),
-
-                getListTile('רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {
-
-                }),
-
-                Divider()
-              ]),
-
-            ],
-          ),
-        ));
+      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+      color: Colors.purpleAccent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(children: [
+            Divider(),
+            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+            Divider(),
+            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+            Divider(),
+            getListTile(
+                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
+            Divider()
+          ]),
+        ],
+      ),
+    ));
   }
 
   ListTile getListTile(text, icon, action) {
