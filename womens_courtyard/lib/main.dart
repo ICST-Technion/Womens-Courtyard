@@ -106,29 +106,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                               labelText: 'שם משפחה',
                             ),
                           ),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  side: BorderSide(
-                                    width: 3,
-                                  ), //border width and color
-                                  elevation: 3, //elevation of button
-                                  shape: ContinuousRectangleBorder(
-                                      //to set border radius to button
-                                      borderRadius: BorderRadius.circular(30))),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(text: 'שלח בקשה'),
-                                    WidgetSpan(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 2.0),
-                                        child: Icon(Icons.send),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )),
+                          SendBtn(),
                         ],
                       )),
                       SizedBox(
@@ -156,6 +134,31 @@ class _StatisticsPageState extends State<StatisticsPage> {
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
+  }
+
+  ElevatedButton SendBtn() {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            side: BorderSide(
+              width: 3,
+            ), //border width and color
+            elevation: 3, //elevation of button
+            shape: ContinuousRectangleBorder(
+                //to set border radius to button
+                borderRadius: BorderRadius.circular(30))),
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: 'שלח בקשה'),
+              WidgetSpan(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: Icon(Icons.send),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 
   AppBar getHomepageAppBar() {
