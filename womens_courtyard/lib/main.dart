@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,18 +30,7 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  DateTime _dateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -60,79 +51,38 @@ class _StatisticsPageState extends State<StatisticsPage> {
           // in the middle of the parent.
           child: Column(
             children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
-                child: Text(
-                  'סטטיסטיקה',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 64.0, vertical: 20.0),
-                child: OutlinedButton(child: Text("סטטיסטיקה אישית")),
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                          child: Column(
-                        children: <Widget>[
-                          TextField(
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              labelText: 'שם פרטי',
-                            ),
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              labelText: 'מספר תעודת זהות',
-                            ),
-                          ),
-                        ],
-                      )),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Flexible(
-                          child: Column(
-                        children: <Widget>[
-                          TextField(
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              labelText: 'שם משפחה',
-                            ),
-                          ),
-                          SendBtn(),
-                        ],
-                      )),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                    ],
-                  )),
-
-              // Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              //     child: Row(
-              //       children: <Widget>[
-              //         SizedBox(
-              //           width: 20.0,
-              //         ),
-              //         Flexible(
-              //             child: IconButton(
-              //           autofocus: false,
-              //           icon: const Icon(Icons.send),
-              //         ))
-              //       ],
-              //     )),
+              StatisticHeadline(),
+              PersonalStatisticWidget(),
+              NamesRow(),
+              IdRow(),
+              SendRequest(),
+              GeneralStatisticWidget(),
+              DateRow(),
+              SendRequest()
+              // Row(children: <Widget>[
+              //   Flexible(child: getStartDateWidget(context)),
+              //   Flexible(child: getEndDateWidget(context))
+              // ])
             ],
           ),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
+    );
+  }
+
+  Padding SendRequest() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: ElevatedButton(
+          child: Text("שלח בקשה"),
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+              primary: Color.fromRGBO(250, 84, 9, 0),
+              elevation: 4,
+              minimumSize: Size(10, 10),
+              textStyle: TextStyle(color: Colors.white, fontSize: 20),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)))),
     );
   }
 
@@ -206,6 +156,190 @@ class _StatisticsPageState extends State<StatisticsPage> {
       title: Text(text, style: TextStyle(fontSize: 19, color: Colors.white)),
       trailing: Icon(icon, color: Colors.white),
       onTap: action,
+    );
+  }
+}
+
+class IdRow extends StatelessWidget {
+  const IdRow({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Row(
+          children: <Widget>[
+            Flexible(
+                child: TextField(
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'תעודת זהות',
+              ),
+            )),
+            SizedBox(width: 20.0)
+          ],
+        ));
+  }
+}
+
+class NamesRow extends StatelessWidget {
+  const NamesRow({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Row(
+          children: <Widget>[
+            Flexible(
+                child: TextField(
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'שם פרטי',
+              ),
+            )),
+            SizedBox(
+              width: 20.0,
+            ),
+            Flexible(
+                child: TextField(
+                    decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'שם משפחה',
+            ))),
+            SizedBox(
+              width: 20.0,
+            ),
+          ],
+        ));
+  }
+}
+
+class DateRow extends StatelessWidget {
+  const DateRow({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Row(
+          children: <Widget>[
+            Flexible(
+                child: Column(
+              children: <Widget>[
+                SizedBox(width: 200.0, child: StartDateWidget())
+              ],
+            )),
+            SizedBox(
+              width: 20.0,
+            ),
+            Flexible(
+                child: Column(
+              children: <Widget>[
+                SizedBox(width: 200.0, child: EndDateWidget())
+              ],
+            )),
+            SizedBox(
+              width: 20.0,
+            ),
+          ],
+        ));
+  }
+}
+
+class EndDateWidget extends StatelessWidget {
+  const EndDateWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        child: Text("תאריך סוף"),
+        onPressed: () {
+          showDatePicker(
+                  context: context,
+                  // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                  firstDate: DateTime(2001),
+                  lastDate: DateTime(2021))
+              .then((date) {
+            // setState(() {
+            //   _dateTime = date;
+          });
+        });
+  }
+}
+
+class StartDateWidget extends StatelessWidget {
+  const StartDateWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        child: Text("תאריך התחלה"),
+        onPressed: () {
+          showDatePicker(
+                  context: context,
+                  // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                  firstDate: DateTime(2001),
+                  lastDate: DateTime(2021))
+              .then((date) {
+            // setState(() {
+            //   _dateTime = date;
+          });
+        });
+  }
+}
+
+class PersonalStatisticWidget extends StatelessWidget {
+  const PersonalStatisticWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 64.0, vertical: 20.0),
+      child: OutlinedButton(child: Text("סטטיסטיקה אישית")),
+    );
+  }
+}
+
+class GeneralStatisticWidget extends StatelessWidget {
+  const GeneralStatisticWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 40.0),
+      child: OutlinedButton(child: Text("סטטיסטיקה כללית")),
+    );
+  }
+}
+
+class StatisticHeadline extends StatelessWidget {
+  const StatisticHeadline({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+      child: Text(
+        'סטטיסטיקה',
+        style: TextStyle(fontSize: 30),
+      ),
     );
   }
 }
