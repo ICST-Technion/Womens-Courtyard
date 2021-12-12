@@ -78,51 +78,79 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   child: Row(
                     children: <Widget>[
                       Flexible(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'שם פרטי',
+                          child: Column(
+                        children: <Widget>[
+                          TextField(
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'שם פרטי',
+                            ),
                           ),
-                        ),
-                      ),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'מספר תעודת זהות',
+                            ),
+                          ),
+                        ],
+                      )),
                       SizedBox(
                         width: 20.0,
                       ),
                       Flexible(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'שם משפחה',
+                          child: Column(
+                        children: <Widget>[
+                          TextField(
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'שם משפחה',
+                            ),
                           ),
-                        ),
-                      ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  side: BorderSide(
+                                    width: 3,
+                                  ), //border width and color
+                                  elevation: 3, //elevation of button
+                                  shape: ContinuousRectangleBorder(
+                                      //to set border radius to button
+                                      borderRadius: BorderRadius.circular(30))),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(text: 'שלח בקשה'),
+                                    WidgetSpan(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 2.0),
+                                        child: Icon(Icons.send),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ],
+                      )),
                       SizedBox(
                         width: 20.0,
-                      )
+                      ),
                     ],
                   )),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'מספר תעודת זהות',
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Flexible(
-                          child: IconButton(
-                        autofocus: false,
-                        icon: const Icon(Icons.send),
-                      ))
-                    ],
-                  )),
+
+              // Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              //     child: Row(
+              //       children: <Widget>[
+              //         SizedBox(
+              //           width: 20.0,
+              //         ),
+              //         Flexible(
+              //             child: IconButton(
+              //           autofocus: false,
+              //           icon: const Icon(Icons.send),
+              //         ))
+              //       ],
+              //     )),
             ],
           ),
         ), // This trailing comma makes auto-formatting nicer for build methods.
