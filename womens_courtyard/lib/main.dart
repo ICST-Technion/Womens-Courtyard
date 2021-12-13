@@ -78,27 +78,35 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              Flexible(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'תעודת זהות',
-                  ),
-                ),
-              ),
               SizedBox(
-                height: 10.0,
-              ),
-              Flexible(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'מספר טלפון',
-                  ),
+                height: 150,
+                child: Flex(
+                  direction: Axis.vertical,
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'תעודת זהות',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'מספר טלפון',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                height: 10.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
