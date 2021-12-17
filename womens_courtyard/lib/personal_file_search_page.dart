@@ -9,6 +9,9 @@ import 'package:womens_courtyard/personal_file_data.dart';
 void main() => runApp(new MaterialApp(
       home: new HomePage(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
     ));
 
 class HomePage extends StatefulWidget {
@@ -46,81 +49,45 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Home'),
-        elevation: 0.0,
-      ),
-      body: new Column(
-        children: <Widget>[
-          new Container(
-            color: Theme.of(context).primaryColor,
-            child: new Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Card(
-                child: new ListTile(
-                  leading: new Icon(Icons.search),
-                  title: new TextField(
-                    controller: controller,
-                    decoration: new InputDecoration(
-                        hintText: 'Search', border: InputBorder.none),
-                    onChanged: onSearchTextChanged,
-                  ),
-                  trailing: new IconButton(
-                    icon: new Icon(Icons.cancel),
-                    onPressed: () {
-                      controller.clear();
-                      onSearchTextChanged('');
-                    },
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('חיפוש תיק אישי'),
+          elevation: 0.0,
+        ),
+        body: new Column(
+          children: <Widget>[
+            new Container(
+              color: Theme.of(context).primaryColor,
+              child: new Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Card(
+                  child: new ListTile(
+                    leading: new Icon(Icons.search),
+                    title: new TextField(
+                      controller: controller,
+                      decoration: new InputDecoration(
+                          hintText: 'חיפוש', border: InputBorder.none),
+                      onChanged: onSearchTextChanged,
+                    ),
+                    trailing: new IconButton(
+                      icon: new Icon(Icons.cancel),
+                      onPressed: () {
+                        controller.clear();
+                        onSearchTextChanged('');
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          new Expanded(
-            child: _searchResult.length != 0 || controller.text.isNotEmpty
-                ? new ListView.builder(
-                    // Search query results
-                    itemCount: _searchResult.length,
-                    itemBuilder: (context, index) {
-                      return new Card(
-                        child: new ListTile(
-                          // leading: new CircleAvatar(
-                          //   backgroundImage: new NetworkImage(
-                          //     _searchResult[i].profileUrl,
-                          //   ),
-                          // ),
-                          leading: new Text('ICON GOES HERE'),
-                          title: new Text(_searchResult[index].name +
-                              ': תעודת זהות' +
-                              _searchResult[index].id.toString()),
-                        ),
-                        margin: const EdgeInsets.all(0.0),
-                      );
-                    },
-                  )
-                : new ListView.builder(
-                    // No search query
-                    itemCount: _userDetails.length,
-                    itemBuilder: (context, index) {
-                      return new Card(
-                        child: new ListTile(
-                          // leading: new CircleAvatar(
-                          //   backgroundImage: new NetworkImage(
-                          //     _userDetails[index].profileUrl,
-                          //   ),
-                          // ),
-                          leading: new Text('ICON GOES HERE'),
-                          title: new Text(_userDetails[index].name +
-                              ': תעודת זהות' +
-                              _userDetails[index].id.toString()),
-                        ),
-                        margin: const EdgeInsets.all(0.0),
-                      );
-                    },
-                  ),
-          ),
-        ],
+            new Expanded(
+                child: _searchResult.length != 0 || controller.text.isNotEmpty
+                    ? FileList(list: _searchResult)
+                    : FileList(list: _userDetails)),
+          ],
+        ),
       ),
     );
   }
@@ -138,6 +105,29 @@ class _HomePageState extends State<HomePage> {
     });
 
     setState(() {});
+  }
+}
+
+class FileList extends StatelessWidget {
+  final List<PersonalFile> list;
+  FileList({this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(
+      // Search query results
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        return new Card(
+          child: new ListTile(
+            leading: Icon(Icons.folder),
+            title: new Text(list[index].name),
+            subtitle: new Text("תעודת זהות: " + list[index].id.toString()),
+          ),
+          margin: const EdgeInsets.all(0.0),
+        );
+      },
+    );
   }
 }
 
