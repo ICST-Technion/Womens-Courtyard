@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: MyHomePage(title: 'מסך הוספת איש קשר'),
+      home: MyHomePage(title: 'מסך הוספת לקוחה'),
     );
   }
 }
@@ -104,36 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ? null
                     : "הכניסי בבקשה כתובת אימייל חוקית",
               ),
-              DropdownButtonFormField(
-                decoration: new InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: "תחום עיסוק",
-                ),
-                //hint: Text('בחרי תחום עיסוק'),
-                hint: _selectedCategory == null
-                    ? Text('בחרי תחום עיסוק')
-                    : Text(
-                        _selectedCategory,
-                        style: TextStyle(color: Colors.purple),
-                      ),
-                value: _selectedCategory,
-                isExpanded: true,
-                iconSize: 30.0,
-                style: TextStyle(color: Colors.purple),
-                items: _categories.map((category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: new Text(category),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(
-                    () {
-                      _selectedCategory = newValue;
-                    },
-                  );
-                },
-              ),
               Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton(
@@ -164,39 +134,39 @@ class _MyHomePageState extends State<MyHomePage> {
     return AppBar(title: Text('הוספת איש קשר'), actions: [
       IconButton(
           icon: Icon(
-        Icons.account_circle,
-        size: 30,
-        color: Colors.white,
-      )),
+            Icons.account_circle,
+            size: 30,
+            color: Colors.white,
+          )),
       IconButton(
           icon: Icon(
-        Icons.info,
-        size: 30,
-        color: Colors.white,
-      )),
+            Icons.info,
+            size: 30,
+            color: Colors.white,
+          )),
     ]);
   }
 
   Drawer getDrawer() {
     return Drawer(
         child: Container(
-      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-      color: Colors.purpleAccent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(children: [
-            Divider(),
-            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
-            Divider(),
-            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
-            Divider(),
-            getListTile('רשימת אנשי קשר', Icons.account_box_rounded, () {}),
-            Divider()
-          ]),
-        ],
-      ),
-    ));
+          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+          color: Colors.purpleAccent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(children: [
+                Divider(),
+                getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+                Divider(),
+                getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+                Divider(),
+                getListTile('רשימת אנשי קשר', Icons.account_box_rounded, () {}),
+                Divider()
+              ]),
+            ],
+          ),
+        ));
   }
 
   ListTile getListTile(text, icon, action) {

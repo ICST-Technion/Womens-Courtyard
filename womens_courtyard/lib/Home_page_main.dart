@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Search_page.dart' as search_page;
+import 'addCostumer.dart' as add_costumer_page;
 
 void main() {
   runApp(MyApp());
@@ -7,6 +9,8 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
+
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -31,18 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
                   child: TextField(
+                      onTap: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  search_page.MyApp()));},
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'חיפוש...',
@@ -101,7 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton
                   (child: Text("הוספת לקוחה"),
-                    onPressed: (){}, style: ElevatedButton.styleFrom(
+                    onPressed: (){Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                add_costumer_page.MyApp()));}, style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
                         minimumSize: Size(150, 50),
@@ -114,11 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

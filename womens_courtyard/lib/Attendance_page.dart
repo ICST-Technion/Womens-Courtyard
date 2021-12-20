@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_page_main.dart' as main_page;
 
 void main() {
   runApp(MyApp());
@@ -154,7 +155,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton(
                     child: Text("סיום ושמירה"),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  main_page.MyApp()));
+                    },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
