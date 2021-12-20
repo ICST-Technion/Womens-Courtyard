@@ -304,25 +304,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ));
-
-      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-      color: Colors.purpleAccent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(children: [
-            Divider(),
-            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
-            Divider(),
-            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
-            Divider(),
-            getListTile(
-                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
-            Divider()
-          ]),
-        ],
-      ),
-    ));
   }
 
   ListTile getListTile(text, icon, action) {

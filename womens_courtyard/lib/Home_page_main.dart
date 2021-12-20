@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Search_page.dart' as search_page;
 import 'addCostumer.dart' as add_costumer_page;
+import 'statistics.dart' as statistics_page;
 
 void main() {
   runApp(MyApp());
@@ -87,7 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton
                   (child: Text("סטטיסטיקה"),
-                    onPressed: (){}, style: ElevatedButton.styleFrom(
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  statistics_page.MyApp()));
+                    }, style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
                         minimumSize: Size(150, 50),

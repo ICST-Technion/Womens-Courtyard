@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'home_page_main.dart' as main_page;
 
 void main() {
   runApp(MyApp());
@@ -75,7 +76,13 @@ class _StatisticsPageState extends State<StatisticsPage> {
       padding: const EdgeInsets.all(20.0),
       child: ElevatedButton(
           child: Text("שלח בקשה"),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        main_page.MyApp()));
+          },
           style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(250, 84, 9, 0),
               elevation: 4,
