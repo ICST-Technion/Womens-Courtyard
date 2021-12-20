@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(15.0),
+
                 child: Text(
                   'תיק טיפול',
                   style: TextStyle(fontSize: 20),
@@ -121,6 +122,68 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextField(
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
+
+                        labelText: 'שם פרטי',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'שם משפחה',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 150,
+                child: Flex(
+                  direction: Axis.vertical,
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'תעודת זהות',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'מספר טלפון',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'אנשי קשר:',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+
                         labelText: 'שם',
                       ),
                     ),
@@ -206,22 +269,23 @@ class _MyHomePageState extends State<MyHomePage> {
     return AppBar(title: Text('הזנת תיק אישי'), actions: [
       IconButton(
           icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.account_circle,
+        size: 30,
+        color: Colors.white,
+      )),
       IconButton(
           icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.info,
+        size: 30,
+        color: Colors.white,
+      )),
     ]);
   }
 
   Drawer getDrawer() {
     return Drawer(
         child: Container(
+
           padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
           color: Colors.purpleAccent,
           child: Column(
@@ -240,6 +304,25 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ));
+
+      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+      color: Colors.purpleAccent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(children: [
+            Divider(),
+            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+            Divider(),
+            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+            Divider(),
+            getListTile(
+                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
+            Divider()
+          ]),
+        ],
+      ),
+    ));
   }
 
   ListTile getListTile(text, icon, action) {
