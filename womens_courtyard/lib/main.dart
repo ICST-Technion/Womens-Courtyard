@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(15.0),
+
                 child: Text(
                   'תיק טיפול',
                   style: TextStyle(fontSize: 20),
@@ -121,6 +122,68 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextField(
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
+
+                        labelText: 'שם פרטי',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'שם משפחה',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 150,
+                child: Flex(
+                  direction: Axis.vertical,
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'תעודת זהות',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'מספר טלפון',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'אנשי קשר:',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+
                         labelText: 'שם',
                       ),
                     ),
@@ -222,6 +285,26 @@ class _MyHomePageState extends State<MyHomePage> {
   Drawer getDrawer() {
     return Drawer(
         child: Container(
+
+          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+          color: Colors.purpleAccent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(children: [
+                Divider(),
+                getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+                Divider(),
+                getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+                Divider(),
+                getListTile(
+                    'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
+                Divider()
+              ]),
+            ],
+          ),
+        ));
+
       padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
       color: Colors.purpleAccent,
       child: Column(
