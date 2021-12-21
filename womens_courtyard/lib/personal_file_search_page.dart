@@ -6,13 +6,21 @@ import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/personal_file_data.dart';
 // import 'package:http/http.dart' as http;
 
-void main() => runApp(new MaterialApp(
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
       home: new HomePage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-    ));
+    );
+  }
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,6 +42,7 @@ class _HomePageState extends State<HomePage> {
 
     await Future.delayed(Duration(seconds: 1));
     setState(() {
+      _userDetails = [];
       for (PersonalFile file in allFiles) {
         _userDetails.add(file);
       }

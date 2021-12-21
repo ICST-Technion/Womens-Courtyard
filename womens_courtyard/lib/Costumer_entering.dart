@@ -117,29 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'שם',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'טלפון',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Search_page.dart' as search_page;
 import 'Costumer_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
+import 'personal_file_search_page.dart' as file_search_page;
 
 void main() {
   runApp(MyApp());
@@ -150,7 +151,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Divider(),
             getListTile('נוכחות יומית', Icons.calendar_today, () {}),
             Divider(),
-            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+            getListTile('רשימת תיקים', Icons.insert_drive_file, () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => file_search_page.MyApp()));
+            }),
             Divider(),
             getListTile(
                 'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
