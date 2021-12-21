@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Search_page.dart' as search_page;
-import 'addCostumer.dart' as add_costumer_page;
+import 'Costumer_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 
 void main() {
@@ -10,13 +10,10 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
-
-
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.purple,
       ),
       home: MyHomePage(title: 'מסך ראשי'),
@@ -27,8 +24,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-
-
   final String title;
 
   @override
@@ -36,8 +31,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -51,12 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: getHomepageAppBar(),
         drawer: getDrawer(),
-
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(
-
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(40.0),
@@ -70,13 +61,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24),
-                      boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
+                      boxShadow: [
+                        BoxShadow(blurRadius: 20, spreadRadius: -15)
+                      ]),
                   child: TextField(
-                      onTap: () {Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  search_page.MyApp()));},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => search_page.MyApp()));
+                      },
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'חיפוש...',
@@ -86,15 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           )))),
               Padding(
                 padding: const EdgeInsets.all(64.0),
-                child: ElevatedButton
-                  (child: Text("סטטיסטיקה"),
-                    onPressed: (){
+                child: ElevatedButton(
+                    child: Text("סטטיסטיקה"),
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  statistics_page.MyApp()));
-                    }, style: ElevatedButton.styleFrom(
+                              builder: (context) => statistics_page.MyApp()));
+                    },
+                    style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
                         minimumSize: Size(150, 50),
@@ -104,13 +98,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(64.0),
-                child: ElevatedButton
-                  (child: Text("הוספת לקוחה"),
-                    onPressed: (){Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                add_costumer_page.MyApp()));}, style: ElevatedButton.styleFrom(
+                child: ElevatedButton(
+                    child: Text("הוספת לקוחה"),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => add_costumer_page.MyApp()));
+                    },
+                    style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
                         minimumSize: Size(150, 50),
@@ -118,59 +114,51 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               )
-
-
             ],
           ),
         ),
       ),
     );
   }
-  AppBar getHomepageAppBar(){
+
+  AppBar getHomepageAppBar() {
     return AppBar(title: Text('דף הבית'), actions: [
       IconButton(
           icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.account_circle,
+        size: 30,
+        color: Colors.white,
+      )),
       IconButton(
           icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.info,
+        size: 30,
+        color: Colors.white,
+      )),
     ]);
   }
+
   Drawer getDrawer() {
     return Drawer(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-          color: Colors.purpleAccent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(children: [
-                Divider(),
-                getListTile('נוכחות יומית', Icons.calendar_today, () {
-                }),
-                Divider(),
-
-                getListTile('רשימת תיקים', Icons.insert_drive_file, () {
-
-                }),
-                Divider(),
-
-                getListTile('רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {
-
-                }),
-
-                Divider()
-              ]),
-
-            ],
-          ),
-        ));
+      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+      color: Colors.purpleAccent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(children: [
+            Divider(),
+            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+            Divider(),
+            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+            Divider(),
+            getListTile(
+                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
+            Divider()
+          ]),
+        ],
+      ),
+    ));
   }
 
   ListTile getListTile(text, icon, action) {

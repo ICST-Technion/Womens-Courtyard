@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:email_validator/email_validator.dart';
-import 'Costumer_entering.dart' as main_page;
+import 'addContact.dart' as add_contact_page;
+import 'main.dart' as main_page;
 
 void main() {
   runApp(MyApp());
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: MyHomePage(title: 'מסך הוספת איש קשר'),
+      home: MyHomePage(title: 'מסך הזנת תיק אישי'),
     );
   }
 }
@@ -31,9 +30,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> _categories = ['רווחה', 'משפט', 'רפואה'];
-  String _selectedCategory;
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -57,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Text(
-                  'הוספת איש קשר',
+                  'תיק טיפול',
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -84,55 +80,114 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              TextField(
-                decoration: new InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: "מספר טלפון",
+              SizedBox(
+                height: 150,
+                child: Flex(
+                  direction: Axis.vertical,
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'תעודת זהות',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Flexible(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'מספר טלפון',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
                 ),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'אנשי קשר:',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'שם',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Flexible(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'טלפון',
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              TextFormField(
-                decoration: new InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: "כתובת מייל",
-                ),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) => EmailValidator.validate(value)
-                    ? null
-                    : "הכניסי בבקשה כתובת אימייל חוקית",
-              ),
-              DropdownButtonFormField(
-                decoration: new InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: "תחום עיסוק",
-                ),
-                //hint: Text('בחרי תחום עיסוק'),
-                hint: _selectedCategory == null
-                    ? Text('בחרי תחום עיסוק')
-                    : Text(
-                        _selectedCategory,
-                        style: TextStyle(color: Colors.purple),
-                      ),
-                value: _selectedCategory,
-                isExpanded: true,
-                iconSize: 30.0,
-                style: TextStyle(color: Colors.purple),
-                items: _categories.map((category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: new Text(category),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(
-                    () {
-                      _selectedCategory = newValue;
+              Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: ElevatedButton(
+                    child: Text("הוספת איש קשר"),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => add_contact_page.MyApp()));
                     },
-                  );
-                },
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(250, 84, 9, 0),
+                        elevation: 4,
+                        minimumSize: Size(10, 10),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)))),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(blurRadius: 20, spreadRadius: -15)
+                      ]),
+                  child: TextFormField(
+                      minLines: 1,
+                      maxLines: 10,
+                      decoration: InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'תיאור טיפול',
+                      ))),
+              Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: ElevatedButton(
+                    child: Text("הזנת קבצים חדשים"),
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(250, 84, 9, 0),
+                        elevation: 4,
+                        minimumSize: Size(100, 50),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)))),
               ),
               Padding(
                 padding: const EdgeInsets.all(64.0),
@@ -160,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הוספת איש קשר'), actions: [
+    return AppBar(title: Text('הזנת תיק אישי'), actions: [
       IconButton(
           icon: Icon(
         Icons.account_circle,
@@ -190,7 +245,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Divider(),
             getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
             Divider(),
-            getListTile('רשימת אנשי קשר', Icons.account_box_rounded, () {}),
+            getListTile(
+                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
             Divider()
           ]),
         ],
