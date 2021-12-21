@@ -47,24 +47,26 @@ class _StatisticsPageState extends State<StatisticsPage> {
         appBar: getHomepageAppBar(),
         drawer: getDrawer(),
 
-        body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: Column(
-            children: <Widget>[
-              StatisticHeadline(),
-              PersonalStatisticWidget(),
-              NamesRow(),
-              IdRow(),
-              SendRequest(),
-              GeneralStatisticWidget(),
-              DateRow(),
-              SendRequest()
-              // Row(children: <Widget>[
-              //   Flexible(child: getStartDateWidget(context)),
-              //   Flexible(child: getEndDateWidget(context))
-              // ])
-            ],
+        body: SingleChildScrollView(
+          child: Center(
+            // Center is a layout widget. It takes a single child and positions it
+            // in the middle of the parent.
+            child: Column(
+              children: <Widget>[
+                StatisticHeadline(),
+                PersonalStatisticWidget(),
+                NamesRow(),
+                IdRow(),
+                SendRequest(),
+                GeneralStatisticWidget(),
+                DateRow(),
+                SendRequest()
+                // Row(children: <Widget>[
+                //   Flexible(child: getStartDateWidget(context)),
+                //   Flexible(child: getEndDateWidget(context))
+                // ])
+              ],
+            ),
           ),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
@@ -325,7 +327,8 @@ class GeneralStatisticWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 40.0),
+      padding: const EdgeInsets.only(
+          left: 40.0, right: 40.0, top: 20.0, bottom: 40.0),
       child: OutlinedButton(child: Text("סטטיסטיקה כללית")),
     );
   }
