@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'Search_page.dart' as search_page;
 import 'main.dart' as main_page;
 
 void main() {
@@ -55,8 +56,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
               children: <Widget>[
                 StatisticHeadline(),
                 PersonalStatisticWidget(),
-                NamesRow(),
-                IdRow(),
+                // NamesRow(),
+                // IdRow(),
+                SearchWidget(),
                 SendRequest(),
                 GeneralStatisticWidget(),
                 DateRow(),
@@ -75,7 +77,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
   Padding SendRequest() {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
       child: ElevatedButton(
           child: Text("שלח בקשה"),
           onPressed: () {
@@ -163,6 +165,34 @@ class _StatisticsPageState extends State<StatisticsPage> {
       trailing: Icon(icon, color: Colors.white),
       onTap: action,
     );
+  }
+}
+
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
+        child: TextField(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => search_page.MyApp()));
+            },
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'חיפוש...',
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.more_vert),
+                ))));
   }
 }
 
@@ -328,7 +358,7 @@ class GeneralStatisticWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-          left: 40.0, right: 40.0, top: 20.0, bottom: 40.0),
+          left: 40.0, right: 40.0, top: 20.0, bottom: 20.0),
       child: OutlinedButton(child: Text("סטטיסטיקה כללית")),
     );
   }
