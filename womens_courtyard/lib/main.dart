@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Search_page.dart' as search_page;
 import 'Costumer_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 import 'personal_file_search_page.dart' as file_search_page;
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: MyHomePage(title: 'מסך ראשי'),
+      home: MyBottomNavigationBar(),
     );
   }
 }
@@ -44,7 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
-        drawer: getDrawer(),
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
@@ -57,28 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 30),
                 ),
               ),
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(blurRadius: 20, spreadRadius: -15)
-                      ]),
-                  child: TextField(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => search_page.MyApp()));
-                      },
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'חיפוש...',
-                          prefixIcon: Icon(Icons.search),
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.more_vert),
-                          )))),
               Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton(
@@ -172,6 +148,58 @@ class _MyHomePageState extends State<MyHomePage> {
       title: Text(text, style: TextStyle(fontSize: 19, color: Colors.white)),
       trailing: Icon(icon, color: Colors.white),
       onTap: action,
+    );
+  }
+}
+
+class MyBottomNavigationBar extends StatefulWidget {
+  @override
+  _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
+}
+
+class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+    MyHomePage(),
+    MyHomePage(),
+    file_search_page.HomePage(),
+    MyHomePage()
+  ];
+
+  void onTappedBar(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: onTappedBar,
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'מסך הבית',
+              backgroundColor: Colors.purpleAccent),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today),
+              label: 'נוכחות יומית',
+              backgroundColor: Colors.purpleAccent),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.insert_drive_file),
+              label: 'תיקים',
+              backgroundColor: Colors.purpleAccent),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_box_rounded),
+              label: 'אנשי קשר',
+              backgroundColor: Colors.purpleAccent),
+        ],
+        backgroundColor: Colors.purpleAccent,
+        fixedColor: Colors.white,
+      ),
     );
   }
 }

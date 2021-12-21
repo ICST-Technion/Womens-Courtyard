@@ -46,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
-        drawer: getDrawer(),
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.

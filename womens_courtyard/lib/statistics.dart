@@ -46,8 +46,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
-        drawer: getDrawer(),
-
         body: SingleChildScrollView(
           child: Center(
             // Center is a layout widget. It takes a single child and positions it
