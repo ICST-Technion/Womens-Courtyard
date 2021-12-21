@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'Search_page.dart' as search_page;
+import 'addCostumer.dart' as add_costumer_page;
+import 'statistics.dart' as statistics_page;
 
 void main() {
   runApp(MyApp());
@@ -7,19 +10,24 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
+
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+
         primarySwatch: Colors.purple,
       ),
-      home: MyHomePage(title: 'מסך הזנת תיק אישי'),
+      home: MyHomePage(title: 'מסך ראשי'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
+
+
 
   final String title;
 
@@ -28,6 +36,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -41,216 +51,50 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: getHomepageAppBar(),
         drawer: getDrawer(),
+
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.all(15.0),
+          child: Column(
+
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(15.0),
-
-                child: Text(
-                  'תיק טיפול',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'שם פרטי',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'שם משפחה',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 150,
-                child: Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'תעודת זהות',
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'מספר טלפון',
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  'אנשי קשר:',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-
-                        labelText: 'שם פרטי',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'שם משפחה',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 150,
-                child: Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'תעודת זהות',
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'מספר טלפון',
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  'אנשי קשר:',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-
-                        labelText: 'שם',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20.0,
-                  ),
-                  Flexible(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'טלפון',
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
                 padding: const EdgeInsets.all(40.0),
-                child: ElevatedButton(
-                    child: Text("הוספת איש קשר"),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(10, 10),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
-              SizedBox(
-                height: 10.0,
+                child: Text(
+                  'שלום עו"סית',
+                  style: TextStyle(fontSize: 30),
+                ),
               ),
               Container(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(blurRadius: 20, spreadRadius: -15)
-                      ]),
-                  child: TextFormField(
-                      minLines: 1,
-                      maxLines: 10,
+                      boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
+                  child: TextField(
+                      onTap: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  search_page.MyApp()));},
                       decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'תיאור טיפול',
-                      ))),
-              Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: ElevatedButton(
-                    child: Text("הזנת קבצים חדשים"),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
+                          border: InputBorder.none,
+                          hintText: 'חיפוש...',
+                          prefixIcon: Icon(Icons.search),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.more_vert),
+                          )))),
               Padding(
                 padding: const EdgeInsets.all(64.0),
-                child: ElevatedButton(
-                    child: Text("סיום ושמירה"),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
+                child: ElevatedButton
+                  (child: Text("סטטיסטיקה"),
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  statistics_page.MyApp()));
+                    }, style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
                         minimumSize: Size(150, 50),
@@ -258,34 +102,49 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
+              Padding(
+                padding: const EdgeInsets.all(64.0),
+                child: ElevatedButton
+                  (child: Text("הוספת לקוחה"),
+                    onPressed: (){Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                add_costumer_page.MyApp()));}, style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(250, 84, 9, 0),
+                        elevation: 4,
+                        minimumSize: Size(150, 50),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)))),
+              )
+
+
             ],
           ),
         ),
       ),
     );
   }
-
-  AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הזנת תיק אישי'), actions: [
+  AppBar getHomepageAppBar(){
+    return AppBar(title: Text('דף הבית'), actions: [
       IconButton(
           icon: Icon(
-        Icons.account_circle,
-        size: 30,
-        color: Colors.white,
-      )),
+            Icons.account_circle,
+            size: 30,
+            color: Colors.white,
+          )),
       IconButton(
           icon: Icon(
-        Icons.info,
-        size: 30,
-        color: Colors.white,
-      )),
+            Icons.info,
+            size: 30,
+            color: Colors.white,
+          )),
     ]);
   }
-
   Drawer getDrawer() {
     return Drawer(
         child: Container(
-
           padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
           color: Colors.purpleAccent,
           child: Column(
@@ -293,14 +152,22 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Column(children: [
                 Divider(),
-                getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+                getListTile('נוכחות יומית', Icons.calendar_today, () {
+                }),
                 Divider(),
-                getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+
+                getListTile('רשימת תיקים', Icons.insert_drive_file, () {
+
+                }),
                 Divider(),
-                getListTile(
-                    'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
+
+                getListTile('רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {
+
+                }),
+
                 Divider()
               ]),
+
             ],
           ),
         ));

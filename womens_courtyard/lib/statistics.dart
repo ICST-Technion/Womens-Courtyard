@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'home_page_main.dart' as main_page;
+import 'main.dart' as main_page;
 
 void main() {
   runApp(MyApp());
@@ -77,11 +77,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
       child: ElevatedButton(
           child: Text("שלח בקשה"),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        main_page.MyApp()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => main_page.MyApp()));
           },
           style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(250, 84, 9, 0),
@@ -101,7 +98,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
             ), //border width and color
             elevation: 3, //elevation of button
             shape: ContinuousRectangleBorder(
-              //to set border radius to button
+                //to set border radius to button
                 borderRadius: BorderRadius.circular(30))),
         child: RichText(
           text: TextSpan(
@@ -122,40 +119,40 @@ class _StatisticsPageState extends State<StatisticsPage> {
     return AppBar(title: Text('סטטיסטיקה'), actions: [
       IconButton(
           icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.account_circle,
+        size: 30,
+        color: Colors.white,
+      )),
       IconButton(
           icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.info,
+        size: 30,
+        color: Colors.white,
+      )),
     ]);
   }
 
   Drawer getDrawer() {
     return Drawer(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-          color: Colors.purpleAccent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(children: [
-                Divider(),
-                getListTile('נוכחות יומית', Icons.calendar_today, () {}),
-                Divider(),
-                getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
-                Divider(),
-                getListTile(
-                    'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
-                Divider()
-              ]),
-            ],
-          ),
-        ));
+      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+      color: Colors.purpleAccent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(children: [
+            Divider(),
+            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+            Divider(),
+            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+            Divider(),
+            getListTile(
+                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
+            Divider()
+          ]),
+        ],
+      ),
+    ));
   }
 
   ListTile getListTile(text, icon, action) {
@@ -180,11 +177,11 @@ class IdRow extends StatelessWidget {
           children: <Widget>[
             Flexible(
                 child: TextField(
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'תעודת זהות',
-                  ),
-                )),
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'תעודת זהות',
+              ),
+            )),
             SizedBox(width: 20.0)
           ],
         ));
@@ -204,20 +201,20 @@ class NamesRow extends StatelessWidget {
           children: <Widget>[
             Flexible(
                 child: TextField(
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'שם פרטי',
-                  ),
-                )),
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'שם פרטי',
+              ),
+            )),
             SizedBox(
               width: 20.0,
             ),
             Flexible(
                 child: TextField(
                     decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'שם משפחה',
-                    ))),
+              border: UnderlineInputBorder(),
+              labelText: 'שם משפחה',
+            ))),
             SizedBox(
               width: 20.0,
             ),
@@ -239,19 +236,19 @@ class DateRow extends StatelessWidget {
           children: <Widget>[
             Flexible(
                 child: Column(
-                  children: <Widget>[
-                    SizedBox(width: 200.0, child: StartDateWidget())
-                  ],
-                )),
+              children: <Widget>[
+                SizedBox(width: 200.0, child: StartDateWidget())
+              ],
+            )),
             SizedBox(
               width: 20.0,
             ),
             Flexible(
                 child: Column(
-                  children: <Widget>[
-                    SizedBox(width: 200.0, child: EndDateWidget())
-                  ],
-                )),
+              children: <Widget>[
+                SizedBox(width: 200.0, child: EndDateWidget())
+              ],
+            )),
             SizedBox(
               width: 20.0,
             ),
@@ -271,10 +268,10 @@ class EndDateWidget extends StatelessWidget {
         child: Text("תאריך סוף"),
         onPressed: () {
           showDatePicker(
-              context: context,
-              // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
-              firstDate: DateTime(2001),
-              lastDate: DateTime(2021))
+                  context: context,
+                  // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                  firstDate: DateTime(2001),
+                  lastDate: DateTime(2021))
               .then((date) {
             // setState(() {
             //   _dateTime = date;
@@ -294,10 +291,10 @@ class StartDateWidget extends StatelessWidget {
         child: Text("תאריך התחלה"),
         onPressed: () {
           showDatePicker(
-              context: context,
-              // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
-              firstDate: DateTime(2001),
-              lastDate: DateTime(2021))
+                  context: context,
+                  // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                  firstDate: DateTime(2001),
+                  lastDate: DateTime(2021))
               .then((date) {
             // setState(() {
             //   _dateTime = date;

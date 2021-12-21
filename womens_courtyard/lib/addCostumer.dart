@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
-import 'home_page_main.dart' as main_page;
+import 'main.dart' as main_page;
 
 void main() {
   runApp(MyApp());
@@ -112,8 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  main_page.MyApp()));
+                              builder: (context) => main_page.MyApp()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -134,39 +133,39 @@ class _MyHomePageState extends State<MyHomePage> {
     return AppBar(title: Text('הוספת איש קשר'), actions: [
       IconButton(
           icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.account_circle,
+        size: 30,
+        color: Colors.white,
+      )),
       IconButton(
           icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.info,
+        size: 30,
+        color: Colors.white,
+      )),
     ]);
   }
 
   Drawer getDrawer() {
     return Drawer(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-          color: Colors.purpleAccent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(children: [
-                Divider(),
-                getListTile('נוכחות יומית', Icons.calendar_today, () {}),
-                Divider(),
-                getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
-                Divider(),
-                getListTile('רשימת אנשי קשר', Icons.account_box_rounded, () {}),
-                Divider()
-              ]),
-            ],
-          ),
-        ));
+      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+      color: Colors.purpleAccent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(children: [
+            Divider(),
+            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+            Divider(),
+            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+            Divider(),
+            getListTile('רשימת אנשי קשר', Icons.account_box_rounded, () {}),
+            Divider()
+          ]),
+        ],
+      ),
+    ));
   }
 
   ListTile getListTile(text, icon, action) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_page_main.dart' as main_page;
+import 'main.dart' as main_page;
 
 void main() {
   runApp(MyApp());
@@ -29,7 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -42,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedDate = picked;
       });
   }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -68,11 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'כרמל ישראלי',
                     style: TextStyle(fontSize: 40),
-
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(
@@ -94,18 +92,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Padding(
                                     padding: const EdgeInsets.all(24.0),
                                     child: SizedBox(
-                                      child:
-                                        Text(selectedDate.day.toString() + "." + selectedDate.month.toString() +
-                                        "." + selectedDate.year.toString())
-                                    ),
+                                        child: Text(
+                                            selectedDate.day.toString() +
+                                                "." +
+                                                selectedDate.month.toString() +
+                                                "." +
+                                                selectedDate.year.toString())),
                                   ),
                                   Container(
-                                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 12, horizontal: 8),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(24),
+                                          borderRadius:
+                                              BorderRadius.circular(24),
                                           boxShadow: [
-                                            BoxShadow(blurRadius: 20, spreadRadius: -15)
+                                            BoxShadow(
+                                                blurRadius: 20,
+                                                spreadRadius: -15)
                                           ]),
                                       child: Directionality(
                                         textDirection: TextDirection.rtl,
@@ -120,9 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Padding(
                                     padding: const EdgeInsets.all(24.0),
                                     child: ElevatedButton(
-                                        onPressed: (){
+                                        onPressed: () {
                                           Navigator.pop(context);
-                                        }, child: Text("הזן")),
+                                        },
+                                        child: Text("הזן")),
                                   )
                                 ],
                               ),
@@ -143,7 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: TextFormField(
-                    initialValue: "כרמל עברה תהליך פסיכולוגי ארוך ומשמעותי הכלל פגישות עם פסיכיאטר ועוד.",
+                    initialValue:
+                        "כרמל עברה תהליך פסיכולוגי ארוך ומשמעותי הכלל פגישות עם פסיכיאטר ועוד.",
                     minLines: 1,
                     maxLines: 10,
                     decoration: InputDecoration(
@@ -159,8 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  main_page.MyApp()));
+                              builder: (context) => main_page.MyApp()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -181,40 +186,40 @@ class _MyHomePageState extends State<MyHomePage> {
     return AppBar(title: Text('הזנת נוכחות'), actions: [
       IconButton(
           icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.account_circle,
+        size: 30,
+        color: Colors.white,
+      )),
       IconButton(
           icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
+        Icons.info,
+        size: 30,
+        color: Colors.white,
+      )),
     ]);
   }
 
   Drawer getDrawer() {
     return Drawer(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-          color: Colors.purpleAccent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(children: [
-                Divider(),
-                getListTile('נוכחות יומית', Icons.calendar_today, () {}),
-                Divider(),
-                getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
-                Divider(),
-                getListTile(
-                    'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
-                Divider()
-              ]),
-            ],
-          ),
-        ));
+      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
+      color: Colors.purpleAccent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(children: [
+            Divider(),
+            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
+            Divider(),
+            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
+            Divider(),
+            getListTile(
+                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
+            Divider()
+          ]),
+        ],
+      ),
+    ));
   }
 
   ListTile getListTile(text, icon, action) {

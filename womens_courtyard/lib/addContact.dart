@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
-import 'home_page_main.dart' as main_page;
+import 'main.dart' as main_page;
 
 void main() {
   runApp(MyApp());
@@ -142,8 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  main_page.MyApp()));
+                              builder: (context) => main_page.MyApp()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
