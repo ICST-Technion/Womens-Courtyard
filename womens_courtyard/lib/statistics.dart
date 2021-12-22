@@ -190,6 +190,7 @@ class SearchWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.search),
                 suffixIcon: IconButton(
                   icon: Icon(Icons.more_vert),
+                  onPressed: () {},
                 ))));
   }
 }

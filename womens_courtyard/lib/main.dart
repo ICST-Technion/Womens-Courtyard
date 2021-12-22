@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'personal_file_search_page.dart' as file_search_page;
 import 'Home_page.dart' as home_page;
+import 'Search_full_page.dart' as daily_search_page;
+import 'view_Contact.dart' as view_contect;
 
 void main() {
   runApp(MyApp());
@@ -27,9 +29,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     home_page.MyHomePage(),
-    home_page.MyHomePage(),
+    daily_search_page.MyHomePage(),
     file_search_page.HomePage(),
-    home_page.MyHomePage()
+    view_contect.MyHomePage(),
   ];
 
   void onTappedBar(int index) {

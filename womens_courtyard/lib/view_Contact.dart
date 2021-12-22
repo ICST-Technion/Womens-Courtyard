@@ -1,23 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: MyHomePage(title: 'מסך הוספת איש קשר'),
-    );
-  }
-}
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -40,7 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
-        drawer: getDrawer(),
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
@@ -95,47 +76,21 @@ class _MyHomePageState extends State<MyHomePage> {
   AppBar getHomepageAppBar() {
     return AppBar(title: Text('צפייה באיש קשר'), actions: [
       IconButton(
-          icon: Icon(
-        Icons.account_circle,
-        size: 30,
-        color: Colors.white,
-      )),
-      IconButton(
-          icon: Icon(
-        Icons.info,
-        size: 30,
-        color: Colors.white,
-      )),
-    ]);
-  }
-
-  Drawer getDrawer() {
-    return Drawer(
-        child: Container(
-      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-      color: Colors.purpleAccent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(children: [
-            Divider(),
-            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
-            Divider(),
-            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
-            Divider(),
-            getListTile('רשימת אנשי קשר', Icons.account_box_rounded, () {}),
-            Divider()
-          ]),
-        ],
+        icon: Icon(
+          Icons.account_circle,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
       ),
-    ));
-  }
-
-  ListTile getListTile(text, icon, action) {
-    return ListTile(
-      title: Text(text, style: TextStyle(fontSize: 19, color: Colors.white)),
-      trailing: Icon(icon, color: Colors.white),
-      onTap: action,
-    );
+      IconButton(
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
+    ]);
   }
 }
