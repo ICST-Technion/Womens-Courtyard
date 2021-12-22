@@ -47,6 +47,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTappedBar,
         currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
