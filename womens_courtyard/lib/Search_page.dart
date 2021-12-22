@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flappy_search_bar/flappy_search_bar.dart';
-import 'package:flappy_search_bar/scaled_tile.dart';
 import 'package:flutter/material.dart';
 import 'Attendance_page.dart' as attendance_page;
 
@@ -53,8 +50,7 @@ class Home extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                attendance_page.MyApp()));
+                            builder: (context) => attendance_page.MyApp()));
                   },
                 );
               },
