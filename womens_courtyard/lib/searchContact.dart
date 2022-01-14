@@ -135,7 +135,8 @@ class FileList extends StatelessWidget {
             child: new ListTile(
               leading: Icon(Icons.contact_page),
               title: new Text(list[index].name),
-              subtitle: new Text("טלפון: " + list[index].phoneNumber),
+              subtitle: new Text(
+              list[index].occupation),
               onTap: () {
                 Navigator.push(
                     context,
