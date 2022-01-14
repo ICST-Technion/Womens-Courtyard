@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Costumer_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -12,6 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var name = "אנה";
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -23,8 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(40.0),
-                child: Text(
-                  'שלום עו"סית',
+                child: Text("שלום " + name,
                   style: TextStyle(fontSize: 30),
                 ),
               ),
@@ -49,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton(
-                    child: Text("הוספת לקוחה"),
+                    child: Text("הוספת צעירה"),
                     onPressed: () {
                       Navigator.push(
                           context,

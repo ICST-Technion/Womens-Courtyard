@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/contact.dart';
 import 'package:womens_courtyard/contacts_data.dart';
+import 'addContact.dart' as add_contact_page;
+import 'edit_contact.dart' as edit_contact_page;
 
 void main() => runApp(new MaterialApp(
       home: new HomePage(),
@@ -52,20 +54,22 @@ class _HomePageState extends State<HomePage> {
               child: new Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new Card(
-                  child: new ListTile(
-                    leading: new Icon(Icons.search),
-                    title: new TextField(
-                      controller: controller,
-                      decoration: new InputDecoration(
-                          hintText: 'חיפוש', border: InputBorder.none),
-                      onChanged: onSearchTextChanged,
-                    ),
-                    trailing: new IconButton(
-                      icon: new Icon(Icons.cancel),
-                      onPressed: () {
-                        controller.clear();
-                        onSearchTextChanged('');
-                      },
+                  child: Container(
+                    child: new ListTile(
+                      leading: new Icon(Icons.search),
+                      title: new TextField(
+                        controller: controller,
+                        decoration: new InputDecoration(
+                            hintText: 'חיפוש', border: InputBorder.none),
+                        onChanged: onSearchTextChanged,
+                      ),
+                      trailing: new IconButton(
+                        icon: new Icon(Icons.cancel),
+                        onPressed: () {
+                          controller.clear();
+                          onSearchTextChanged('');
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -75,6 +79,24 @@ class _HomePageState extends State<HomePage> {
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
                     ? FileList(list: _searchResult)
                     : FileList(list: _contactDetails)),
+            Padding(
+              padding: const EdgeInsets.all(64.0),
+              child: ElevatedButton(
+                  child: Text("הוספת איש קשר"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => add_contact_page.MyApp()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(250, 84, 9, 0),
+                      elevation: 4,
+                      minimumSize: Size(150, 50),
+                      textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)))),
+            )
           ],
         ),
       ),
@@ -103,19 +125,28 @@ class FileList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
-      // Search query results
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        return new Card(
-          child: new ListTile(
-            leading: Icon(Icons.contact_page),
-            title: new Text(list[index].name),
-            subtitle: new Text("טלפון: " + list[index].phoneNumber),
-          ),
-          margin: const EdgeInsets.all(0.0),
-        );
-      },
+    return Container(
+      height: 750,
+      child: new ListView.builder(
+        // Search query results
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          return new Card(
+            child: new ListTile(
+              leading: Icon(Icons.contact_page),
+              title: new Text(list[index].name),
+              subtitle: new Text("טלפון: " + list[index].phoneNumber),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => edit_contact_page.MyApp()));
+              },
+            ),
+            margin: const EdgeInsets.all(0.0),
+          );
+        },
+      ),
     );
   }
 }
