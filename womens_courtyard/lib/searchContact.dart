@@ -141,7 +141,7 @@ class FileList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => edit_contact_page.MyApp()));
+                        builder: (context) => edit_contact_page.MyHomePage(contact: list[index])));
               },
             ),
             margin: const EdgeInsets.all(0.0),

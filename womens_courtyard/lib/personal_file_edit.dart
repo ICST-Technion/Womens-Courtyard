@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'contact.dart';
 import 'main.dart' as main_page;
 import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'personal_file.dart';
+import 'forms_buttons.dart' as forms;
+
 
 void main() {
   runApp(MyApp());
@@ -24,11 +25,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title, @required this.person}) : super(key: key);
 
-  final Contact contact;
-
-  MyHomePage({Key key, this.title, @required this.contact}) : super(key: key);
-
+  final PersonalFile person;
   final String title;
 
   @override
@@ -73,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.contact.name,
+                    widget.person.name,
                     style: TextStyle(fontSize: 35),
                   ),
                 ),
@@ -83,30 +82,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.contact.occupation,
+                    widget.person.id.toString(),
                     style: TextStyle(fontSize: 30),
                   ),
                 ),
               ),
 
               Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Center(
-                  child: Text(
-                    widget.contact.phoneNumber,
-                    style: TextStyle(fontSize: 23),
-                  ),
-                ),
+                padding: const EdgeInsets.all(20.0),
+                child: TextFormField(
+                    initialValue:
+                    widget.person.info,
+                    minLines: 1,
+                    maxLines: 10,
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'מידע נוסף',
+                    )),
               ),
-
-
 
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(
-                    child: Text("צור קשר"),
+                    child: Text("מעבר לטפסים"),
                     onPressed: () {
-                      UrlLauncher.launch("tel://" + widget.contact.phoneNumber);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => forms.MyHomePage()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -136,18 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 height: 10.0,
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextFormField(
-                    initialValue:
-                    widget.contact.info,
-                    minLines: 1,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'מידע נוסף',
-                    )),
-              ),
+
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: ElevatedButton(
@@ -174,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('עריכת איש קשר'), actions: [
+    return AppBar(title: Text('הזנת נוכחות'), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,

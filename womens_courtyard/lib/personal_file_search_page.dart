@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/personal_file_data.dart';
+import 'personal_file_edit.dart' as edit_personal_page;
 // import 'package:http/http.dart' as http;
+import 'personal_file_edit.dart' as personal_file_edit;
 
 class HomePage extends StatefulWidget {
   @override
@@ -111,6 +113,12 @@ class FileList extends StatelessWidget {
       itemBuilder: (context, index) {
         return new Card(
           child: new ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => edit_personal_page.MyHomePage(person: list[index])));
+            },
             leading: Icon(Icons.folder),
             title: new Text(list[index].name),
             subtitle: new Text("תעודת זהות: " + list[index].id.toString()),
