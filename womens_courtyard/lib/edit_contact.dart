@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   final Contact contact;
 
   MyHomePage({Key key, this.title, @required this.contact}) : super(key: key);
@@ -78,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
@@ -88,7 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
@@ -98,9 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
-
-
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(
@@ -116,14 +110,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                     child: Text("לעריכה"),
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
@@ -132,15 +123,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
-
               SizedBox(
                 height: 10.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
-                    initialValue:
-                    widget.contact.info,
+                    initialValue: widget.contact.info,
                     minLines: 1,
                     maxLines: 10,
                     decoration: InputDecoration(

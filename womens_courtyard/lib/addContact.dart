@@ -106,7 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
               DropdownButtonFormField(
                 decoration: new InputDecoration(
                   border: UnderlineInputBorder(),
-
                 ),
                 //hint: Text('בחרי תחום עיסוק'),
                 hint: _selectedCategory == null
