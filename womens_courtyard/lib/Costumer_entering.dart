@@ -30,6 +30,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final nameTextController = TextEditingController();
+  final fNameTextController = TextEditingController();
+  final tazTextController = TextEditingController();
+  final phoneNumberTextController = TextEditingController();
+  final processDescriptionTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameTextController.dispose();
+    fNameTextController.dispose();
+    tazTextController.dispose();
+    phoneNumberTextController.dispose();
+    processDescriptionTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -60,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Flexible(
                     child: TextField(
+                      controller: nameTextController,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'שם פרטי',
@@ -71,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Flexible(
                     child: TextField(
+                      controller: fNameTextController,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'שם משפחה',
@@ -86,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Flexible(
                       child: TextField(
+                        controller: tazTextController,
                         decoration: InputDecoration(
                           border: UnderlineInputBorder(),
                           labelText: 'תעודת זהות',
@@ -97,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Flexible(
                       child: TextField(
+                        controller: phoneNumberTextController,
                         decoration: InputDecoration(
                           border: UnderlineInputBorder(),
                           labelText: 'מספר טלפון',
@@ -146,6 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         BoxShadow(blurRadius: 20, spreadRadius: -15)
                       ]),
                   child: TextFormField(
+                      controller: processDescriptionTextController,
                       minLines: 1,
                       maxLines: 10,
                       decoration: InputDecoration(
@@ -170,10 +191,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ElevatedButton(
                     child: Text("סיום ושמירה"),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => main_page.MyApp()));
+                      //enter the results from the controllers.text into the firebase, then navigate back.
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(nameTextController.text),
+                          );
+                        },
+                      );
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => main_page.MyApp()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -205,29 +235,6 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.white,
       )),
     ]);
-  }
-
-  Drawer getDrawer() {
-    return Drawer(
-        child: Container(
-      padding: EdgeInsets.symmetric(vertical: 28, horizontal: 0),
-      color: Colors.purpleAccent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(children: [
-            Divider(),
-            getListTile('נוכחות יומית', Icons.calendar_today, () {}),
-            Divider(),
-            getListTile('רשימת תיקים', Icons.insert_drive_file, () {}),
-            Divider(),
-            getListTile(
-                'רשימת אנשי קשר מקצועיים', Icons.account_box_rounded, () {}),
-            Divider()
-          ]),
-        ],
-      ),
-    ));
   }
 
   ListTile getListTile(text, icon, action) {

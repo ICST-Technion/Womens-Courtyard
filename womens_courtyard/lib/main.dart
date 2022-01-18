@@ -3,9 +3,37 @@ import 'personal_file_search_page.dart' as file_search_page;
 import 'Home_page.dart' as home_page;
 import 'Search_full_page.dart' as daily_search_page;
 import 'searchContact.dart' as view_contact;
+import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(App());
+}
+
+class App extends StatelessWidget {
+  final Future<FirebaseApp> _initiallization = Firebase.initializeApp();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initiallization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Scaffold(
+              body: Center(
+                  child: Text(snapshot.error.toString(),
+                      textDirection: TextDirection.ltr)));
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MyApp();
+        }
+
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

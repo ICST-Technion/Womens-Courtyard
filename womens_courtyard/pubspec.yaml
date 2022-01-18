@@ -36,6 +36,7 @@ dependencies:
   shared_preferences: ^2.0.12
   syncfusion_flutter_calendar: ^19.4.42
   date_format: ^2.0.5
+  firebase_core: ^1.11.0
 
 dev_dependencies:
   flutter_test:
