@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'register_screen.dart' as registration_screen;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'package:cloud_functions/cloud_functions.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -12,7 +13,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
-
+  // firebase functions
+  final FirebaseFunctions functions = FirebaseFunctions.instance;
   //controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passController = new TextEditingController();
@@ -80,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               MaterialPageRoute(
                   builder: (context) =>
                       bottom_navigation_bar.MyBottomNavigationBar()));
+          //TODO: call login function
         },
         child: Text("Login",
             textAlign: TextAlign.center,
@@ -143,5 +146,14 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void loginUser(String username, String password) async {
+    //Call token generator
+    HttpsCallable callable = functions.httpsCallable('generateToken');
+    final results = await callable
+        .call(<String, dynamic>{'username': username, 'password': password});
+
+    // bool success = results.data['success'];
   }
 }

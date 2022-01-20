@@ -1,16 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 import 'login_screen.dart' as login_screen;
+import 'package:cloud_functions/cloud_functions.dart';
+import 'dart:io' show Platform;
 
-void main() {
+const bool USE_EMULATOR = true;
+
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(App());
 }
 
+Future _connectToFirebaseEmulator() async {
+  final localHostString = 'localhost';
+
+  FirebaseFirestore.instance.settings = Settings(
+    host: '$localHostString:8080',
+    sslEnabled: false,
+    persistenceEnabled: false,
+  );
+
+  final _functions = FirebaseFunctions.instance;
+  _functions.useFunctionsEmulator(localHostString, 5001);
+}
+
 class App extends StatelessWidget {
   final Future<FirebaseApp> _initiallization = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -36,6 +53,9 @@ class App extends StatelessWidget {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    if (USE_EMULATOR) {
+      _connectToFirebaseEmulator();
+    }
     return MaterialApp(
       title: "Login",
       theme: ThemeData(

@@ -15,3 +15,10 @@ Sign-Up request structure:
 | name  | string |
 | password | string |
 | role | string (staff/client) |
+
+
+Login server response structure:
+| Field | Type |
+| --- | --- |
+| success | bool |
+| data | string |

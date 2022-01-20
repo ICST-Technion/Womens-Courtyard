@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key key}) : super(key: key);
@@ -10,6 +11,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   //our form key
   final _formKey = GlobalKey<FormState>();
+  final FirebaseFunctions functions = FirebaseFunctions.instance;
   //editing controller
   final fullnameEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
@@ -102,7 +104,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {},
+        onPressed: () {
+          register(emailEditingController.text, passEditingController.text,
+              fullnameEditingController.text);
+        },
         child: Text("Sign Up",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -160,5 +165,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  void register(String username, String password, String name,
+      {String role = 'client'}) async {
+    HttpsCallable callable = functions.httpsCallable('registerClient');
+    final results = await callable.call(<String, dynamic>{
+      'username': username,
+      'name': name,
+      'password': password,
+      'role': role
+    });
+    Navigator.of(context).pop();
+    print(results.data['success'].toString());
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => ))
   }
 }
