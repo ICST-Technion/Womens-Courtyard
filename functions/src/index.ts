@@ -26,6 +26,7 @@ export const registerClient = functions.https.onRequest(async (request, response
     const username = request.query.username as string;
     const password = request.query.password as string;
     const role = request.query.role as string;
+    const name = request.query.name as string;
 
     const db = admin.firestore();
     const staff_ref = db.collection('staff');
@@ -55,13 +56,13 @@ export const registerClient = functions.https.onRequest(async (request, response
     if (role == 'staff') {
         // Add to staff collection
         staff_ref.doc(id.toString()).set({
-            'username': username,
+            'name': name,
         });
     }
     else {
         // Add to clients collection
         client_ref.doc(id.toString()).set({
-            'username': username,
+            'name': name,
             'personal file': {},
             'client notes': [],
             'appointment history': []

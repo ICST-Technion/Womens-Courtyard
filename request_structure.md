@@ -12,5 +12,6 @@ Sign-Up request structure:
 | Field | Type |
 | --- | --- |
 | username | string |
+| name  | string |
 | password | string |
 | role | string (staff/client) |

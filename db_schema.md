@@ -39,13 +39,3 @@
 | name | String | staff | N/A | RW |
 
 <!-- | username | String | staff | N/A | RC | -->
-
-
-
-&quot;specified client&quot; condition:
-
-match /users/{userId}/\&lt;FIELD HERE\&gt; {
-
-allow read: if request.auth != null &amp;&amp; request.auth.uid == userId
-
-}
