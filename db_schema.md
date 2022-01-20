@@ -1,15 +1,14 @@
-client fields content:
-
+### **client fields content:**
+### key: user ID
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| ID | String | Client | R | RW |
 | name | String | Client | R | RW |
 | personal file | Object | Client | N/A | RW |
 | client notes | List[String] | Personal File | N/A | RW |
 | appointment history | List[Appointment] | Client | R | RW |
+<!-- | ID | String | Client | R | RW | -->
 
-Appointment fields content (per client)
-
+### **appointment fields content (per client)**
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
 | appointment name | String | appointment | R | RW |
@@ -17,19 +16,31 @@ Appointment fields content (per client)
 | location | String | appointment | R | RW |
 | staff in charge | String | appointment | N/A | RW |
 
-Roles fields content
 
+### **users fields content**
+### key: user ID
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
 | username | String | User | N/A | RW |
-| role | String | User | N/A | RC |
+| password | String | User | N/A | N/A |
+| role | String | User | N/A | N/A |
 
-staff fields content:
-
+<!-- ### **ids fields content**
+### key: username
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| id | String | staff | N/A | RC |
+| id | string | user | N/A | N/A | -->
+
+
+### **staff fields content:**
+### key: user ID
+| Field | Type | Part of | Client Permissions | Staff Permissions |
+| --- | --- | --- | --- | --- |
 | name | String | staff | N/A | RW |
+
+<!-- | username | String | staff | N/A | RC | -->
+
+
 
 &quot;specified client&quot; condition:
 
