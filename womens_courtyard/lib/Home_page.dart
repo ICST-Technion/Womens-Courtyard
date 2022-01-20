@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: Text(
-                  'שלום עו"סית',
+                  'שלום צוות',
                   style: TextStyle(fontSize: 30),
                 ),
               ),
