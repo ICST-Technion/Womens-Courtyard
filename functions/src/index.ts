@@ -1,8 +1,12 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import * as admin_auth from "firebase-admin/auth";
+//import * as admin_auth from "firebase-admin/auth";
+//import { initializeApp } from "firebase-admin/app";
 
-admin.initializeApp();
+var serviceAccount = require("./admin-sdk.json");
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -31,6 +35,7 @@ export const registerClient = functions.https.onCall( async (data, context) => {
     const staff_ref = db.collection('staff');
     const client_ref = db.collection('clients');
     const users_ref = db.collection('users');
+    const md_ref = db.collection('metadata');
 
     // Check whether user already exists
     const tent_user_id = await users_ref.where('username', '==', username).get();
@@ -39,12 +44,25 @@ export const registerClient = functions.https.onCall( async (data, context) => {
         return {'success': false, 'data': `username ${username} already exists`};
     }
 
-    const id = 0; // Find a way to generate user id
+    // Verify the role requirement
     if (!(role == 'staff' || role == 'client')) {
         functions.logger.info(`illegal role ${role} required`);
-        return {'success': false, data: `illegal role ${role} required`};
+        return {'success': false, 'data': `illegal role ${role} required`};
     }
 
+    // Get the new ID
+    const next_id_doc = await md_ref.doc('next_id').get();
+    var next_id = 1;
+    if (!next_id_doc.exists) {
+        functions.logger.warn('next_id data does not exist! this is only acceptable when testing.');
+    }
+    else {
+        next_id = next_id_doc.get('next_id');
+    }
+    md_ref.doc('next_id').set({'next_id': next_id+1});
+    const id = next_id;
+
+    
     functions.logger.info('should pass.')
 
     // Add to roles collection
@@ -76,6 +94,7 @@ export const registerClient = functions.https.onCall( async (data, context) => {
 });
 
 export const generateToken = functions.https.onCall( async (data, context) => {
+    
     const username = data.username as string;
     const password = data.password as string;
 
@@ -86,27 +105,34 @@ export const generateToken = functions.https.onCall( async (data, context) => {
     const user_query = await users_ref.where('username', '==', username).get();
     if (user_query.empty) {
         functions.logger.info(`username ${username} does not exist`);
-        return {'success': false, data: `Username ${username} does not exist`};
+        return {'success': false, 'data': `Username ${username} does not exist`};
     }
     else if (user_query.size > 1) {
         functions.logger.warn(`multiple users with name ${username} exist.`);
-        return {'success': false, data: `Internal database error`};
+        return {'success': false, 'data': `Internal database error`};
     }
     
     // Verify user's password
     const user_entry = user_query.docs[0];
     if (password != user_entry.data().password) {
         functions.logger.info(`username ${username} attempted wrong password ${password}`);
-        return {'success': false, data: `Wrong password`};
+        return {'success': false, 'data': `Wrong password`};
     }
 
     // If passed all checks
-    admin_auth.getAuth().createCustomToken(user_entry.id)
-    .then((customToken) => {
-        return {'success': true, customToken};
-
-    }).catch((error) => {
-        return {'success': false, data: 'Internal database error'};
-    });
-    return {'success': false, data: 'Internal database error'};
+    functions.logger.info(`user ${username} passed login checks`);
+    const role = user_entry.data().role
+    const additional_claims = { 'role': role };
+    try {
+        const customToken = await admin.auth().createCustomToken(user_entry.id, additional_claims);
+        functions.logger.info(`user ${username} got generated token`);
+        return {'success': true, 'data': {'role': role, 'token': customToken}};
+        functions.logger.error('SHOULD NOT GET HERE - AFTER RETURN');
+    }
+    catch (error) {
+        functions.logger.warn(`login failed with error ${error}`);
+        return {'success': false, 'data': 'Internal database error'};
+    }
+    functions.logger.warn(`login failed (control flow error)`);
+    return {'success': false, 'data': 'Internal database error'};
 });
