@@ -1,7 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore, QuerySnapshot;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/task.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+
+const String NATION_FIELD = "לאום";
+const String FIRST_NAME_FIELD = "שם פרטי";
+const String LAST_NAME_FIELD = "שם משפחה";
+
 
 class TaskHomePage extends StatefulWidget {
   @override
@@ -30,9 +36,14 @@ class _TaskHomePageState extends State<TaskHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Tasks')),
-      body: _buildBody(context),
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        return Scaffold(
+          appBar: AppBar(title: Text('Tasks')),
+          body: _buildBody(context),
+        );
+      }
     );
   }
 
@@ -44,7 +55,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
           return LinearProgressIndicator();
         } else {
           List<String> last_names = snapshot.data.docs
-              .map((documentSnapshot) => documentSnapshot.get("last_name"))
+              .map<String>((documentSnapshot) => documentSnapshot.get(NATION_FIELD))
               .toList();
           return _buildChart(context, last_names);
         }
@@ -70,7 +81,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
               Expanded(
                 child: charts.PieChart(_seriesPieData,
                     animate: true,
-                    animationDuration: Duration(seconds: 5),
+                    animationDuration: Duration(seconds: 1),
                     behaviors: [
                       new charts.DatumLegend(
                         outsideJustification:
