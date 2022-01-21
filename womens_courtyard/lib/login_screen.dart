@@ -55,7 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
         autofocus: false,
         controller: passController,
         obscureText: true,
-        //validator: () {},
+        validator: (value) {
+          RegExp passReg = new RegExp(r'^.{6,}$');
+          if (value == null || value.isEmpty) {
+            return "Please enter your password";
+          }
+          if (!passReg.hasMatch(value)) {
+            return "Password has to be at least 6 length";
+          }
+          return null;
+        },
         onSaved: (value) {
           passController.text = value;
         },
@@ -77,12 +86,15 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      bottom_navigation_bar.MyBottomNavigationBar()));
-          //TODO: call login function
+          if (_formKey.currentState != null &&
+              _formKey.currentState.validate()) {
+            //TODO: call login function
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        bottom_navigation_bar.MyBottomNavigationBar()));
+          }
         },
         child: Text("Login",
             textAlign: TextAlign.center,
