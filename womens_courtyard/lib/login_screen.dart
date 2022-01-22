@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'register_screen.dart' as registration_screen;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -12,7 +14,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
-
+  // firebase instances
+  final FirebaseFunctions functions = FirebaseFunctions.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   //controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passController = new TextEditingController();
@@ -53,7 +57,16 @@ class _LoginScreenState extends State<LoginScreen> {
         autofocus: false,
         controller: passController,
         obscureText: true,
-        //validator: () {},
+        validator: (value) {
+          RegExp passReg = new RegExp(r'^.{6,}$');
+          if (value == null || value.isEmpty) {
+            return "Please enter your password";
+          }
+          if (!passReg.hasMatch(value)) {
+            return "Password has to be at least 6 length";
+          }
+          return null;
+        },
         onSaved: (value) {
           passController.text = value;
         },
@@ -75,11 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      bottom_navigation_bar.MyBottomNavigationBar()));
+          if (_formKey.currentState != null &&
+              _formKey.currentState.validate()) {
+            loginUser(emailController.text, passController.text);
+          }
         },
         child: Text("Login",
             textAlign: TextAlign.center,
@@ -143,5 +155,34 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void loginUser(String username, String password) async {
+    //Call token generator
+    HttpsCallable callable = functions.httpsCallable('generateToken');
+    final results = await callable
+        .call(<String, dynamic>{'username': username, 'password': password});
+
+    bool success = results.data['success'];
+    print('token request returned with status $success');
+    if (!success) {
+      //TODO: show login failed
+    } else {
+      final role = results.data['data']['role'];
+      final token = results.data['data']['token'];
+      auth.signInWithCustomToken(token);
+      if (role == 'staff') {
+        print('logging in as staff');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    bottom_navigation_bar.MyBottomNavigationBar()));
+        //TODO: enter staff main page
+      } else if (role == 'client') {
+        print('logging in as client');
+        //TODO: enter client main page
+      }
+    }
   }
 }

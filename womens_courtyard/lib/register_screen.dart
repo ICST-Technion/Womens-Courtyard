@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'login_screen.dart' as login_screen;
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key key}) : super(key: key);
@@ -10,6 +12,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   //our form key
   final _formKey = GlobalKey<FormState>();
+  final FirebaseFunctions functions = FirebaseFunctions.instance;
   //editing controller
   final fullnameEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
@@ -42,7 +45,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         autofocus: false,
         controller: emailEditingController,
         keyboardType: TextInputType.emailAddress,
-        //validator: () {},
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "Please enter your email address";
+          }
+
+          //reg expression for validation
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+              .hasMatch(value)) {
+            return "Please enter a vaild email address";
+          }
+          return null;
+        },
         onSaved: (value) {
           emailEditingController.text = value;
         },
@@ -61,7 +75,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         autofocus: false,
         controller: passEditingController,
         obscureText: true,
-        //validator: () {},
+        validator: (value) {
+          RegExp passReg = new RegExp(r'^.{6,}$');
+          if (value == null || value.isEmpty) {
+            return "Please enter your password";
+          }
+          if (!passReg.hasMatch(value)) {
+            return "Password has to be at least 6 length";
+          }
+          return null;
+        },
         onSaved: (value) {
           passEditingController.text = value;
         },
@@ -80,7 +103,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         autofocus: false,
         controller: confirmPassEditingController,
         obscureText: true,
-        //validator: () {},
+        validator: (value) {
+          if (confirmPassEditingController.text != passEditingController.text) {
+            return "Password confirmation doesn't match the original";
+          }
+          return null;
+        },
         onSaved: (value) {
           confirmPassEditingController.text = value;
         },
@@ -102,7 +130,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {},
+        onPressed: () {
+          if (_formKey.currentState != null &&
+              _formKey.currentState.validate()) {
+            register(emailEditingController.text, passEditingController.text,
+                fullnameEditingController.text);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Registered Succesfully")),
+            );
+          }
+        },
         child: Text("Sign Up",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -160,5 +197,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  void register(String username, String password, String name,
+      {String role = 'client'}) async {
+    HttpsCallable callable = functions.httpsCallable('registerClient');
+    final results = await callable.call(<String, dynamic>{
+      'username': username,
+      'name': name,
+      'password': password,
+      'role': role
+    });
+    print(results.data['success'].toString());
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => login_screen.LoginScreen()));
   }
 }
