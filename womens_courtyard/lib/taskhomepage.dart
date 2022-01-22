@@ -109,14 +109,21 @@ class _TaskHomePageState extends State<TaskHomePage> {
                 visitsHist[WEEKDAYS[timeStamp.toDate().weekday]] +=1;
             });
           });
-          // givenSnapshots.forEach((documentSnapshot) {
-          //   final visits = documentSnapshot.get(VISITS_FIELD);
-          //   visits.foreach<List<Timestamp>>((visit){
-          //     visitsHist[visit.toDate().weekday] += 1;
-          //   });
-          // });
           // return _buildPieChart(context, nationalitiesHist);
-          return _buildBarChart(context, visitsHist);
+          // return _buildBarChart(context, visitsHist);
+          return CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  children: <Widget>[
+                    _buildPieChart(context, nationalitiesHist),
+                    _buildBarChart(context, visitsHist)
+                  ],
+                ),
+              ),
+            ],
+          );
         }
       },
     );
@@ -136,7 +143,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
             SizedBox(
               height: 10.0,
             ),
-            Expanded(
+            SizedBox(
+              height: 200.0,
               child: charts.PieChart(_seriesPieData,
                   animate: true,
                   animationDuration: Duration(seconds: 1),
@@ -185,7 +193,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
             SizedBox(
               height: 10.0,
             ),
-            Expanded(
+            SizedBox(
+              height: 200.0,
               child: charts.BarChart(_seriesBarData,
                   animate: true,
                   animationDuration: Duration(seconds: 1),
