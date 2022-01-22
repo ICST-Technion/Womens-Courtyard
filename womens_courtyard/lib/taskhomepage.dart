@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore, QuerySnapshot;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/task.dart';
+import 'package:womens_courtyard/Nationality.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 const String NATION_FIELD = "לאום";
@@ -18,17 +18,20 @@ class TaskHomePage extends StatefulWidget {
 
 class _TaskHomePageState extends State<TaskHomePage> {
   List<charts.Series<String, String>> _seriesPieData;
-  List<String> mydata;
-  _generateData(mydata) {
+  // Map<String, int> nationalitiesHist;
+  _generateData(Map<String, int> nationalitiesHist) {
+    // List<Nationality> nationatilies = Nationality.makeNationalitiesList(nationalitiesHist);
     _seriesPieData = [];
     _seriesPieData.add(
       charts.Series(
-        domainFn: (String task, _) => task,
-        measureFn: (String task, _) => 1,
-        colorFn: (String task, _) =>
-            charts.ColorUtil.fromDartColor(Color((task.hashCode * 0xFFFFFF)).withOpacity(1.0)),
-        id: 'tasks',
-        data: mydata,
+        domainFn: (String nat, _) => nat,
+        measureFn: (String nat, _){
+          return nationalitiesHist[nat];
+        },
+        colorFn: (String nat, _) =>
+            charts.ColorUtil.fromDartColor(Color((nat.hashCode * 0xFFFFFF)).withOpacity(1.0)),
+        id: 'התפלגות אוכלוסיה',
+        data: nationalitiesHist.keys.toList(),
         labelAccessorFn: (String row, _) => "$row",
       ),
     );
@@ -54,17 +57,27 @@ class _TaskHomePageState extends State<TaskHomePage> {
         if (!snapshot.hasData) {
           return LinearProgressIndicator();
         } else {
-          List<String> last_names = snapshot.data.docs
-              .map<String>((documentSnapshot) => documentSnapshot.get(NATION_FIELD))
-              .toList();
-          return _buildChart(context, last_names);
+          var givenSnapshots = snapshot.data.docs.toList();
+
+          var nationalitiesHist = Map<String,int>();
+          print("starting to generate nationalities");
+          givenSnapshots.map<String>((documentSnapshot) => documentSnapshot.get(NATION_FIELD)).forEach((nationality) {
+            if(!nationalitiesHist.containsKey(nationality)) {
+              nationalitiesHist[nationality] = 1;
+            } else {
+              nationalitiesHist[nationality] +=1;
+            }
+          }
+        );
+          print("nationalities: $nationalitiesHist, type: ${nationalitiesHist.runtimeType}");
+          return _buildChart(context, nationalitiesHist);
         }
       },
     );
   }
-  Widget _buildChart(BuildContext context, List<String> last_names) {
-    mydata = last_names;
-    _generateData(mydata);
+  Widget _buildChart(BuildContext context, Map<String, int> nationalitiesHist) {
+    // mydata = nationalitiesHist;
+    _generateData(nationalitiesHist);
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Container(
@@ -72,7 +85,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
           child: Column(
             children: <Widget>[
               Text(
-                'Time spent on daily tasks',
+                'התפלגות מוצא של צעירות',
                 style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(
