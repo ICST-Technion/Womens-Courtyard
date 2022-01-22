@@ -24,19 +24,23 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     //email field
-    final emailField = TextFormField(
+    final emailField =
+    TextFormField(
+
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
         autofocus: false,
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Please enter your email address";
+            return "הכניסי את כתובת המייל שלך";
           }
 
           //reg expression for validation
           if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
               .hasMatch(value)) {
-            return "Please enter a vaild email address";
+            return "הכניסי כתובת טקסט תקינה";
           }
           return null;
         },
@@ -47,23 +51,25 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Email",
+          hintText: "מייל",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ));
 
     final passField = TextFormField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
         autofocus: false,
         controller: passController,
         obscureText: true,
         validator: (value) {
           RegExp passReg = new RegExp(r'^.{6,}$');
           if (value == null || value.isEmpty) {
-            return "Please enter your password";
+            return "הכניסי את הסיסמה שלך";
           }
           if (!passReg.hasMatch(value)) {
-            return "Password has to be at least 6 length";
+            return "על אורך הסיסמה להיות 6 תווים לפחות";
           }
           return null;
         },
@@ -74,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Password",
+          hintText: "סיסמה",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -93,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
             loginUser(emailController.text, passController.text);
           }
         },
-        child: Text("Login",
+        child: Text("כניסה",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
@@ -103,7 +109,9 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
-    return Scaffold(
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
       backgroundColor: Colors.purple,
       body: Center(
         child: SingleChildScrollView(
@@ -131,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Don't have an Account? "),
+                        Text("אין לך משתמש? "),
                         GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -140,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => registration_screen
                                           .RegistrationScreen()));
                             },
-                            child: Text("SignUp",
+                            child: Text("הירשמי",
                                 style: TextStyle(
                                     color: Colors.purpleAccent,
                                     fontWeight: FontWeight.bold,
@@ -154,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   void loginUser(String username, String password) async {
@@ -166,7 +174,20 @@ class _LoginScreenState extends State<LoginScreen> {
     bool success = results.data['success'];
     print('token request returned with status $success');
     if (!success) {
-      //TODO: show login failed
+      showDialog(context: context, builder: (context){
+        return Directionality(
+            textDirection: TextDirection.rtl,
+            child: AlertDialog(
+          title: Text('ניסיון התחברות שגוי'),
+          content: Text('בבקשה נסי שוב'),
+            actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+                },
+              child: Text('הבנתי'),
+              )]));
+        });
     } else {
       final role = results.data['data']['role'];
       final token = results.data['data']['token'];

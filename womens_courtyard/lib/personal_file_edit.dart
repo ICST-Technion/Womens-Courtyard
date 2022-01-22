@@ -4,7 +4,7 @@ import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
 import 'personal_file.dart';
 import 'forms_buttons.dart' as forms;
-
+import 'BottomNavigationBar.dart' as bottom_navigation_bar;
 
 void main() {
   runApp(MyApp());
@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => main_page.MyApp()));
+                              builder: (context) => bottom_navigation_bar.MyBottomNavigationBar()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
