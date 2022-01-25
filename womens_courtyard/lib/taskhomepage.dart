@@ -57,7 +57,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
         colorFn: (String nat, _) =>
             charts.ColorUtil.fromDartColor(Color((nat.hashCode * 0xFFFFFF)).withOpacity(1.0)),
         id: 'התפלגות ביקורים',
-        data: weekdaysHist.keys.toList(),
+        data: ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"],
         labelAccessorFn: (String row, _) => "$row",
       ),
     );
