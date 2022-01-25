@@ -137,7 +137,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
         child: Column(
           children: <Widget>[
             Text(
-              'התפלגות מוצא של צעירות',
+              'התפלגות על בסיס סוג אוכלוסיה',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(
