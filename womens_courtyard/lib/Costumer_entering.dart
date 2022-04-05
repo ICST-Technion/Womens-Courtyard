@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'addContact.dart' as add_contact_page;
-import 'main.dart' as main_page;
+import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,11 +32,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final nameTextController = TextEditingController();
-  final fNameTextController = TextEditingController();
-  final tazTextController = TextEditingController();
-  final phoneNumberTextController = TextEditingController();
-  final processDescriptionTextController = TextEditingController();
+  //form key
+  final _formKey = GlobalKey<FormState>();
+  // firebase instances
+  final FirebaseFunctions functions = FirebaseFunctions.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  //controller
+  final TextEditingController nameTextController = new TextEditingController();
+  final TextEditingController fNameTextController = new TextEditingController();
+  final TextEditingController tazTextController = new TextEditingController();
+  final TextEditingController phoneNumberTextController =
+      new TextEditingController();
+  final TextEditingController processDescriptionTextController =
+      new TextEditingController();
 
   @override
   void dispose() {
@@ -48,19 +58,142 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final privateNameField = TextFormField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        autofocus: false,
+        controller: nameTextController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "הכניסי שם פרטי";
+          }
+          return null;
+        },
+        onSaved: (value) {
+          nameTextController.text = value;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "שם פרטי",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
+    final fNameField = TextFormField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        autofocus: false,
+        controller: fNameTextController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "הכניסי שם משפחה";
+          }
+          return null;
+        },
+        onSaved: (value) {
+          fNameTextController.text = value;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "שם משפחה",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
+    final tazField = TextFormField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        autofocus: false,
+        controller: tazTextController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "הכניסי תעודת זהות";
+          }
+          //regExp
+          RegExp passReg = new RegExp(r'^[0-9]{9}$');
+          if (!passReg.hasMatch(value)) {
+            return "על התז להיות חוקי (9 ספרות)";
+          }
+          return null;
+        },
+        onSaved: (value) {
+          tazTextController.text = value;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "תעודת זהות",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
+    final phoneNumberField = TextFormField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        autofocus: false,
+        controller: phoneNumberTextController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "הכניסי מספר פאלפון";
+          }
+          //regExp
+          RegExp passReg = new RegExp(r'^(?:[+0]9)?[0-9]{10}$');
+          if (!passReg.hasMatch(value)) {
+            return "הכניסי טלפון חוקי";
+          }
+          return null;
+        },
+        onSaved: (value) {
+          phoneNumberTextController.text = value;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "מספר פאלפון",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
+    final proccessDescriptionField = TextFormField(
+        minLines: 1,
+        maxLines: 10,
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        autofocus: false,
+        controller: processDescriptionTextController,
+        keyboardType: TextInputType.name,
+        onSaved: (value) {
+          processDescriptionTextController.text = value;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "תיאור טיפול",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.all(15.0),
@@ -74,27 +207,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Row(
                 children: <Widget>[
-                  Flexible(
-                    child: TextField(
-                      controller: nameTextController,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'שם פרטי',
-                      ),
-                    ),
-                  ),
+                  Flexible(child: privateNameField),
                   SizedBox(
                     width: 20.0,
                   ),
-                  Flexible(
-                    child: TextField(
-                      controller: fNameTextController,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'שם משפחה',
-                      ),
-                    ),
-                  ),
+                  Flexible(child: fNameField),
                 ],
               ),
               SizedBox(
@@ -102,27 +219,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Flex(
                   direction: Axis.vertical,
                   children: <Widget>[
-                    Flexible(
-                      child: TextField(
-                        controller: tazTextController,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'תעודת זהות',
-                        ),
-                      ),
-                    ),
+                    Flexible(child: tazField),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Flexible(
-                      child: TextField(
-                        controller: phoneNumberTextController,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'מספר טלפון',
-                        ),
-                      ),
-                    ),
+                    Flexible(child: phoneNumberField),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -165,14 +266,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       boxShadow: [
                         BoxShadow(blurRadius: 20, spreadRadius: -15)
                       ]),
-                  child: TextFormField(
-                      controller: processDescriptionTextController,
-                      minLines: 1,
-                      maxLines: 10,
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'תיאור טיפול',
-                      ))),
+                  child: proccessDescriptionField),
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(
@@ -192,18 +286,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text("סיום ושמירה"),
                     onPressed: () {
                       //enter the results from the controllers.text into the firebase, then navigate back.
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(nameTextController.text),
-                          );
-                        },
-                      );
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => main_page.MyApp()));
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return AlertDialog(
+                      //       content: Text(nameTextController.text),
+                      //     );
+                      //   },
+                      // );
+                      enterFileToDatabase(
+                          nameTextController.text,
+                          fNameTextController.text,
+                          tazTextController.text,
+                          phoneNumberTextController.text,
+                          processDescriptionTextController.text);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => bottom_navigation_bar
+                                  .MyBottomNavigationBar()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -243,5 +344,18 @@ class _MyHomePageState extends State<MyHomePage> {
       trailing: Icon(icon, color: Colors.white),
       onTap: action,
     );
+  }
+
+  void enterFileToDatabase(
+      String name, String fname, String taz, String phone, String pDec) async {
+    // enter actual user into database
+    // HttpsCallable callable = functions.httpsCallable('registerClient');
+    // final results = await callable.call(<String, dynamic>{
+    //   'username': username,
+    //   'name': name,
+    //   'password': password,
+    //   'role': role
+    // });
+    // print(results.data['success'].toString());
   }
 }
