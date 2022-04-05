@@ -34,7 +34,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.face),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Full Name",
+          hintText: "שם מלא",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -47,13 +47,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         keyboardType: TextInputType.emailAddress,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "Please enter your email address";
+            return "הכניסי את כתובת המייל שלך";
           }
 
           //reg expression for validation
           if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
               .hasMatch(value)) {
-            return "Please enter a vaild email address";
+            return "הכניסי כתובת מייל תקינה";
           }
           return null;
         },
@@ -64,7 +64,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Email",
+          hintText: "מייל",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -78,10 +78,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         validator: (value) {
           RegExp passReg = new RegExp(r'^.{6,}$');
           if (value == null || value.isEmpty) {
-            return "Please enter your password";
+            return "הכניסי את הסיסמה שלך";
           }
           if (!passReg.hasMatch(value)) {
-            return "Password has to be at least 6 length";
+            return "על אורך הסיסמה להיות לפחות 6 תווים";
           }
           return null;
         },
@@ -92,7 +92,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Password",
+          hintText: "סיסמה",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -105,7 +105,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         obscureText: true,
         validator: (value) {
           if (confirmPassEditingController.text != passEditingController.text) {
-            return "Password confirmation doesn't match the original";
+            return "אישור הסיסמא לא תואם את הסיסמא המקורית";
           }
           return null;
         },
@@ -116,7 +116,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Confirm Password",
+          hintText: "אישור הסיסמא",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -136,11 +136,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             register(emailEditingController.text, passEditingController.text,
                 fullnameEditingController.text);
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Registered Succesfully")),
+              const SnackBar(content: Text("כניסה מוצלחת")),
             );
           }
         },
-        child: Text("Sign Up",
+        child: Text("להרשמה",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
@@ -150,7 +150,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
 
-    return Scaffold(
+    return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
       backgroundColor: Colors.purple,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -196,7 +198,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   void register(String username, String password, String name,
