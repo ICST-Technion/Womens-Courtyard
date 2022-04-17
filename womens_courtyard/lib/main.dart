@@ -13,6 +13,8 @@ Future main() async {
   runApp(App());
 }
 
+/* Connect to the firebase emulator ports.
+*/
 Future _connectToFirebaseEmulator() async {
   final localHostString = 'localhost';
 
@@ -21,6 +23,7 @@ Future _connectToFirebaseEmulator() async {
     sslEnabled: false,
     persistenceEnabled: false,
   );
+  FirebaseFirestore.instance.useFirestoreEmulator(localHostString, 8080);
 
   final _functions = FirebaseFunctions.instance;
   _functions.useFunctionsEmulator(localHostString, 5001);
@@ -33,6 +36,7 @@ class App extends StatelessWidget {
     return FutureBuilder(
       future: _initiallization,
       builder: (context, snapshot) {
+        // The snapshot describes the state of the future - the firebase connection.
         if (snapshot.hasError) {
           return Scaffold(
               body: Center(

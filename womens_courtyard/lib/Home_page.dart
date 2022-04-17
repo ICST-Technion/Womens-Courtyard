@@ -14,6 +14,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var name = "אנה";
+  var id = "1";
   @override
   Widget build(BuildContext context) {
     return Directionality(

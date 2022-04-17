@@ -3,6 +3,7 @@ import 'addContact.dart' as add_contact_page;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -306,12 +307,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("הכנסת תיק מוצלחת")),
                           );
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => bottom_navigation_bar
+                                      .MyBottomNavigationBar()));
                         }
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => bottom_navigation_bar
-                                    .MyBottomNavigationBar()));
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromRGBO(250, 84, 9, 0),
@@ -359,6 +360,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void enterFileToDatabase(
       String name, String fname, String taz, String phone, String pDec) async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
+    await ref
+        .set({
+          "name": "John",
+          "age": 18,
+          "address": {"line1": "100 Mountain View"}
+        })
+        .then((_) => print('updated'))
+        .catchError((e) => print('update failed $e'));
     // enter actual user into database
     // HttpsCallable callable = functions.httpsCallable('registerClient');
     // final results = await callable.call(<String, dynamic>{

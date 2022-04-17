@@ -3,7 +3,8 @@ service cloud.firestore {
   match /databases/{database}/documents {
     
     function isStaff() {
-    	return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'staff';
+    	// return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'staff';
+      return request.auth.role == 'staff';
     }
     
     // function isClient() {

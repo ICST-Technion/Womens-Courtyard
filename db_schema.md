@@ -3,10 +3,10 @@
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
 | name | String | Client | R | RW |
+| ID number | String | Client | N/A | RW |
 | personal file | Object | Client | N/A | RW |
 | client notes | List[String] | Personal File | N/A | RW |
 | appointment history | List[Appointment] | Client | R | RW |
-<!-- | ID | String | Client | R | RW | -->
 
 ### **appointment fields content (per client)**
 | Field | Type | Part of | Client Permissions | Staff Permissions |
