@@ -199,17 +199,13 @@ class _LoginScreenState extends State<LoginScreen> {
       auth.signInWithCustomToken(token);
       if (role == 'staff') {
         print('logging in as staff');
-        //TODO: CHANGE THIS VALUE
-        var id = '1';
-
-        CollectionReference users =
-            FirebaseFirestore.instance.collection('staff');
-        var username = await users.doc(id).collection('id').get();
+        var id = results.data['data']['id'];
+        print('the name is $username.data()');
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    bottom_navigation_bar.MyBottomNavigationBar()));
+                    bottom_navigation_bar.MyBottomNavigationBar(id: id)));
       } else if (role == 'client') {
         print('logging in as client');
         //TODO: enter client main page

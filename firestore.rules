@@ -4,7 +4,7 @@ service cloud.firestore {
     
     function isStaff() {
     	// return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'staff';
-      return request.auth.role == 'staff';
+      return request.auth.token.role == 'staff';
     }
     
     // function isClient() {
@@ -46,11 +46,11 @@ service cloud.firestore {
     
     // staff collection rules
     
-    match /staff/{userId}/id {
-    		allow read, create: if isStaff();
-    }
+    // match /staff/{userId}/id {
+    // 		allow read, create: if isStaff();
+    // }
     
-    match /staff/{userId}/name {
+    match /staff/{userId} {
     		allow read, write: if isStaff();
     }
     

@@ -120,7 +120,7 @@ export const generateToken = functions.https.onCall( async (data, context) => {
     try {
         const customToken = await admin.auth().createCustomToken(userEntry.id, additionalClaims);
         functions.logger.info(`user ${username} got generated token`);
-        return {"success": true, "data": {"role": role, "token": customToken}};
+        return {"success": true, "data": {"role": role, "token": customToken, "id": userEntry.id}};
         functions.logger.error("SHOULD NOT GET HERE - AFTER RETURN");
     }
     catch (error) {
