@@ -10,45 +10,38 @@ service cloud.firestore {
     // function isClient() {
     // 	return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'client';
     // }
+
+
+    // users collection rules
+    match /users/{userId} {
+      allow read, write: if false;
+    }
     
     // clients collection rules
     
-    match /clients/{userId}/id {
-    	allow read: if request.auth.uid == userId || isStaff();
-      allow write: if isStaff();
-    }
+    // match /clients/{userId}/id {
+    // 	allow read: if request.auth.uid == userId || isStaff();
+    //   allow write: if isStaff();
+    // }
     
-    match /clients/{userId}/name {
-    	allow read: if request.auth.uid == userId || isStaff();
-      allow write: if isStaff();
-    }
+    // match /clients/{userId}/name {
+    // 	allow read: if request.auth.uid == userId || isStaff();
+    //   allow write: if isStaff();
+    // }
     
-    match /clients/{userId}/personal%20file/{document=**} {
+    // match /clients/{userId}/personal%20file/{document=**} {
+    //   allow read, write: if isStaff();
+    // }
+    
+		// match /clients/{userId}/appointment%20history {
+    //   allow read: if request.auth.uid == userId || isStaff();
+    //   allow write: if isStaff();
+    // }
+    match /clients/{userId} {
       allow read, write: if isStaff();
     }
     
-		match /clients/{userId}/appointment%20history {
-      allow read: if request.auth.uid == userId || isStaff();
-      allow write: if isStaff();
-    }
-    
-    
-    // roles collection rules
-    
-    match /roles/{userId}/uname {
-    	allow read, write: if isStaff();
-    }
-    
-    match /roles/{userId}/role {
-    	allow read, create: if isStaff();
-    }
-    
-    
     // staff collection rules
-    
-    // match /staff/{userId}/id {
-    // 		allow read, create: if isStaff();
-    // }
     
     match /staff/{userId} {
     		allow read, write: if isStaff();

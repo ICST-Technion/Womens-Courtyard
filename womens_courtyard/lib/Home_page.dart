@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'Costumer_entering.dart' as add_costumer_page;
+import 'client_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 

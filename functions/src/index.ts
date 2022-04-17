@@ -59,13 +59,12 @@ export const registerClient = functions.https.onCall( async (data, context) => {
     
     functions.logger.info("should pass.")
 
-    // Add to roles collection
+    // Add to users collection
     usersRef.doc(id.toString()).set({
         "username": username,
         "password": password,
         "role": role
     });
-    
     
     if (role == "staff") {
         // Add to staff collection

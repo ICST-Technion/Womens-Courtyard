@@ -1,3 +1,5 @@
+## Ideal Permissions Version
+
 ### **client fields content:**
 ### key: user ID
 | Field | Type | Part of | Client Permissions | Staff Permissions |
@@ -38,4 +40,41 @@
 | --- | --- | --- | --- | --- |
 | name | String | staff | N/A | RW |
 
-<!-- | username | String | staff | N/A | RC | -->
+
+
+## Current Permission Version (restrictive)
+
+### **client fields content:**
+### key: user ID
+| Field | Type | Part of | Client Permissions | Staff Permissions |
+| --- | --- | --- | --- | --- |
+| name | String | Client | N/A | RW |
+| ID number | String | Client | N/A | RW |
+| personal file | Object | Client | N/A | RW |
+| client notes | List[String] | Personal File | N/A | RW |
+| appointment history | List[Appointment] | Client | N/A | RW |
+
+### **appointment fields content (per client)**
+| Field | Type | Part of | Client Permissions | Staff Permissions |
+| --- | --- | --- | --- | --- |
+| appointment name | String | appointment | N/A | RW |
+| date | String | appointment | N/A | RW |
+| location | String | appointment | N/A | RW |
+| staff in charge | String | appointment | N/A | RW |
+
+
+### **users fields content**
+### key: user ID
+| Field | Type | Part of | Client Permissions | Staff Permissions |
+| --- | --- | --- | --- | --- |
+| username | String | User | N/A | N/A |
+| password | String | User | N/A | N/A |
+| role | String | User | N/A | N/A |
+
+
+
+### **staff fields content:**
+### key: user ID
+| Field | Type | Part of | Client Permissions | Staff Permissions |
+| --- | --- | --- | --- | --- |
+| name | String | staff | N/A | RW |
