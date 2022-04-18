@@ -42,14 +42,15 @@
 
 
 
-## Current Permission Version (restrictive)
+## Current Permission Version (restrictive + staff-only users)
 
 ### **client fields content:**
-### key: user ID
+### key: ID number
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
 | name | String | Client | N/A | RW |
 | ID number | String | Client | N/A | RW |
+| Phone number | String | Client | N/A | RW |
 | personal file | Object | Client | N/A | RW |
 | client notes | List[String] | Personal File | N/A | RW |
 | appointment history | List[Appointment] | Client | N/A | RW |

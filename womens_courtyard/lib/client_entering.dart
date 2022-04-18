@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'addContact.dart' as add_contact_page;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
@@ -5,30 +6,31 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: MyHomePage(title: 'מסך הזנת תיק אישי'),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.purple,
+//       ),
+//       home: AddClientPage(title: 'מסך הזנת תיק אישי'),
+//     );
+//   }
+// }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class AddClientPage extends StatefulWidget {
+  AddClientPage({Key key, this.title, this.id}) : super(key: key);
 
   final String title;
+  final String id;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AddClientPageState createState() => _AddClientPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AddClientPageState extends State<AddClientPage> {
   //form key
   final _formKey = GlobalKey<FormState>();
   // firebase instances
@@ -37,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //controller
   final TextEditingController nameTextController = new TextEditingController();
   final TextEditingController fNameTextController = new TextEditingController();
-  final TextEditingController tazTextController = new TextEditingController();
+  final TextEditingController idNoTextController = new TextEditingController();
   final TextEditingController phoneNumberTextController =
       new TextEditingController();
   final TextEditingController processDescriptionTextController =
@@ -47,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     nameTextController.dispose();
     fNameTextController.dispose();
-    tazTextController.dispose();
+    idNoTextController.dispose();
     phoneNumberTextController.dispose();
     processDescriptionTextController.dispose();
     super.dispose();
@@ -105,11 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ));
 
-    final tazField = TextFormField(
+    final idNoField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         autofocus: false,
-        controller: tazTextController,
+        controller: idNoTextController,
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -123,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return null;
         },
         onSaved: (value) {
-          tazTextController.text = value;
+          idNoTextController.text = value;
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -218,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Flex(
                     direction: Axis.vertical,
                     children: <Widget>[
-                      Flexible(child: tazField),
+                      Flexible(child: idNoField),
                       SizedBox(
                         height: 10.0,
                       ),
@@ -301,7 +303,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           enterFileToDatabase(
                               nameTextController.text,
                               fNameTextController.text,
-                              tazTextController.text,
+                              idNoTextController.text,
                               phoneNumberTextController.text,
                               processDescriptionTextController.text);
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -311,7 +313,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar()));
+                                      .MyBottomNavigationBar(id: widget.id)));
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -359,24 +361,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void enterFileToDatabase(
-      String name, String fname, String taz, String phone, String pDec) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
-    await ref
+      String name, String fname, String idNo, String phone, String pDec) async {
+    // DatabaseReference ref = FirebaseDatabase.instance.ref("clients/$idNo");
+    CollectionReference ref = FirebaseFirestore.instance.collection('clients');
+    ref
+        .doc("${idNo}")
         .set({
-          "name": "John",
-          "age": 18,
-          "address": {"line1": "100 Mountain View"}
+          "name": name + " " + fname,
+          "idNo": idNo,
+          "personalFile": {
+            "clientNotes": [pDec]
+          },
+          "appointmentHistory": [],
         })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));
-    // enter actual user into database
-    // HttpsCallable callable = functions.httpsCallable('registerClient');
-    // final results = await callable.call(<String, dynamic>{
-    //   'username': username,
-    //   'name': name,
-    //   'password': password,
-    //   'role': role
-    // });
-    // print(results.data['success'].toString());
   }
 }

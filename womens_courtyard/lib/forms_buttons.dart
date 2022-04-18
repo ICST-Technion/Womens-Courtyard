@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Costumer_entering.dart' as add_costumer_page;
+import 'client_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -23,13 +22,11 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           child: Column(
             children: <Widget>[
-
               Padding(
                 padding: const EdgeInsets.all(80.0),
                 child: ElevatedButton(
                     child: Text("טפסים רפואיים"),
-                    onPressed: () {
-                      },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
@@ -42,8 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(60.0),
                 child: ElevatedButton(
                     child: Text("טפסי מיצוי זכויות"),
-                    onPressed: () {
-                      },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
@@ -56,9 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(60.0),
                 child: ElevatedButton(
                     child: Text("נוכחות אישית"),
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,

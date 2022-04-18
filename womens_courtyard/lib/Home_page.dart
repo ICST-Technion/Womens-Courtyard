@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'client_entering.dart' as add_costumer_page;
+import 'client_entering.dart' as add_client_page;
 import 'statistics.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 
@@ -79,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          add_costumer_page.MyApp()));
+                                          add_client_page.AddClientPage(
+                                              id: widget.id)));
                             },
                             style: ElevatedButton.styleFrom(
                                 primary: Color.fromRGBO(250, 84, 9, 0),

@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (role == 'staff') {
         print('logging in as staff');
         var id = results.data['data']['id'];
-        print('the name is $username.data()');
+        print('the name is $username');
         Navigator.push(
             context,
             MaterialPageRoute(

@@ -39,7 +39,8 @@ export const registerClient = functions.https.onCall( async (data, context) => {
     }
 
     // Verify the role requirement
-    if (!(role == "staff" || role == "client")) {
+    // if (!(role == "staff" || role == "client")) {
+    if (!(role == "staff")) {
         functions.logger.info(`illegal role ${role} required`);
         return {"success": false, "data": `illegal role ${role} required`};
     }
@@ -74,12 +75,13 @@ export const registerClient = functions.https.onCall( async (data, context) => {
     }
     else {
         // Add to clients collection
-        clientRef.doc(id.toString()).set({
-            "name": name,
-            "personal file": {},
-            "client notes": [],
-            "appointment history": []
-        });
+        // clientRef.doc(id.toString()).set({
+        //     "name": name,
+        //     "personal file": {},
+        //     "client notes": [],
+        //     "appointment history": []
+        // });
+        return {"success": false, data: "non-staff users are currently disabled."};
     }
 
     return {"success": true, data: ""};
