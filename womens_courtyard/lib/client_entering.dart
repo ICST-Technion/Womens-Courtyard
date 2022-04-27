@@ -21,10 +21,10 @@ import 'package:firebase_database/firebase_database.dart';
 // }
 
 class AddClientPage extends StatefulWidget {
-  AddClientPage({Key key, this.title, this.id}) : super(key: key);
+  AddClientPage({Key key, this.title, this.username}) : super(key: key);
 
   final String title;
-  final String id;
+  final String username;
 
   @override
   _AddClientPageState createState() => _AddClientPageState();
@@ -313,7 +313,8 @@ class _AddClientPageState extends State<AddClientPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar(id: widget.id)));
+                                      .MyBottomNavigationBar(
+                                          username: widget.username)));
                         }
                       },
                       style: ElevatedButton.styleFrom(

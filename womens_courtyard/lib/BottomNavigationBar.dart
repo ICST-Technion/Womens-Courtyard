@@ -6,21 +6,22 @@ import 'searchContact.dart' as view_contact;
 
 //MyBottomNavigationBar()
 class MyBottomNavigationBar extends StatefulWidget {
-  const MyBottomNavigationBar({Key key, this.id}) : super(key: key);
+  const MyBottomNavigationBar({Key key, this.username}) : super(key: key);
 
-  final String id;
+  final String username;
 
   @override
-  _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState(id);
+  _MyBottomNavigationBarState createState() =>
+      _MyBottomNavigationBarState(username);
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  final String id;
+  final String username;
   int _currentIndex = 0;
   List<Widget> _children;
-  _MyBottomNavigationBarState(this.id) {
+  _MyBottomNavigationBarState(this.username) {
     _children = [
-      home_page.MyHomePage(id: id),
+      home_page.MyHomePage(username: username),
       daily_search_page.MyHomePage(),
       file_search_page.HomePage(),
       view_contact.HomePage(),

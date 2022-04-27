@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:crypto/crypto.dart';
 import 'login_screen.dart' as login_screen;
 
 class RegistrationScreen extends StatefulWidget {
@@ -203,11 +206,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   void register(String username, String password, String name,
       {String role = 'staff'}) async {
+    var passbytes = utf8.encode(password);
+    var passhash = sha256.convert(passbytes).toString();
     HttpsCallable callable = functions.httpsCallable('registerClient');
     final results = await callable.call(<String, dynamic>{
       'username': username,
       'name': name,
-      'password': password,
+      'password': passhash,
+      // 'password': password,
       'role': role
     });
     print(results.data['success'].toString());

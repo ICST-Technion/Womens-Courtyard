@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/main.dart';
 import 'register_screen.dart' as registration_screen;
@@ -6,6 +8,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -170,8 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void loginUser(String username, String password) async {
     //Call token generator
     HttpsCallable callable = functions.httpsCallable('generateToken');
+    var passbytes = utf8.encode(password);
+    var passhash = sha256.convert(passbytes).toString();
     final results = await callable
-        .call(<String, dynamic>{'username': username, 'password': password});
+        .call(<String, dynamic>{'username': username, 'password': passhash});
 
     bool success = results.data['success'];
     print('token request returned with status $success');
@@ -199,13 +204,14 @@ class _LoginScreenState extends State<LoginScreen> {
       auth.signInWithCustomToken(token);
       if (role == 'staff') {
         print('logging in as staff');
-        var id = results.data['data']['id'];
+        // var id = results.data['data']['id'];
         print('the name is $username');
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    bottom_navigation_bar.MyBottomNavigationBar(id: id)));
+                    bottom_navigation_bar.MyBottomNavigationBar(
+                        username: username)));
       } else if (role == 'client') {
         print('logging in as client');
         //TODO: enter client main page

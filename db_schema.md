@@ -84,7 +84,6 @@
 | location | String | appointment | N/A | RW |
 | staff in charge | String | appointment | N/A | RW |
 
-<!-- Key changed to username -->
 ## **users fields content**
 ### key: username
 | Field | Type | Part of | Client Permissions | Staff Permissions |
@@ -93,7 +92,6 @@
 | password | String | User | N/A | N/A |
 | role | String | User | N/A | N/A |
 
-<!-- Key changed to username -->
 ## **staff fields content:**
 ### key: username
 | Field | Type | Part of | Client Permissions | Staff Permissions |

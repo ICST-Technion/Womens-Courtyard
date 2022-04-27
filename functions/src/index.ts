@@ -27,13 +27,15 @@ export const registerClient = functions.https.onCall( async (data, context) => {
 
     const db = admin.firestore();
     const staffRef = db.collection("staff");
-    const clientRef = db.collection("clients");
+    // const clientRef = db.collection("clients");
     const usersRef = db.collection("users");
-    const mdRef = db.collection("metadata");
+    // const mdRef = db.collection("metadata");
 
     // Check whether user already exists
-    const tentUserId = await usersRef.where("username", "==", username).get();
-    if (!tentUserId.empty) {
+    // const tentUserId = await usersRef.where("username", "==", username).get();
+    // if (!tentUserId.empty) {
+    const existingUser = await usersRef.doc(username).get();
+    if (existingUser.exists) {
         functions.logger.info(`username ${username} already exists`);
         return {"success": false, "data": `username ${username} already exists`};
     }
@@ -45,23 +47,23 @@ export const registerClient = functions.https.onCall( async (data, context) => {
         return {"success": false, "data": `illegal role ${role} required`};
     }
 
-    // Get the new ID
-    const nextIdDoc = await mdRef.doc("next_id").get();
-    var nextId = 1;
-    if (!nextIdDoc.exists) {
-        functions.logger.warn("nextId data does not exist! this is only acceptable when testing.");
-    }
-    else {
-        nextId = nextIdDoc.get("next_id");
-    }
-    mdRef.doc("next_id").set({"next_id": nextId+1});
-    const id = nextId;
+    // // Get the new ID
+    // const nextIdDoc = await mdRef.doc("next_id").get();
+    // var nextId = 1;
+    // if (!nextIdDoc.exists) {
+    //     functions.logger.warn("nextId data does not exist! this is only acceptable when testing.");
+    // }
+    // else {
+    //     nextId = nextIdDoc.get("next_id");
+    // }
+    // mdRef.doc("next_id").set({"next_id": nextId+1});
+    // const id = nextId;
 
     
     functions.logger.info("should pass.")
 
     // Add to users collection
-    usersRef.doc(id.toString()).set({
+    usersRef.doc(username).set({
         "username": username,
         "password": password,
         "role": role
@@ -69,7 +71,7 @@ export const registerClient = functions.https.onCall( async (data, context) => {
     
     if (role == "staff") {
         // Add to staff collection
-        staffRef.doc(id.toString()).set({
+        staffRef.doc(username).set({
             "name": name,
         });
     }
@@ -83,7 +85,6 @@ export const registerClient = functions.https.onCall( async (data, context) => {
         // });
         return {"success": false, data: "non-staff users are currently disabled."};
     }
-
     return {"success": true, data: ""};
 
 });
@@ -97,31 +98,35 @@ export const generateToken = functions.https.onCall( async (data, context) => {
     const usersRef = db.collection("users");
 
     // Get user data
-    const userQuery = await usersRef.where("username", "==", username).get();
-    if (userQuery.empty) {
+    
+    const userEntry = await usersRef.doc(username).get();
+    if (!userEntry.exists) {
         functions.logger.info(`username ${username} does not exist`);
         return {"success": false, "data": `Username ${username} does not exist`};
     }
-    else if (userQuery.size > 1) {
-        functions.logger.warn(`multiple users with name ${username} exist.`);
-        return {"success": false, "data": `Internal database error`};
-    }
+    // const userQuery = await usersRef.where("username", "==", username).get();
+    // if (userQuery.empty) {
+    // }
+    // else if (userQuery.size > 1) {
+    //     functions.logger.warn(`multiple users with name ${username} exist.`);
+    //     return {"success": false, "data": `Internal database error`};
+    // }
     
     // Verify user's password
-    const userEntry = userQuery.docs[0];
-    if (password != userEntry.data().password) {
+    // const userEntry = userQuery.docs[0];
+    if (password != userEntry.data()?.password) {
         functions.logger.info(`username ${username} attempted wrong password ${password}`);
         return {"success": false, "data": `Wrong password`};
     }
 
     // If passed all checks
     functions.logger.info(`user ${username} passed login checks`);
-    const role = userEntry.data().role
+    const role = userEntry.data()?.role
     const additionalClaims = { "role": role };
     try {
         const customToken = await admin.auth().createCustomToken(userEntry.id, additionalClaims);
         functions.logger.info(`user ${username} got generated token`);
-        return {"success": true, "data": {"role": role, "token": customToken, "id": userEntry.id}};
+        return {"success": true, "data": {"role": role, "token": customToken, "username": userEntry.id}};
         functions.logger.error("SHOULD NOT GET HERE - AFTER RETURN");
     }
     catch (error) {

@@ -5,10 +5,10 @@ import 'statistics.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.id}) : super(key: key);
+  MyHomePage({Key key, this.title, this.username}) : super(key: key);
 
   final String title;
-  final String id;
+  final String username;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: users.doc(widget.id).get(),
+        future: users.doc(widget.username).get(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           add_client_page.AddClientPage(
-                                              id: widget.id)));
+                                              username: widget.username)));
                             },
                             style: ElevatedButton.styleFrom(
                                 primary: Color.fromRGBO(250, 84, 9, 0),
