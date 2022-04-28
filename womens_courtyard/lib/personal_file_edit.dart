@@ -4,34 +4,20 @@ import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
 import 'personal_file.dart';
 import 'forms_buttons.dart' as forms;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.purple,
-//       ),
-//       home: MyHomePage(title: 'מסך איש קשר'),
-//     );
-//   }
-// }
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = "", required this.person})
+class PersonalFileEditPage extends StatefulWidget {
+  PersonalFileEditPage({Key? key, this.title = "", required this.person})
       : super(key: key);
 
   final PersonalFile person;
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PersonalFileEditPageState createState() => _PersonalFileEditPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -102,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => forms.MyHomePage()));
+                              builder: (context) => forms.FormsButtonsPage()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),

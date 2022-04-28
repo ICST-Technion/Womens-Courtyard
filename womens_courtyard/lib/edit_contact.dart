@@ -4,39 +4,21 @@ import 'main.dart' as main_page;
 import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.purple,
-//       ),
-//       home: MyHomePage(title: 'מסך איש קשר'),
-//     );
-//   }
-// }
-
-class MyHomePage extends StatefulWidget {
+class EditContactPage extends StatefulWidget {
   final Contact contact;
 
-  MyHomePage({Key? key, this.title = "", required this.contact})
+  EditContactPage({Key? key, this.title = "", required this.contact})
       : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _EditContactPageState createState() => _EditContactPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _EditContactPageState extends State<EditContactPage> {
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(

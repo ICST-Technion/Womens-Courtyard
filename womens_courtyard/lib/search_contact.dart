@@ -1,34 +1,37 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/contact.dart';
 import 'package:womens_courtyard/contacts_data.dart';
-import 'addContact.dart' as add_contact_page;
+import 'add_contact.dart' as add_contact_page;
 import 'edit_contact.dart' as edit_contact_page;
 
-void main() => runApp(new MaterialApp(
-      home: new HomePage(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-    ));
+class SearchContact extends StatefulWidget {
+  SearchContact({Key? key, this.title = "", this.username = ""})
+      : super(key: key);
 
-class HomePage extends StatefulWidget {
+  final String title;
+  final String username;
+
   @override
-  _HomePageState createState() => new _HomePageState();
+  _SearchContactState createState() => new _SearchContactState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SearchContactState extends State<SearchContact> {
   TextEditingController controller = new TextEditingController();
 
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
-    await Future.delayed(Duration(seconds: 1));
-    setState(() {
-      for (Contact contact in allContacts) {
-        _contactDetails.add(contact);
+    try {
+      final response =
+          await FirebaseFirestore.instance.collection('contacts').get();
+      for (final doc in response.docs) {
+        _contactDetails.add(Contact.fromDoc(doc));
       }
-    });
+      setState(() {});
+    } catch (e) {
+      print('caught $e');
+    }
   }
 
   @override
@@ -87,7 +90,9 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => add_contact_page.MyApp()));
+                            builder: (context) =>
+                                add_contact_page.AddContactPage(
+                                    username: widget.username)));
                   },
                   style: ElevatedButton.styleFrom(
                       primary: Color.fromRGBO(250, 84, 9, 0),
@@ -140,7 +145,7 @@ class FileList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => edit_contact_page.MyHomePage(
+                        builder: (context) => edit_contact_page.EditContactPage(
                             contact: list[index])));
               },
             ),

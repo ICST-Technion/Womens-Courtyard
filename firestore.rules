@@ -46,6 +46,10 @@ service cloud.firestore {
     match /staff/{userId} {
     		allow read, write: if isStaff();
     }
+
+    match /contacts/{contact} {
+      allow read, write: if isStaff();
+    }
     
   }
 }

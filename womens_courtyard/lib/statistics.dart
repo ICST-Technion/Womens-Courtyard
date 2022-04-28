@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'Search_page.dart' as search_page;
+import 'search_page.dart' as search_page;
 import 'main.dart' as main_page;
 
 // void main() {
@@ -186,8 +186,10 @@ class SearchWidget extends StatelessWidget {
             boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
         child: TextField(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => search_page.MyApp()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => search_page.SearchPage()));
             },
             decoration: InputDecoration(
                 border: InputBorder.none,

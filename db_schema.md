@@ -64,7 +64,7 @@
 | --- | --- | --- | --- | --- |
 | client notes | List[String] | Personal File | N/A | RW |
 
-<!-- Defined new table -->
+<!-- Broke away to new table -->
 ## **attendance fields content (per client):**
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
@@ -97,12 +97,13 @@
 | name | String | staff | N/A | RW |
 
 
-<!-- Added table -->
 ## **contacts fields content**
 ### key: some hash
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| name | String | contact | N/A | RW |
-| job | String | contact | N/A | RW |
-| phone number | String | contact | N/A | RW |
-| description | String | contact | N/A | RW |
+| firstName | String | contact | N/A | RW |
+| lastName | String | contact | N/A | RW |
+| field | String | contact | N/A | RW |
+| phoneNo | String | contact | N/A | RW |
+| email | String | contact | N/A | RW |
+| info | String | contact | N/A | RW |

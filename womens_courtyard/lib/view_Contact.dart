@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'Search_page.dart' as search_page;
-import 'addContact.dart' as add_contact_page;
-import 'searchContact.dart' as search_contact;
+import 'search_page.dart' as search_page;
+import 'add_contact.dart' as add_contact_page;
+import 'search_contact.dart' as search_contact;
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = ""}) : super(key: key);
+class ViewContactPage extends StatefulWidget {
+  ViewContactPage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _ViewContactPageState createState() => _ViewContactPageState();
 }
 
 class SearchWidget extends StatelessWidget {
@@ -30,7 +30,7 @@ class SearchWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => search_contact.HomePage()));
+                      builder: (context) => search_contact.SearchContact()));
             },
             decoration: InputDecoration(
                 border: InputBorder.none,
@@ -43,7 +43,7 @@ class SearchWidget extends StatelessWidget {
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ViewContactPageState extends State<ViewContactPage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -75,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => add_contact_page.MyApp()));
+                            builder: (context) =>
+                                add_contact_page.AddContactPage()));
                   },
                   style: ElevatedButton.styleFrom(
                       primary: Color.fromRGBO(250, 84, 9, 0),

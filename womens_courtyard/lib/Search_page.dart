@@ -1,18 +1,6 @@
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'Attendance_page.dart' as attendance_page;
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Home(),
-    );
-  }
-}
+import 'attendance_page.dart' as attendance_page;
 
 class Post {
   final String title;
@@ -21,7 +9,7 @@ class Post {
   Post(this.title, this.description);
 }
 
-class Home extends StatelessWidget {
+class SearchPage extends StatelessWidget {
   Future<List<Post>> search(String search) async {
     await Future.delayed(Duration(seconds: 2));
     return List.generate(1, (int index) {
@@ -50,7 +38,8 @@ class Home extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => attendance_page.MyApp()));
+                            builder: (context) =>
+                                attendance_page.AttendancePage()));
                   },
                 );
               },
