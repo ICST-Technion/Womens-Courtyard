@@ -55,7 +55,7 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.person.name,
+                    widget.person.firstName + ' ' + widget.person.lastName,
                     style: TextStyle(fontSize: 35),
                   ),
                 ),
