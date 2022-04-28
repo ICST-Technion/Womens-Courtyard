@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/main.dart';
 import 'register_screen.dart' as registration_screen;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

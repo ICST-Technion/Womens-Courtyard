@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'meeting.dart';
 import 'meetings.dart';
-import 'addEvent.dart';
+import 'add_event.dart';
 
 class Calendar extends StatefulWidget {
   @override

@@ -4,7 +4,7 @@ import 'main.dart' as main_page;
 import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
 class EditContactPage extends StatefulWidget {
   final Contact contact;

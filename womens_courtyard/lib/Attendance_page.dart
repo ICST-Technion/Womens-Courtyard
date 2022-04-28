@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart' as main_page;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
 class AttendancePage extends StatefulWidget {
   AttendancePage({Key? key, this.title = ""}) : super(key: key);

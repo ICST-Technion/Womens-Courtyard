@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'Search_page.dart' as search_page;
-import 'addContact.dart' as add_contact_page;
-import 'searchContact.dart' as search_contact;
+import 'search_page.dart' as search_page;
+import 'add_contact.dart' as add_contact_page;
+import 'search_contact.dart' as search_contact;
 
 class ViewContactPage extends StatefulWidget {
   ViewContactPage({Key? key, this.title = ""}) : super(key: key);

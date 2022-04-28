@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Search_page.dart' as search_page;
+import 'search_page.dart' as search_page;
 
 class SearchFullPage extends StatefulWidget {
   SearchFullPage({Key? key, this.title = ""}) : super(key: key);

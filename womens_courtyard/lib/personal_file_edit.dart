@@ -4,7 +4,7 @@ import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
 import 'personal_file.dart';
 import 'forms_buttons.dart' as forms;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
 class PersonalFileEditPage extends StatefulWidget {
   PersonalFileEditPage({Key? key, this.title = "", required this.person})

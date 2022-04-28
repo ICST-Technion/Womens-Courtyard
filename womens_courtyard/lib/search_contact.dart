@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/contact.dart';
 import 'package:womens_courtyard/contacts_data.dart';
-import 'addContact.dart' as add_contact_page;
+import 'add_contact.dart' as add_contact_page;
 import 'edit_contact.dart' as edit_contact_page;
 
 class SearchContact extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'Attendance_page.dart' as attendance_page;
+import 'attendance_page.dart' as attendance_page;
 
 class Post {
   final String title;

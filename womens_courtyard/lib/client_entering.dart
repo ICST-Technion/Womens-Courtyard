@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'addContact.dart' as add_contact_page;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'add_contact.dart' as add_contact_page;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';

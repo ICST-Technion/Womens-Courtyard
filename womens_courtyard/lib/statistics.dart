@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'Search_page.dart' as search_page;
+import 'search_page.dart' as search_page;
 import 'main.dart' as main_page;
 
 // void main() {

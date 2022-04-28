@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'personal_file_search_page.dart' as file_search_page;
-import 'Home_page.dart' as home_page;
-import 'Search_full_page.dart' as daily_search_page;
-import 'searchContact.dart' as view_contact;
+import 'home_page.dart' as home_page;
+import 'search_full_page.dart' as daily_search_page;
+import 'search_contact.dart' as view_contact;
 
 //MyBottomNavigationBar()
 class MyBottomNavigationBar extends StatefulWidget {

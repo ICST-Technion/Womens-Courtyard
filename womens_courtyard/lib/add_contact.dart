@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
 import 'client_entering.dart' as main_page;
-import 'BottomNavigationBar.dart' as bottom_navigation_bar;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
 class AddContactPage extends StatefulWidget {
   AddContactPage({Key? key, this.title = "", this.username = ""})
