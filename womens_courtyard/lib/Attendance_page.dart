@@ -2,34 +2,16 @@ import 'package:flutter/material.dart';
 import 'main.dart' as main_page;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: MyHomePage(title: 'מסך הזנת תיק אישי'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = ""}) : super(key: key);
+class AttendancePage extends StatefulWidget {
+  AttendancePage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AttendancePageState createState() => _AttendancePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AttendancePageState extends State<AttendancePage> {
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(

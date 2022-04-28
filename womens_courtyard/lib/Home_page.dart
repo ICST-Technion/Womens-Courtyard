@@ -4,17 +4,17 @@ import 'client_entering.dart' as add_client_page;
 import 'statistics.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = "", this.username = ""}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key? key, this.title = "", this.username = ""}) : super(key: key);
 
   final String title;
   final String username;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   var name = "אנה";
   CollectionReference users = FirebaseFirestore.instance.collection('staff');
 

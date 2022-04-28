@@ -49,12 +49,6 @@ class MeetingDataSource extends CalendarDataSource {
 
 class _CalendarState extends State<Calendar> {
   List<Meeting> _getDataSource() {
-    // final List<Meeting> meetings = mee;
-    // final DateTime today = DateTime.now();
-    // final DateTime startTime =
-    //     DateTime(today.year, today.month, today.day, 9, 0, 0);
-    // final DateTime endTime = startTime.add(const Duration(hours: 2));
-    // meetings.add();
     return meetings;
   }
 

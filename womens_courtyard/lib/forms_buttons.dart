@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'client_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = ""}) : super(key: key);
+class FormsButtonsPage extends StatefulWidget {
+  FormsButtonsPage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _FormsButtonsPageState createState() => _FormsButtonsPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _FormsButtonsPageState extends State<FormsButtonsPage> {
   var name = "אנה";
   @override
   Widget build(BuildContext context) {

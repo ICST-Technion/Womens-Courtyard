@@ -140,7 +140,7 @@ class FileList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => edit_contact_page.MyHomePage(
+                        builder: (context) => edit_contact_page.EditContactPage(
                             contact: list[index])));
               },
             ),

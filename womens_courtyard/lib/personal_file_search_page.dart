@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/personal_file_data.dart';
 import 'personal_file_edit.dart' as edit_personal_page;
-// import 'package:http/http.dart' as http;
 import 'personal_file_edit.dart' as personal_file_edit;
 
-class HomePage extends StatefulWidget {
+class PersonalFileSearchPage extends StatefulWidget {
   @override
-  _HomePageState createState() => new _HomePageState();
+  _PersonalFileSearchPageState createState() =>
+      new _PersonalFileSearchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   TextEditingController controller = new TextEditingController();
 
   // Get json result and convert it to model. Then add
@@ -27,21 +27,6 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       print('caught $e');
     }
-
-    // final response = await http.get(url);
-    // final responseJson = json.decode(response.body);
-    // setState(() {
-    //   for (Map user in responseJson) {
-    //     _userDetails.add(UserDetails.fromJson(user));
-    //   }
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // setState(() {
-    //   _userDetails = [];
-    //   for (PersonalFile file in allFiles) {
-    //     _userDetails.add(file);
-    //   }
-    // });
   }
 
   @override
@@ -129,7 +114,8 @@ class FileList extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          edit_personal_page.MyHomePage(person: list[index])));
+                          edit_personal_page.PersonalFileEditPage(
+                              person: list[index])));
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].name),

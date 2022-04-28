@@ -3,13 +3,13 @@ import 'Search_page.dart' as search_page;
 import 'addContact.dart' as add_contact_page;
 import 'searchContact.dart' as search_contact;
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = ""}) : super(key: key);
+class ViewContactPage extends StatefulWidget {
+  ViewContactPage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _ViewContactPageState createState() => _ViewContactPageState();
 }
 
 class SearchWidget extends StatelessWidget {
@@ -43,7 +43,7 @@ class SearchWidget extends StatelessWidget {
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ViewContactPageState extends State<ViewContactPage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

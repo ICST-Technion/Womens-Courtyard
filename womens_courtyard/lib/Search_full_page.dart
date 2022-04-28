@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'Search_page.dart' as search_page;
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = ""}) : super(key: key);
+class SearchFullPage extends StatefulWidget {
+  SearchFullPage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SearchFullPageState createState() => _SearchFullPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SearchFullPageState extends State<SearchFullPage> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => search_page.MyApp()));
+                        builder: (context) => search_page.SearchPage()));
               },
               decoration: InputDecoration(
                   border: InputBorder.none,

@@ -21,9 +21,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   late List<Widget> _children;
   _MyBottomNavigationBarState({this.username = ""}) {
     _children = [
-      home_page.MyHomePage(username: username),
-      daily_search_page.MyHomePage(),
-      file_search_page.HomePage(),
+      home_page.HomePage(username: username),
+      daily_search_page.SearchFullPage(),
+      file_search_page.PersonalFileSearchPage(),
       view_contact.SearchContact(username: username),
     ];
   }
