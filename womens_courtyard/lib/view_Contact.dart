@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'search_page.dart' as search_page;
+import 'attendance_search_page.dart' as search_page;
 import 'add_contact.dart' as add_contact_page;
 import 'search_contact.dart' as search_contact;
 

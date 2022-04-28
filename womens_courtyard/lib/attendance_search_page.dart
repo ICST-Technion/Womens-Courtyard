@@ -29,6 +29,7 @@ class SearchPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SearchBar<Post>(
+              hintText: "חיפוש",
               onSearch: search,
               onItemFound: (Post post, int index) {
                 return ListTile(
