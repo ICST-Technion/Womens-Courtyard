@@ -22,8 +22,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   _MyBottomNavigationBarState({this.username = ""}) {
     _children = [
       home_page.HomePage(username: username),
-      attendance_search_page.SearchPage(),
-      file_search_page.PersonalFileSearchPage(),
+      attendance_search_page.AttendanceSearchPage(
+        username: username,
+      ),
+      file_search_page.PersonalFileSearchPage(username: username),
       view_contact.SearchContact(username: username),
     ];
   }

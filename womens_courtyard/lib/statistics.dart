@@ -189,7 +189,8 @@ class SearchWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => search_page.SearchPage()));
+                      builder: (context) =>
+                          search_page.AttendanceSearchPage()));
             },
             decoration: InputDecoration(
                 border: InputBorder.none,
