@@ -3,7 +3,7 @@ import 'client_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 

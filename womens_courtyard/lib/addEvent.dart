@@ -21,7 +21,7 @@ class AddEventPage extends StatefulWidget {
 }
 
 class _AddEventPageState extends State<AddEventPage> {
-  String _selectedRoom;
+  String? _selectedRoom;
   final meetingNameController = TextEditingController();
 
   @override
@@ -31,11 +31,11 @@ class _AddEventPageState extends State<AddEventPage> {
     super.dispose();
   }
 
-  String _setTime, _setDate;
+  String? _setTime, _setDate;
 
-  String _hour, _minute, _time;
+  String? _hour, _minute, _time;
 
-  String dateTime;
+  String? dateTime;
 
   DateTime selectedDate = DateTime.now();
 
@@ -45,7 +45,7 @@ class _AddEventPageState extends State<AddEventPage> {
   TextEditingController _timeController = TextEditingController();
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -59,7 +59,7 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Future<Null> _selectTime(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
+    final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
@@ -68,8 +68,8 @@ class _AddEventPageState extends State<AddEventPage> {
         selectedTime = picked;
         _hour = selectedTime.hour.toString();
         _minute = selectedTime.minute.toString();
-        _time = _hour + ' : ' + _minute;
-        _timeController.text = _time;
+        _time = _hour! + ' : ' + _minute!;
+        _timeController.text = _time!;
         _timeController.text = formatDate(
             DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
             [hh, ':', nn, " ", am]).toString();
@@ -141,7 +141,7 @@ class _AddEventPageState extends State<AddEventPage> {
                 enabled: false,
                 keyboardType: TextInputType.text,
                 controller: _dateController,
-                onSaved: (String val) {
+                onSaved: (String? val) {
                   _setDate = val;
                 },
                 decoration: InputDecoration(
@@ -162,7 +162,7 @@ class _AddEventPageState extends State<AddEventPage> {
               child: TextFormField(
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
-                onSaved: (String val) {
+                onSaved: (String? val) {
                   _setTime = val;
                 },
                 enabled: false,
@@ -183,7 +183,7 @@ class _AddEventPageState extends State<AddEventPage> {
               hint: _selectedRoom == null
                   ? Text('בחרי חדר עבור הפעילות')
                   : Text(
-                      _selectedRoom,
+                      _selectedRoom!,
                       style: TextStyle(color: Colors.purple),
                     ),
               value: _selectedRoom,
@@ -199,7 +199,7 @@ class _AddEventPageState extends State<AddEventPage> {
               onChanged: (newValue) {
                 setState(
                   () {
-                    _selectedRoom = newValue;
+                    _selectedRoom = newValue as String?;
                   },
                 );
               },
@@ -233,17 +233,21 @@ class _AddEventPageState extends State<AddEventPage> {
   AppBar getHomepageAppBar() {
     return AppBar(title: Text('הוספת פעילות'), actions: [
       IconButton(
-          icon: Icon(
-        Icons.account_circle,
-        size: 30,
-        color: Colors.white,
-      )),
+        icon: Icon(
+          Icons.account_circle,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
       IconButton(
-          icon: Icon(
-        Icons.info,
-        size: 30,
-        color: Colors.white,
-      )),
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
     ]);
   }
 }

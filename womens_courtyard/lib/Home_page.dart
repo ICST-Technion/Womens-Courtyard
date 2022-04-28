@@ -5,7 +5,7 @@ import 'statistics.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.username}) : super(key: key);
+  MyHomePage({Key? key, this.title = "", this.username = ""}) : super(key: key);
 
   final String title;
   final String username;
@@ -28,13 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
             return Text("Something went wrong");
           }
 
-          if (snapshot.hasData && !snapshot.data.exists) {
+          if (snapshot.hasData && snapshot.data == null) {
             return Text("Document does not exist");
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
-                snapshot.data.data() as Map<String, dynamic>;
+                snapshot.data?.data() as Map<String, dynamic>;
             return Directionality(
               textDirection: TextDirection.rtl,
               child: Scaffold(
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           add_client_page.AddClientPage(
-                                              username: widget.username)));
+                                              username: (widget.username))));
                             },
                             style: ElevatedButton.styleFrom(
                                 primary: Color.fromRGBO(250, 84, 9, 0),

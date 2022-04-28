@@ -6,22 +6,23 @@ import 'personal_file.dart';
 import 'forms_buttons.dart' as forms;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: MyHomePage(title: 'מסך איש קשר'),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.purple,
+//       ),
+//       home: MyHomePage(title: 'מסך איש קשר'),
+//     );
+//   }
+// }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, @required this.person}) : super(key: key);
+  MyHomePage({Key? key, this.title = "", required this.person})
+      : super(key: key);
 
   final PersonalFile person;
   final String title;
@@ -33,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
