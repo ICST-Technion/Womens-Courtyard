@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 
@@ -29,7 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<String> _categories = ['רווחה', 'משפט', 'רפואה'];
-  String _selectedCategory;
+  String? _selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 hint: _selectedCategory == null
                     ? Text('בחרי תחום עיסוק')
                     : Text(
-                        _selectedCategory,
+                        _selectedCategory!,
                         style: TextStyle(color: Colors.purple),
                       ),
                 value: _selectedCategory,
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (newValue) {
                   setState(
                     () {
-                      _selectedCategory = newValue;
+                      _selectedCategory = newValue as String?;
                     },
                   );
                 },
@@ -158,17 +158,21 @@ class _MyHomePageState extends State<MyHomePage> {
   AppBar getHomepageAppBar() {
     return AppBar(title: Text('הוספת איש קשר'), actions: [
       IconButton(
-          icon: Icon(
-        Icons.account_circle,
-        size: 30,
-        color: Colors.white,
-      )),
+        icon: Icon(
+          Icons.account_circle,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
       IconButton(
-          icon: Icon(
-        Icons.info,
-        size: 30,
-        color: Colors.white,
-      )),
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
     ]);
   }
 }

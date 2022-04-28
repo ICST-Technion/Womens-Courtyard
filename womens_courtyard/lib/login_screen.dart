@@ -11,7 +11,7 @@ import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return null;
         },
         onSaved: (value) {
-          emailController.text = value;
+          emailController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return null;
         },
         onSaved: (value) {
-          passController.text = value;
+          passController.text = value ?? "";
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           if (_formKey.currentState != null &&
-              _formKey.currentState.validate()) {
+              _formKey.currentState!.validate()) {
             loginUser(emailController.text, passController.text);
           }
         },
@@ -199,8 +199,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ]));
           });
     } else {
-      final role = results?.data['data']['role'];
-      final token = results?.data['data']['token'];
+      final role = results.data['data']['role'];
+      final token = results.data['data']['token'];
       auth.signInWithCustomToken(token);
       if (role == 'staff') {
         print('logging in as staff');

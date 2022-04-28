@@ -11,10 +11,10 @@ class Meeting {
   String room;
   DateTime from;
   DateTime to;
-  Color background;
+  late Color background;
   bool isAllDay;
 
   Meeting(this.eventName, this.room, this.from, this.to, this.isAllDay) {
-    this.background = roomColor[room];
+    this.background = roomColor[room] ?? Color(0xFFFFFFFF);
   }
 }

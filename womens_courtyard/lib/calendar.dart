@@ -23,27 +23,27 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return appointments[index].from;
+    return (appointments!)[index].from;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return appointments[index].to;
+    return (appointments!)[index].to;
   }
 
   @override
   String getSubject(int index) {
-    return appointments[index].eventName;
+    return (appointments!)[index].eventName;
   }
 
   @override
   Color getColor(int index) {
-    return appointments[index].background;
+    return (appointments!)[index].background;
   }
 
   @override
   bool isAllDay(int index) {
-    return appointments[index].isAllDay;
+    return (appointments!)[index].isAllDay;
   }
 }
 
@@ -106,16 +106,20 @@ class _CalendarState extends State<Calendar> {
 AppBar getHomepageAppBar() {
   return AppBar(title: Text('יומן פעילויות'), actions: [
     IconButton(
-        icon: Icon(
-      Icons.account_circle,
-      size: 30,
-      color: Colors.white,
-    )),
+      icon: Icon(
+        Icons.account_circle,
+        size: 30,
+        color: Colors.white,
+      ),
+      onPressed: () {},
+    ),
     IconButton(
-        icon: Icon(
-      Icons.info,
-      size: 30,
-      color: Colors.white,
-    )),
+      icon: Icon(
+        Icons.info,
+        size: 30,
+        color: Colors.white,
+      ),
+      onPressed: () {},
+    ),
   ]);
 }
