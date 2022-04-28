@@ -4,21 +4,6 @@ import 'addContact.dart' as add_contact_page;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.purple,
-//       ),
-//       home: AddClientPage(title: 'מסך הזנת תיק אישי'),
-//     );
-//   }
-// }
 
 class AddClientPage extends StatefulWidget {
   AddClientPage({Key? key, this.title = "", this.username = ""})
@@ -45,6 +30,10 @@ class _AddClientPageState extends State<AddClientPage> {
       new TextEditingController();
   final TextEditingController processDescriptionTextController =
       new TextEditingController();
+
+  List<String> nationalityOptions = ["יהודיה", "ערביה", "אחר"];
+  String nationality = "אחר";
+  List? _myActivities;
 
   @override
   void dispose() {
@@ -231,6 +220,35 @@ class _AddClientPageState extends State<AddClientPage> {
                       ),
                     ],
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Text(
+                    'לאום:',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                DropdownButton(
+                  // Initial Value
+                  value: nationality,
+
+                  // Down Arrow Icon
+                  icon: const Icon(Icons.keyboard_arrow_down),
+
+                  // Array list of items
+                  items: nationalityOptions.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      nationality = newValue!;
+                    });
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
