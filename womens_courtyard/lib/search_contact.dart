@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/contact.dart';
 import 'package:womens_courtyard/contacts_data.dart';
@@ -21,12 +22,16 @@ class _SearchContactState extends State<SearchContact> {
 
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
-    await Future.delayed(Duration(seconds: 1));
-    setState(() {
-      for (Contact contact in allContacts) {
-        _contactDetails.add(contact);
+    try {
+      final response =
+          await FirebaseFirestore.instance.collection('contacts').get();
+      for (final doc in response.docs) {
+        _contactDetails.add(Contact.fromDoc(doc));
       }
-    });
+      setState(() {});
+    } catch (e) {
+      print('caught $e');
+    }
   }
 
   @override

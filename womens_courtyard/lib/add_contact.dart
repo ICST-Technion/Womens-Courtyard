@@ -212,7 +212,8 @@ class _AddContactPageState extends State<AddContactPage> {
           "lastName": lastName,
           "phoneNo": phone,
           "email": email,
-          "field": field
+          "field": field,
+          "info": ""
         })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));

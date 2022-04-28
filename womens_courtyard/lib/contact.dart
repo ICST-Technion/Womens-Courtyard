@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Contact {
   final String name;
   final String phoneNumber;
@@ -14,4 +16,10 @@ class Contact {
       phoneNumber: json['phoneNumber'],
       occupation: json['occupation'],
       info: json['info']);
+
+  factory Contact.fromDoc(QueryDocumentSnapshot<Map> doc) => Contact(
+      name: doc.data()['firstName'] + ' ' + doc.data()['lastName'],
+      phoneNumber: doc.data()['phoneNo'],
+      occupation: doc.data()['field'],
+      info: doc.data()['info']);
 }

@@ -106,3 +106,4 @@
 | field | String | contact | N/A | RW |
 | phoneNo | String | contact | N/A | RW |
 | email | String | contact | N/A | RW |
+| info | String | contact | N/A | RW |
