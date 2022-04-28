@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
 
 class FileList extends StatelessWidget {
   final List<Contact> list;
-  FileList({this.list});
+  FileList({required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -135,13 +135,13 @@ class FileList extends StatelessWidget {
             child: new ListTile(
               leading: Icon(Icons.contact_page),
               title: new Text(list[index].name),
-              subtitle: new Text(
-              list[index].occupation),
+              subtitle: new Text(list[index].occupation),
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => edit_contact_page.MyHomePage(contact: list[index])));
+                        builder: (context) => edit_contact_page.MyHomePage(
+                            contact: list[index])));
               },
             ),
             margin: const EdgeInsets.all(0.0),

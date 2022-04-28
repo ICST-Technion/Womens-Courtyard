@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
 
 class FileList extends StatelessWidget {
   final List<PersonalFile> list;
-  FileList({this.list});
+  FileList({required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +152,8 @@ class UserDetails {
   final int id;
   final String firstName, lastName;
 
-  UserDetails({this.id, this.firstName, this.lastName});
+  UserDetails(
+      {required this.id, required this.firstName, required this.lastName});
 
   factory UserDetails.fromJson(Map<String, dynamic> json) {
     return new UserDetails(

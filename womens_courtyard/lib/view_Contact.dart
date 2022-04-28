@@ -3,9 +3,8 @@ import 'Search_page.dart' as search_page;
 import 'addContact.dart' as add_contact_page;
 import 'searchContact.dart' as search_contact;
 
-
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title = ""}) : super(key: key);
 
   final String title;
 
@@ -15,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -28,8 +27,10 @@ class SearchWidget extends StatelessWidget {
             boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
         child: TextField(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => search_contact.HomePage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => search_contact.HomePage()));
             },
             decoration: InputDecoration(
                 border: InputBorder.none,
@@ -58,36 +59,35 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-              ),
-              SearchWidget(),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(64.0),
-                child: ElevatedButton(
-                    child: Text("הוספת איש קשר"),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => add_contact_page.MyApp()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(150, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              )
-            ],
-          ),
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+            ),
+            SearchWidget(),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(64.0),
+              child: ElevatedButton(
+                  child: Text("הוספת איש קשר"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => add_contact_page.MyApp()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(250, 84, 9, 0),
+                      elevation: 4,
+                      minimumSize: Size(150, 50),
+                      textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)))),
+            )
+          ],
         ),
+      ),
     );
   }
 

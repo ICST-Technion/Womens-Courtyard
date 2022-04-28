@@ -6,7 +6,7 @@ import 'package:crypto/crypto.dart';
 import 'login_screen.dart' as login_screen;
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({Key key}) : super(key: key);
+  const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
@@ -31,7 +31,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         keyboardType: TextInputType.name,
         //validator: () {},
         onSaved: (value) {
-          fullnameEditingController.text = value;
+          fullnameEditingController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -61,7 +61,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           return null;
         },
         onSaved: (value) {
-          emailEditingController.text = value;
+          emailEditingController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -89,7 +89,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           return null;
         },
         onSaved: (value) {
-          passEditingController.text = value;
+          passEditingController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -113,7 +113,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           return null;
         },
         onSaved: (value) {
-          confirmPassEditingController.text = value;
+          confirmPassEditingController.text = value ?? "";
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
@@ -135,7 +135,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           if (_formKey.currentState != null &&
-              _formKey.currentState.validate()) {
+              (_formKey.currentState!).validate()) {
             register(emailEditingController.text, passEditingController.text,
                 fullnameEditingController.text);
             ScaffoldMessenger.of(context).showSnackBar(

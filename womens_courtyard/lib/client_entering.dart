@@ -21,7 +21,8 @@ import 'package:firebase_database/firebase_database.dart';
 // }
 
 class AddClientPage extends StatefulWidget {
-  AddClientPage({Key key, this.title, this.username}) : super(key: key);
+  AddClientPage({Key? key, this.title = "", this.username = ""})
+      : super(key: key);
 
   final String title;
   final String username;
@@ -70,7 +71,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          nameTextController.text = value;
+          nameTextController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -95,7 +96,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          fNameTextController.text = value;
+          fNameTextController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -125,7 +126,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          idNoTextController.text = value;
+          idNoTextController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -155,7 +156,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          phoneNumberTextController.text = value;
+          phoneNumberTextController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -176,7 +177,7 @@ class _AddClientPageState extends State<AddClientPage> {
         controller: processDescriptionTextController,
         keyboardType: TextInputType.name,
         onSaved: (value) {
-          processDescriptionTextController.text = value;
+          processDescriptionTextController.text = value ?? "";
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -299,7 +300,7 @@ class _AddClientPageState extends State<AddClientPage> {
                         //   },
                         // );
                         if (_formKey.currentState != null &&
-                            _formKey.currentState.validate()) {
+                            (_formKey.currentState!).validate()) {
                           enterFileToDatabase(
                               nameTextController.text,
                               fNameTextController.text,
