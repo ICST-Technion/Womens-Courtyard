@@ -44,8 +44,6 @@
 
 # Current Permission Version (restrictive + staff-only users)
 
-<!-- Key changed from ID number to some hash -->
-<!-- Changed name to first name and last name -->
 ## **client fields content**
 ### key: Some hash
 | Field | Type | Part of | Client Permissions | Staff Permissions |

@@ -366,10 +366,11 @@ class _AddClientPageState extends State<AddClientPage> {
     // DatabaseReference ref = FirebaseDatabase.instance.ref("clients/$idNo");
     CollectionReference ref = FirebaseFirestore.instance.collection('clients');
     ref
-        .doc("${idNo}")
-        .set({
-          "name": name + " " + fname,
+        .add({
+          "firstName": name,
+          "lastName": fname,
           "idNo": idNo,
+          "Nationality": "",
           "personalFile": {
             "clientNotes": [pDec]
           },

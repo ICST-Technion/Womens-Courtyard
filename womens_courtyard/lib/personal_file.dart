@@ -11,6 +11,6 @@ class PersonalFile {
 
   factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc) => PersonalFile(
       id: int.parse(doc.data()['idNo']),
-      name: doc.data()['name'],
+      name: doc.data()['firstName'] + " " + doc.data()['lastName'],
       info: doc.data()['personalFile']['clientNotes'][0]);
 }
