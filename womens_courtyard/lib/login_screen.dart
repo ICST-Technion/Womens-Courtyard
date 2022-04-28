@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       final role = results.data['data']['role'];
       final token = results.data['data']['token'];
-      auth.signInWithCustomToken(token);
+      await auth.signInWithCustomToken(token);
       if (role == 'staff') {
         print('logging in as staff');
         // var id = results.data['data']['id'];
