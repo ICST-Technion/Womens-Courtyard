@@ -248,7 +248,7 @@ class _AddClientPageState extends State<AddClientPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    add_contact_page.MyApp()));
+                                    add_contact_page.AddContactPage()));
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromRGBO(250, 84, 9, 0),

@@ -24,7 +24,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       home_page.MyHomePage(username: username),
       daily_search_page.MyHomePage(),
       file_search_page.HomePage(),
-      view_contact.HomePage(),
+      view_contact.SearchContact(username: username),
     ];
   }
 

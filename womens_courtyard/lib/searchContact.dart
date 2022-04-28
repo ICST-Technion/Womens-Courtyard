@@ -5,20 +5,18 @@ import 'package:womens_courtyard/contacts_data.dart';
 import 'addContact.dart' as add_contact_page;
 import 'edit_contact.dart' as edit_contact_page;
 
-void main() => runApp(new MaterialApp(
-      home: new HomePage(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-    ));
+class SearchContact extends StatefulWidget {
+  SearchContact({Key? key, this.title = "", this.username = ""})
+      : super(key: key);
 
-class HomePage extends StatefulWidget {
+  final String title;
+  final String username;
+
   @override
-  _HomePageState createState() => new _HomePageState();
+  _SearchContactState createState() => new _SearchContactState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SearchContactState extends State<SearchContact> {
   TextEditingController controller = new TextEditingController();
 
   // Get json result and convert it to model. Then add
@@ -87,7 +85,9 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => add_contact_page.MyApp()));
+                            builder: (context) =>
+                                add_contact_page.AddContactPage(
+                                    username: widget.username)));
                   },
                   style: ElevatedButton.styleFrom(
                       primary: Color.fromRGBO(250, 84, 9, 0),

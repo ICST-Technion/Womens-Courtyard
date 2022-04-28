@@ -30,7 +30,7 @@ class SearchWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => search_contact.HomePage()));
+                      builder: (context) => search_contact.SearchContact()));
             },
             decoration: InputDecoration(
                 border: InputBorder.none,
@@ -75,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => add_contact_page.MyApp()));
+                            builder: (context) =>
+                                add_contact_page.AddContactPage()));
                   },
                   style: ElevatedButton.styleFrom(
                       primary: Color.fromRGBO(250, 84, 9, 0),
