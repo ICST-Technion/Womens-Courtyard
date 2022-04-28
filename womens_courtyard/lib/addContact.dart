@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
-import 'Costumer_entering.dart' as main_page;
+import 'client_entering.dart' as main_page;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
-
-void main() {
-  runApp(MyApp());
-}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -141,7 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => bottom_navigation_bar.MyBottomNavigationBar()));
+                              builder: (context) => bottom_navigation_bar
+                                  .MyBottomNavigationBar()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),

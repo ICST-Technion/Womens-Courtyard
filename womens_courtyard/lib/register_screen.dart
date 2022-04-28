@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:crypto/crypto.dart';
 import 'login_screen.dart' as login_screen;
 
 class RegistrationScreen extends StatefulWidget {
@@ -105,7 +108,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         obscureText: true,
         validator: (value) {
           if (confirmPassEditingController.text != passEditingController.text) {
-            return "אישור הסיסמא לא תואם את הסיסמא המקורית";
+            return "אישור הסיסמה לא תואם את הסיסמה המקורית";
           }
           return null;
         },
@@ -116,7 +119,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "אישור הסיסמא",
+          hintText: "אישור הסיסמה",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -153,61 +156,64 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-      backgroundColor: Colors.purple,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              // passing this to our root
-              Navigator.of(context).pop();
-            }),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    // SizedBox(
-                    //   height: 200,
-                    //   child: Image.asset(name, fit: BoxFit.contain, )
-                    // ),
-                    SizedBox(height: 45),
-                    fullNameField,
-                    SizedBox(height: 25),
-                    emailField,
-                    SizedBox(height: 25),
-                    passField,
-                    SizedBox(height: 25),
-                    confirmPassField,
-                    SizedBox(height: 15),
-                    signUpButton,
-                    SizedBox(height: 20),
-                  ],
+          backgroundColor: Colors.purple,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () {
+                  // passing this to our root
+                  Navigator.of(context).pop();
+                }),
+          ),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(36.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        // SizedBox(
+                        //   height: 200,
+                        //   child: Image.asset(name, fit: BoxFit.contain, )
+                        // ),
+                        SizedBox(height: 45),
+                        fullNameField,
+                        SizedBox(height: 25),
+                        emailField,
+                        SizedBox(height: 25),
+                        passField,
+                        SizedBox(height: 25),
+                        confirmPassField,
+                        SizedBox(height: 15),
+                        signUpButton,
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 
   void register(String username, String password, String name,
-      {String role = 'client'}) async {
+      {String role = 'staff'}) async {
+    var passbytes = utf8.encode(password);
+    var passhash = sha256.convert(passbytes).toString();
     HttpsCallable callable = functions.httpsCallable('registerClient');
     final results = await callable.call(<String, dynamic>{
       'username': username,
       'name': name,
-      'password': password,
+      'password': passhash,
+      // 'password': password,
       'role': role
     });
     print(results.data['success'].toString());

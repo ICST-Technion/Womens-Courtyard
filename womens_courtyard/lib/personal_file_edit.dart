@@ -6,10 +6,6 @@ import 'personal_file.dart';
 import 'forms_buttons.dart' as forms;
 import 'BottomNavigationBar.dart' as bottom_navigation_bar;
 
-void main() {
-  runApp(MyApp());
-}
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -77,7 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
@@ -87,12 +82,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
-                    initialValue:
-                    widget.person.info,
+                    initialValue: widget.person.info,
                     minLines: 1,
                     maxLines: 10,
                     decoration: InputDecoration(
@@ -100,7 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       labelText: 'מידע נוסף',
                     )),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(
@@ -119,14 +111,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                     child: Text("לעריכה"),
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
                         elevation: 4,
@@ -135,11 +124,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)))),
               ),
-
               SizedBox(
                 height: 10.0,
               ),
-
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: ElevatedButton(
@@ -148,7 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => bottom_navigation_bar.MyBottomNavigationBar()));
+                              builder: (context) => bottom_navigation_bar
+                                  .MyBottomNavigationBar()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),

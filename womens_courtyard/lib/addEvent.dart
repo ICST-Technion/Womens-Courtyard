@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:womens_courtyard/meetings.dart';
-import 'Costumer_entering.dart' as main_page;
+import 'client_entering.dart' as main_page;
 import 'meeting.dart';
 import 'calendar.dart';
 import 'package:date_format/date_format.dart';

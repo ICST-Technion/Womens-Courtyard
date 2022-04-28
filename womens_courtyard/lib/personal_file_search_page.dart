@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/personal_file_data.dart';
@@ -16,6 +17,17 @@ class _HomePageState extends State<HomePage> {
 
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
+    try {
+      final response =
+          await FirebaseFirestore.instance.collection('clients').get();
+      for (final doc in response.docs) {
+        _userDetails.add(PersonalFile.fromDoc(doc));
+      }
+      setState(() {});
+    } catch (e) {
+      print('caught $e');
+    }
+
     // final response = await http.get(url);
     // final responseJson = json.decode(response.body);
     // setState(() {
@@ -23,14 +35,13 @@ class _HomePageState extends State<HomePage> {
     //     _userDetails.add(UserDetails.fromJson(user));
     //   }
     // });
-
-    await Future.delayed(Duration(seconds: 1));
-    setState(() {
-      _userDetails = [];
-      for (PersonalFile file in allFiles) {
-        _userDetails.add(file);
-      }
-    });
+    // await Future.delayed(Duration(seconds: 1));
+    // setState(() {
+    //   _userDetails = [];
+    //   for (PersonalFile file in allFiles) {
+    //     _userDetails.add(file);
+    //   }
+    // });
   }
 
   @override
@@ -117,7 +128,8 @@ class FileList extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => edit_personal_page.MyHomePage(person: list[index])));
+                      builder: (context) =>
+                          edit_personal_page.MyHomePage(person: list[index])));
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].name),
@@ -138,14 +150,9 @@ final String url = 'https://jsonplaceholder.typicode.com/users';
 
 class UserDetails {
   final int id;
-  final String firstName, lastName, profileUrl;
+  final String firstName, lastName;
 
-  UserDetails(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.profileUrl =
-          'https://i.amz.mshcdn.com/3NbrfEiECotKyhcUhgPJHbrL7zM=/950x534/filters:quality(90)/2014%2F06%2F02%2Fc0%2Fzuckheadsho.a33d0.jpg'});
+  UserDetails({this.id, this.firstName, this.lastName});
 
   factory UserDetails.fromJson(Map<String, dynamic> json) {
     return new UserDetails(
