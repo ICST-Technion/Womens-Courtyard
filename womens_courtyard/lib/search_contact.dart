@@ -23,6 +23,7 @@ class _SearchContactState extends State<SearchContact> {
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
     try {
+      _contactDetails.clear();
       final response =
           await FirebaseFirestore.instance.collection('contacts').get();
       for (final doc in response.docs) {

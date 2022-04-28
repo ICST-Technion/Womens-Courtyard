@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'personal_file_search_page.dart' as file_search_page;
 import 'home_page.dart' as home_page;
-import 'search_full_page.dart' as daily_search_page;
+import 'attendance_search_page.dart' as attendance_search_page;
 import 'search_contact.dart' as view_contact;
 
 //MyBottomNavigationBar()
@@ -22,8 +22,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   _MyBottomNavigationBarState({this.username = ""}) {
     _children = [
       home_page.HomePage(username: username),
-      daily_search_page.SearchFullPage(),
-      file_search_page.PersonalFileSearchPage(),
+      attendance_search_page.AttendanceSearchPage(
+        username: username,
+      ),
+      file_search_page.PersonalFileSearchPage(username: username),
       view_contact.SearchContact(username: username),
     ];
   }

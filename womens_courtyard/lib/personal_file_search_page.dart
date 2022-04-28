@@ -3,10 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/personal_file_data.dart';
-import 'personal_file_edit.dart' as edit_personal_page;
-import 'personal_file_edit.dart' as personal_file_edit;
+import 'edit_personal_file.dart' as edit_personal_page;
+import 'edit_personal_file.dart' as personal_file_edit;
 
 class PersonalFileSearchPage extends StatefulWidget {
+  PersonalFileSearchPage({Key? key, this.username = ""}) : super(key: key);
+
+  final String username;
+
   @override
   _PersonalFileSearchPageState createState() =>
       new _PersonalFileSearchPageState();
@@ -21,7 +25,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
       final response =
           await FirebaseFirestore.instance.collection('clients').get();
       for (final doc in response.docs) {
-        _userDetails.add(PersonalFile.fromDoc(doc));
+        _personalFiles.add(PersonalFile.fromDoc(doc));
       }
       setState(() {});
     } catch (e) {
@@ -74,7 +78,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
                     ? FileList(list: _searchResult)
-                    : FileList(list: _userDetails)),
+                    : FileList(list: _personalFiles)),
           ],
         ),
       ),
@@ -88,9 +92,10 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
       return;
     }
 
-    _userDetails.forEach((personalFile) {
+    _personalFiles.forEach((personalFile) {
       if (personalFile.id.toString().contains(text) ||
-          personalFile.name.contains(text)) _searchResult.add(personalFile);
+          personalFile.firstName.contains(text) ||
+          personalFile.lastName.contains(text)) _searchResult.add(personalFile);
     });
 
     setState(() {});
@@ -118,7 +123,7 @@ class FileList extends StatelessWidget {
                               person: list[index])));
             },
             leading: Icon(Icons.folder),
-            title: new Text(list[index].name),
+            title: new Text(list[index].firstName + ' ' + list[index].lastName),
             subtitle: new Text("תעודת זהות: " + list[index].id.toString()),
           ),
           margin: const EdgeInsets.all(0.0),
@@ -130,22 +135,4 @@ class FileList extends StatelessWidget {
 
 List<PersonalFile> _searchResult = [];
 
-List<PersonalFile> _userDetails = [];
-
-final String url = 'https://jsonplaceholder.typicode.com/users';
-
-class UserDetails {
-  final int id;
-  final String firstName, lastName;
-
-  UserDetails(
-      {required this.id, required this.firstName, required this.lastName});
-
-  factory UserDetails.fromJson(Map<String, dynamic> json) {
-    return new UserDetails(
-      id: json['id'],
-      firstName: json['name'],
-      lastName: json['username'],
-    );
-  }
-}
+List<PersonalFile> _personalFiles = [];
