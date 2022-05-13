@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart' as main_page;
 import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
 import 'personal_file.dart';
@@ -33,30 +32,52 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     var curr_contact = contacts_data.allContacts[0];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.all(15.0),
             children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Center(
+                      child: Text(
+                        'שם פרטי:' + widget.person.firstName,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Center(
+                      child: Text(
+                        'שם משפחה:' + widget.person.lastName,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Text(
+                      'לאום:' //TODO: add to peronal_file.dart a field for that
+                      ,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.person.firstName + ' ' + widget.person.lastName,
-                    style: TextStyle(fontSize: 35),
+                    'תעודת זהות:' + widget.person.id.toString(),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
               ),
@@ -64,74 +85,28 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.person.id.toString(),
-                    style: TextStyle(fontSize: 30),
+                    'מספר טלפון' //TODO: change personal_file.dart to include a phoneNumber field
+                    ,
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextFormField(
-                    initialValue: widget.person.info,
-                    minLines: 1,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'מידע נוסף',
-                    )),
+                padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Text(
+                    'מידע על הצעירה:\n' + widget.person.info,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: ElevatedButton(
-                    child: Text("מעבר לטפסים"),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => forms.FormsButtonsPage()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                    child: Text("לעריכה"),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: ElevatedButton(
-                    child: Text("סיום ושמירה"),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => bottom_navigation_bar
-                                  .MyBottomNavigationBar()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(150, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'אנשי קשר:' //TODO: add a list of contacts
+                  ,
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             ],
           ),
@@ -141,7 +116,7 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הזנת נוכחות'), actions: [
+    return AppBar(title: Text('צפייה בתיק אישי'), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,
