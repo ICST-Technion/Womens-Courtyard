@@ -1,4 +1,4 @@
-# Ideal Permissions Version
+<!-- # Ideal Permissions Version
 
 ## **client fields content:**
 ### key: user ID
@@ -25,9 +25,9 @@
 | --- | --- | --- | --- | --- |
 | username | String | User | N/A | RW |
 | password | String | User | N/A | N/A |
-| role | String | User | N/A | N/A |
+| role | String | User | N/A | N/A | 
 
-<!-- ### **ids fields content**
+### **ids fields content**
 ### key: username
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
@@ -51,20 +51,17 @@
 | firstName | String | Client | N/A | RW |
 | lastName | String | Client | N/A | RW |
 | idNo | String (optional) | Client | N/A | RW |
+| age | Int | Client | N/A | RW |
+| address | String | N/A | RW |
 | phoneNo | String | Client | N/A | RW |
-| nationality | String (optional) | Client | N/A | RW
-| personalFile | Personal File | Client | N/A | RW |
+| nationality | String (optional) | Client | N/A | RW |
+| clientNotes | Array[String] | Client | N/A | RW |
+| inAssignment | Boolean | Client | N/A | RW |
+| processes | Array[String] | Client | N/A | RW |
 | appointmentHistory | Array[Appointment] | Client | N/A | RW |
 | attendances | Array[Attendance] | Client | N/A | RW |
 
-<!-- Broke away to new table -->
-<!-- TBD: new fields may be added -->
-## **Personal File fields content (per client)**
-| Field | Type | Part of | Client Permissions | Staff Permissions |
-| --- | --- | --- | --- | --- |
-| clientNotes | Array[String] | Personal File | N/A | RW |
 
-<!-- Broke away to new table -->
 ## **attendance fields content (per client):**
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
@@ -72,8 +69,6 @@
 | comment | String | attendance | N/A | RW |
 
 
-<!-- Added description, removed name -->
-<!-- Changed date to timestamp -->
 ## **appointment fields content (per client)**
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
