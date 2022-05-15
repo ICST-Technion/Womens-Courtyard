@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       _connectToFirebaseEmulator();
     }
     return MaterialApp(
-      title: "Login",
+      title: 'Login',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
