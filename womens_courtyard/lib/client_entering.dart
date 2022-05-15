@@ -4,8 +4,9 @@ import 'add_contact.dart' as add_contact_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 class AddClientPage extends StatefulWidget {
-  AddClientPage({Key? key, this.title = "", this.username = ""})
+  AddClientPage({Key? key, this.title = '', this.username = ''})
       : super(key: key);
 
   final String title;
@@ -30,8 +31,8 @@ class _AddClientPageState extends State<AddClientPage> {
   final TextEditingController processDescriptionTextController =
       new TextEditingController();
 
-  List<String> nationalityOptions = ["יהודיה", "ערביה", "אחר"];
-  String nationality = "אחר";
+  List<String> nationalityOptions = ['יהודיה', 'ערביה', 'אחר'];
+  String nationality = 'אחר';
   List? _myActivities;
 
   @override
@@ -54,18 +55,18 @@ class _AddClientPageState extends State<AddClientPage> {
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "הכניסי שם פרטי";
+            return 'הכניסי שם פרטי';
           }
           return null;
         },
         onSaved: (value) {
-          nameTextController.text = value ?? "";
+          nameTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "שם פרטי",
+          hintText: 'שם פרטי',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -79,18 +80,18 @@ class _AddClientPageState extends State<AddClientPage> {
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "הכניסי שם משפחה";
+            return 'הכניסי שם משפחה';
           }
           return null;
         },
         onSaved: (value) {
-          fNameTextController.text = value ?? "";
+          fNameTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "שם משפחה",
+          hintText: 'שם משפחה',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -104,23 +105,23 @@ class _AddClientPageState extends State<AddClientPage> {
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "הכניסי תעודת זהות";
+            return 'הכניסי תעודת זהות';
           }
           //regExp
           RegExp passReg = new RegExp(r'^[0-9]{9}$');
           if (!passReg.hasMatch(value)) {
-            return "על התז להיות חוקי (9 ספרות)";
+            return 'על התז להיות חוקי (9 ספרות)';
           }
           return null;
         },
         onSaved: (value) {
-          idNoTextController.text = value ?? "";
+          idNoTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "תעודת זהות",
+          hintText: 'תעודת זהות',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -134,23 +135,23 @@ class _AddClientPageState extends State<AddClientPage> {
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "הכניסי מספר טלפון";
+            return 'הכניסי מספר טלפון';
           }
           //regExp
           RegExp passReg = new RegExp(r'^(?:[+0]9)?[0-9]{10}$');
           if (!passReg.hasMatch(value)) {
-            return "הכניסי מספר טלפון חוקי";
+            return 'הכניסי מספר טלפון חוקי';
           }
           return null;
         },
         onSaved: (value) {
-          phoneNumberTextController.text = value ?? "";
+          phoneNumberTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "מספר טלפון",
+          hintText: 'מספר טלפון',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -165,13 +166,13 @@ class _AddClientPageState extends State<AddClientPage> {
         controller: processDescriptionTextController,
         keyboardType: TextInputType.name,
         onSaved: (value) {
-          processDescriptionTextController.text = value ?? "";
+          processDescriptionTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "תיאור טיפול",
+          hintText: 'תיאור טיפול',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -259,7 +260,7 @@ class _AddClientPageState extends State<AddClientPage> {
                 Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: ElevatedButton(
-                      child: Text("הוספת איש קשר"),
+                      child: Text('הוספת איש קשר'),
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -291,7 +292,7 @@ class _AddClientPageState extends State<AddClientPage> {
                 Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: ElevatedButton(
-                      child: Text("הזנת קבצים חדשים"),
+                      child: Text('הזנת קבצים חדשים'),
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromRGBO(250, 84, 9, 0),
@@ -305,7 +306,7 @@ class _AddClientPageState extends State<AddClientPage> {
                 Padding(
                   padding: const EdgeInsets.all(64.0),
                   child: ElevatedButton(
-                      child: Text("סיום ושמירה"),
+                      child: Text('סיום ושמירה'),
                       onPressed: () {
                         //enter the results from the controllers.text into the firebase, then navigate back.
                         // showDialog(
@@ -325,7 +326,7 @@ class _AddClientPageState extends State<AddClientPage> {
                               phoneNumberTextController.text,
                               processDescriptionTextController.text);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("הכנסת תיק מוצלחת")),
+                            const SnackBar(content: Text('הכנסת תיק מוצלחת')),
                           );
                           Navigator.push(
                               context,
@@ -381,18 +382,16 @@ class _AddClientPageState extends State<AddClientPage> {
 
   void enterFileToDatabase(
       String name, String fname, String idNo, String phone, String pDec) async {
-    // DatabaseReference ref = FirebaseDatabase.instance.ref("clients/$idNo");
+    // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
     CollectionReference ref = FirebaseFirestore.instance.collection('clients');
     ref
         .add({
-          "firstName": name,
-          "lastName": fname,
-          "idNo": idNo,
-          "Nationality": "",
-          "personalFile": {
-            "clientNotes": [pDec]
-          },
-          "appointmentHistory": [],
+          'firstName': name,
+          'lastName': fname,
+          'idNo': idNo,
+          'nationality': '',
+          'clientNotes': [pDec],
+          'appointmentHistory': [],
         })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));

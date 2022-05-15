@@ -2,12 +2,11 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/personal_file_data.dart';
 import 'edit_personal_file.dart' as edit_personal_page;
 import 'edit_personal_file.dart' as personal_file_edit;
 
 class PersonalFileSearchPage extends StatefulWidget {
-  PersonalFileSearchPage({Key? key, this.username = ""}) : super(key: key);
+  PersonalFileSearchPage({Key? key, this.username = ''}) : super(key: key);
 
   final String username;
 
@@ -93,7 +92,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     }
 
     _personalFiles.forEach((personalFile) {
-      if (personalFile.id.toString().contains(text) ||
+      if (personalFile.idNo.toString().contains(text) ||
           personalFile.firstName.contains(text) ||
           personalFile.lastName.contains(text)) _searchResult.add(personalFile);
     });
@@ -124,7 +123,7 @@ class FileList extends StatelessWidget {
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].firstName + ' ' + list[index].lastName),
-            subtitle: new Text("תעודת זהות: " + list[index].id.toString()),
+            subtitle: new Text('תעודת זהות: ' + list[index].idNo.toString()),
           ),
           margin: const EdgeInsets.all(0.0),
         );

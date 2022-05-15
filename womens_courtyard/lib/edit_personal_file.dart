@@ -64,7 +64,7 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.person.id.toString(),
+                    widget.person.idNo.toString(),
                     style: TextStyle(fontSize: 30),
                   ),
                 ),
@@ -72,7 +72,7 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
-                    initialValue: widget.person.info,
+                    initialValue: widget.person.clientNotes.last,
                     minLines: 1,
                     maxLines: 10,
                     decoration: InputDecoration(
