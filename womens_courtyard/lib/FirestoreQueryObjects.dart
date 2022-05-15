@@ -86,7 +86,7 @@ class Appointment {
 
   factory Appointment.fromDoc(QueryDocumentSnapshot<Map> doc) => Appointment(
     doc[DESCRIPTION_FIELD],
-    doc[DATE_FIELD],
+    doc[DATE_FIELD].toDate(),
     doc[LOCATION_FIELD],
     doc[STAFF_FIELD]
   );
@@ -98,7 +98,7 @@ class Attendance {
   Attendance(this.date, this.comment);
 
   factory Attendance.fromDoc(QueryDocumentSnapshot<Map> doc) => Attendance(
-      doc[DATE_FIELD],
+      doc[DATE_FIELD].toDate(),
       doc[COMMENT_FIELD]
   );
 }
