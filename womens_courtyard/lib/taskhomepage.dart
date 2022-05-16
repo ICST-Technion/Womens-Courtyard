@@ -2,23 +2,27 @@ import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore, Qu
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:womens_courtyard/FirestoreQueryObjects.dart';
 import 'package:womens_courtyard/Nationality.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
+import 'package:excel/excel.dart';
+import 'StatisticsLogic.dart';
 
 const String NATION_FIELD = "לאום";
 const String FIRST_NAME_FIELD = "שם פרטי";
 const String LAST_NAME_FIELD = "שם משפחה";
 const String VISITS_FIELD = "ביקורים";
-const Map<int, String> WEEKDAYS = <int, String>{
-  1: 'שני',
-  2: 'שלישי',
-  3: 'רביעי',
-  4: 'חמישי',
-  5: 'שישי',
-  6: 'שבת',
-  7: 'ראשון',
-};
+const String EXCEL_NAME = "womens_courtyard_report";
+// const Map<int, String> WEEKDAYS = <int, String>{
+//   1: 'שני',
+//   2: 'שלישי',
+//   3: 'רביעי',
+//   4: 'חמישי',
+//   5: 'שישי',
+//   6: 'שבת',
+//   7: 'ראשון',
+// };
 class TaskHomePage extends StatefulWidget {
   @override
   _TaskHomePageState createState() {
@@ -77,38 +81,18 @@ class _TaskHomePageState extends State<TaskHomePage> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+      stream: FirebaseFirestore.instance.collection('clients').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return LinearProgressIndicator();
         } else {
-          var givenSnapshots = snapshot.data.docs.toList();
-
-          var nationalitiesHist = Map<String,int>();
-          print("starting to generate nationalities");
-          givenSnapshots.map<String>((documentSnapshot) => documentSnapshot.get(NATION_FIELD)).forEach((nationality) {
-            if(!nationalitiesHist.containsKey(nationality)) {
-              nationalitiesHist[nationality] = 1;
-            } else {
-              nationalitiesHist[nationality] +=1;
-            }
-          }
-        );
+          print("got snapshot");
+          var pfList = snapshot.data.docs.map((e) => PersonalFile.fromDoc(e)).toList();
+          print("finished personal files processing");
+          var nationalitiesHist = makeNationalitiesHist(pfList);
           print("nationalities: $nationalitiesHist, type: ${nationalitiesHist.runtimeType}");
-
-          var visitsHist = Map<String, int>();
-          WEEKDAYS.entries.forEach((dayMap) {
-            visitsHist[dayMap.value] = 0;
-          });
-          print("finished initializing maps");
-          givenSnapshots.map<List<Timestamp>>((documentSnapshot) {
-            print("type: ${documentSnapshot.get(VISITS_FIELD).runtimeType}");
-            return List.from(documentSnapshot.get(VISITS_FIELD));
-          }).forEach((visits) {
-            visits.forEach((timeStamp) {
-                visitsHist[WEEKDAYS[timeStamp.toDate().weekday]] +=1;
-            });
-          });
+          var visitsHist = makeVisitsHist(pfList);
+          print("visits histogram: $visitsHist");
           // return _buildPieChart(context, nationalitiesHist);
           // return _buildBarChart(context, visitsHist);
           return CustomScrollView(
@@ -118,7 +102,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
                 child: Column(
                   children: <Widget>[
                     _buildPieChart(context, nationalitiesHist),
-                    _buildBarChart(context, visitsHist)
+                    _buildBarChart(context, visitsHist),
+                    // _buildExcelButton(context, givenSnapshots)
                   ],
                 ),
               ),
@@ -222,4 +207,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
     );
   }
 
+  // Widget _buildExcelButton(BuildContext context, List<QueryDocumentSnapshot<Object>> snapshots){
+  //
+  // }
 }
