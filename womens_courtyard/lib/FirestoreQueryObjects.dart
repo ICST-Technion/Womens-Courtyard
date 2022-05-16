@@ -61,6 +61,7 @@ class PersonalFile {
   
   factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc) {
     // assumes a single client document is received
+    print("started personal file construction");
     final String firstName = doc[FIRST_NAME_FIELD];
     final String lastName	= doc[LAST_NAME_FIELD];
     final String idNo = doc[ID_FIELD];
@@ -71,8 +72,8 @@ class PersonalFile {
     final List clientNotes = doc[CLIENT_NOTES_FIELD];
     final bool inAssignment = doc[IN_ASSIGNMENT_FIELD];
     final List processes = doc[PROCESS_FIELD].toList();
-    final List appointmentHistory = doc[HISTORY_FIELD].map((e) => Appointment.fromDoc(e)).toList();
-    final List attendances = doc[ATTENDANCE_FIELD].map((e) => Attendance.fromDoc(e)).toList();
+    final List appointmentHistory = doc[HISTORY_FIELD].map((e) => Appointment.fromMap(e)).toList();
+    final List attendances = doc["attendances"].map((e) => Attendance.fromMap(e)).toList();
     return PersonalFile(firstName, lastName, idNo, age, address, phoneNo, nationality, clientNotes, inAssignment, processes, appointmentHistory, attendances);
   }
 }
@@ -88,8 +89,18 @@ class Appointment {
     doc[DESCRIPTION_FIELD],
     doc[DATE_FIELD].toDate(),
     doc[LOCATION_FIELD],
-    doc[STAFF_FIELD]
+    doc[STAFF_FIELD] == 'true'  // TODO: check if works correctly
   );
+
+  factory Appointment.fromMap(Map doc) {
+    print("the date is: " + doc[DATE_FIELD].toString());
+    return Appointment(
+        doc[DESCRIPTION_FIELD],
+        doc[DATE_FIELD].toDate(),
+        doc[LOCATION_FIELD],
+        doc[STAFF_FIELD] == 'true' // TODO: check if works correctly
+    );
+  }
 }
 
 class Attendance {
@@ -101,4 +112,12 @@ class Attendance {
       doc[DATE_FIELD].toDate(),
       doc[COMMENT_FIELD]
   );
+
+  factory Attendance.fromMap(Map doc){
+    print("DEBUG 13");
+    return Attendance(
+        doc[DATE_FIELD].toDate(),
+        doc[COMMENT_FIELD]
+    );
+  }
 }
