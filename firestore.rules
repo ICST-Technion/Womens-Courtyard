@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isStaff() {
+    	// return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'staff';
+      return request.auth.token.role == 'staff';
+    }
+    
+    // function isClient() {
+    // 	return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'client';
+    // }
+
+
+    // users collection rules
+    match /users/{userId} {
+      allow read, write: if false;
+    }
+    
+    // clients collection rules
+    
+    // match /clients/{userId}/id {
+    // 	allow read: if request.auth.uid == userId || isStaff();
+    //   allow write: if isStaff();
+    // }
+    
+    // match /clients/{userId}/name {
+    // 	allow read: if request.auth.uid == userId || isStaff();
+    //   allow write: if isStaff();
+    // }
+    
+    // match /clients/{userId}/personal%20file/{document=**} {
+    //   allow read, write: if isStaff();
+    // }
+    
+		// match /clients/{userId}/appointment%20history {
+    //   allow read: if request.auth.uid == userId || isStaff();
+    //   allow write: if isStaff();
+    // }
+    match /clients/{userId} {
+      allow read, write: if isStaff();
+    }
+    
+    // staff collection rules
+    
+    match /staff/{userId} {
+    		allow read, write: if isStaff();
+    }
+
+    match /contacts/{contact} {
+      allow read, write: if isStaff();
+    }
+    
+  }
+}

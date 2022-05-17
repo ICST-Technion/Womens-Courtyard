@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/taskhomepage.dart';
-import 'Search_page.dart' as search_page;
+import 'attendance_search_page.dart' as search_page;
 import 'main.dart' as main_page;
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 }
 
 class StatisticsPage extends StatefulWidget {
-  StatisticsPage({Key key, this.title}) : super(key: key);
+  StatisticsPage({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
 
@@ -33,7 +33,7 @@ class StatisticsPage extends StatefulWidget {
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-  DateTime _dateTime;
+  DateTime? _dateTime;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 SearchWidget(),
                 SendRequest(),
                 GeneralStatisticWidget(),
-                DateRow(),
+                DateRow(initialDate: _dateTime ?? DateTime.now()),
                 SendRequest()
                 // Row(children: <Widget>[
                 //   Flexible(child: getStartDateWidget(context)),
@@ -78,7 +78,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
       child: ElevatedButton(
-          child: Text("שלח בקשה"),
+          child: Text('שלח בקשה'),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => TaskHomePage()));
@@ -103,6 +103,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
             shape: ContinuousRectangleBorder(
                 //to set border radius to button
                 borderRadius: BorderRadius.circular(30))),
+        onPressed: () {},
         child: RichText(
           text: TextSpan(
             children: [
@@ -121,17 +122,21 @@ class _StatisticsPageState extends State<StatisticsPage> {
   AppBar getHomepageAppBar() {
     return AppBar(title: Text('סטטיסטיקה'), actions: [
       IconButton(
-          icon: Icon(
-        Icons.account_circle,
-        size: 30,
-        color: Colors.white,
-      )),
+        icon: Icon(
+          Icons.account_circle,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
       IconButton(
-          icon: Icon(
-        Icons.info,
-        size: 30,
-        color: Colors.white,
-      )),
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
     ]);
   }
 
@@ -169,7 +174,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -182,8 +187,11 @@ class SearchWidget extends StatelessWidget {
             boxShadow: [BoxShadow(blurRadius: 20, spreadRadius: -15)]),
         child: TextField(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => search_page.MyApp()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          search_page.AttendanceSearchPage()));
             },
             decoration: InputDecoration(
                 border: InputBorder.none,
@@ -198,7 +206,7 @@ class SearchWidget extends StatelessWidget {
 
 class IdRow extends StatelessWidget {
   const IdRow({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -222,7 +230,7 @@ class IdRow extends StatelessWidget {
 
 class NamesRow extends StatelessWidget {
   const NamesRow({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -256,9 +264,9 @@ class NamesRow extends StatelessWidget {
 }
 
 class DateRow extends StatelessWidget {
-  const DateRow({
-    Key key,
-  }) : super(key: key);
+  const DateRow({Key? key, required this.initialDate}) : super(key: key);
+
+  final DateTime initialDate;
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +277,9 @@ class DateRow extends StatelessWidget {
             Flexible(
                 child: Column(
               children: <Widget>[
-                SizedBox(width: 200.0, child: StartDateWidget())
+                SizedBox(
+                    width: 200.0,
+                    child: StartDateWidget(initialDate: initialDate))
               ],
             )),
             SizedBox(
@@ -278,7 +288,9 @@ class DateRow extends StatelessWidget {
             Flexible(
                 child: Column(
               children: <Widget>[
-                SizedBox(width: 200.0, child: EndDateWidget())
+                SizedBox(
+                    width: 200.0,
+                    child: EndDateWidget(initialDate: initialDate))
               ],
             )),
             SizedBox(
@@ -290,18 +302,17 @@ class DateRow extends StatelessWidget {
 }
 
 class EndDateWidget extends StatelessWidget {
-  const EndDateWidget({
-    Key key,
-  }) : super(key: key);
+  const EndDateWidget({Key? key, required this.initialDate}) : super(key: key);
 
+  final DateTime initialDate;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        child: Text("תאריך סוף"),
+        child: Text('תאריך סוף'),
         onPressed: () {
           showDatePicker(
                   context: context,
-                  // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                  initialDate: initialDate,
                   firstDate: DateTime(2001),
                   lastDate: DateTime(2021))
               .then((date) {
@@ -313,18 +324,19 @@ class EndDateWidget extends StatelessWidget {
 }
 
 class StartDateWidget extends StatelessWidget {
-  const StartDateWidget({
-    Key key,
-  }) : super(key: key);
+  const StartDateWidget({Key? key, required this.initialDate})
+      : super(key: key);
+
+  final DateTime initialDate;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        child: Text("תאריך התחלה"),
+        child: Text('תאריך התחלה'),
         onPressed: () {
           showDatePicker(
                   context: context,
-                  // initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                  initialDate: initialDate,
                   firstDate: DateTime(2001),
                   lastDate: DateTime(2021))
               .then((date) {
@@ -337,21 +349,21 @@ class StartDateWidget extends StatelessWidget {
 
 class PersonalStatisticWidget extends StatelessWidget {
   const PersonalStatisticWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 64.0, vertical: 20.0),
-      child: OutlinedButton(child: Text("סטטיסטיקה אישית")),
+      child: OutlinedButton(onPressed: () {}, child: Text('סטטיסטיקה אישית')),
     );
   }
 }
 
 class GeneralStatisticWidget extends StatelessWidget {
   const GeneralStatisticWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -359,14 +371,14 @@ class GeneralStatisticWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
           left: 40.0, right: 40.0, top: 20.0, bottom: 20.0),
-      child: OutlinedButton(child: Text("סטטיסטיקה כללית")),
+      child: OutlinedButton(onPressed: () {}, child: Text('סטטיסטיקה כללית')),
     );
   }
 }
 
 class StatisticHeadline extends StatelessWidget {
   const StatisticHeadline({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

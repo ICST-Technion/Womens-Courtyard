@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
 import 'main.dart' as main_page;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
+import 'personal_file.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class AttendancePage extends StatefulWidget {
+  AttendancePage(
+      {Key? key, this.title = '', this.username = '', required this.file})
+      : super(key: key);
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: MyHomePage(title: 'מסך הזנת תיק אישי'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
+  final PersonalFile file;
   final String title;
+  final String username;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AttendancePageState createState() => _AttendancePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AttendancePageState extends State<AttendancePage> {
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
@@ -65,106 +53,48 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    'כרמל ישראלי',
+                    widget.file.firstName + ' ' + widget.file.lastName,
                     style: TextStyle(fontSize: 40),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(40.0),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: SizedBox(
+                      child: Text(
+                    selectedDate.day.toString() +
+                        '.' +
+                        selectedDate.month.toString() +
+                        '.' +
+                        selectedDate.year.toString(),
+                    style: TextStyle(fontSize: 20),
+                  )),
+                ),
+              ),
+              Center(
                 child: ElevatedButton(
-                    child: Text("הזן נוכחות"),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Center(
-                                    child: ElevatedButton(
-                                      onPressed: () => _selectDate(context),
-                                      child: Text('בחר תאריך'),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(24.0),
-                                    child: SizedBox(
-                                        child: Text(
-                                            selectedDate.day.toString() +
-                                                "." +
-                                                selectedDate.month.toString() +
-                                                "." +
-                                                selectedDate.year.toString())),
-                                  ),
-                                  Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 12, horizontal: 8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(24),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                blurRadius: 20,
-                                                spreadRadius: -15)
-                                          ]),
-                                      child: Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: TextFormField(
-                                            minLines: 1,
-                                            maxLines: 10,
-                                            decoration: InputDecoration(
-                                              border: UnderlineInputBorder(),
-                                              labelText: 'תיאור טיפול',
-                                            )),
-                                      )),
-                                  Padding(
-                                    padding: const EdgeInsets.all(24.0),
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text("הזן")),
-                                  )
-                                ],
-                              ),
-                            );
-                          });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
+                  onPressed: () => _selectDate(context),
+                  child: Text(
+                    'בחר תאריך',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 10.0,
               ),
               Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: TextFormField(
-                    initialValue:
-                        "כרמל עברה תהליך פסיכולוגי ארוך ומשמעותי הכלל פגישות עם פסיכיאטר ועוד.",
-                    minLines: 1,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'תיאור טיפול',
-                    )),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton(
-                    child: Text("סיום ושמירה"),
+                    child: Text('הזנה וסיום'),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => main_page.MyApp()));
+                              builder: (context) =>
+                                  bottom_navigation_bar.MyBottomNavigationBar(
+                                      username: widget.username)));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),

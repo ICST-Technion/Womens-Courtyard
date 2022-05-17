@@ -1,34 +1,34 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/personal_file_data.dart';
-// import 'package:http/http.dart' as http;
+import 'edit_personal_file.dart' as edit_personal_page;
 
-class HomePage extends StatefulWidget {
+class PersonalFileSearchPage extends StatefulWidget {
+  PersonalFileSearchPage({Key? key, this.username = ''}) : super(key: key);
+
+  final String username;
+
   @override
-  _HomePageState createState() => new _HomePageState();
+  _PersonalFileSearchPageState createState() =>
+      new _PersonalFileSearchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   TextEditingController controller = new TextEditingController();
 
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
-    // final response = await http.get(url);
-    // final responseJson = json.decode(response.body);
-    // setState(() {
-    //   for (Map user in responseJson) {
-    //     _userDetails.add(UserDetails.fromJson(user));
-    //   }
-    // });
-
-    await Future.delayed(Duration(seconds: 1));
-    setState(() {
-      _userDetails = [];
-      for (PersonalFile file in allFiles) {
-        _userDetails.add(file);
+    try {
+      final response =
+          await FirebaseFirestore.instance.collection('clients').get();
+      for (final doc in response.docs) {
+        _personalFiles.add(PersonalFile.fromDoc(doc));
       }
-    });
+      setState(() {});
+    } catch (e) {
+      print('caught $e');
+    }
   }
 
   @override
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
                     ? FileList(list: _searchResult)
-                    : FileList(list: _userDetails)),
+                    : FileList(list: _personalFiles)),
           ],
         ),
       ),
@@ -90,9 +90,10 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    _userDetails.forEach((personalFile) {
-      if (personalFile.id.toString().contains(text) ||
-          personalFile.name.contains(text)) _searchResult.add(personalFile);
+    _personalFiles.forEach((personalFile) {
+      if (personalFile.idNo.toString().contains(text) ||
+          personalFile.firstName.contains(text) ||
+          personalFile.lastName.contains(text)) _searchResult.add(personalFile);
     });
 
     setState(() {});
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
 
 class FileList extends StatelessWidget {
   final List<PersonalFile> list;
-  FileList({this.list});
+  FileList({required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -111,9 +112,17 @@ class FileList extends StatelessWidget {
       itemBuilder: (context, index) {
         return new Card(
           child: new ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          edit_personal_page.PersonalFileEditPage(
+                              person: list[index])));
+            },
             leading: Icon(Icons.folder),
-            title: new Text(list[index].name),
-            subtitle: new Text("תעודת זהות: " + list[index].id.toString()),
+            title: new Text(list[index].firstName + ' ' + list[index].lastName),
+            subtitle: new Text('תעודת זהות: ' + list[index].idNo.toString()),
           ),
           margin: const EdgeInsets.all(0.0),
         );
@@ -124,26 +133,4 @@ class FileList extends StatelessWidget {
 
 List<PersonalFile> _searchResult = [];
 
-List<PersonalFile> _userDetails = [];
-
-final String url = 'https://jsonplaceholder.typicode.com/users';
-
-class UserDetails {
-  final int id;
-  final String firstName, lastName, profileUrl;
-
-  UserDetails(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.profileUrl =
-          'https://i.amz.mshcdn.com/3NbrfEiECotKyhcUhgPJHbrL7zM=/950x534/filters:quality(90)/2014%2F06%2F02%2Fc0%2Fzuckheadsho.a33d0.jpg'});
-
-  factory UserDetails.fromJson(Map<String, dynamic> json) {
-    return new UserDetails(
-      id: json['id'],
-      firstName: json['name'],
-      lastName: json['username'],
-    );
-  }
-}
+List<PersonalFile> _personalFiles = [];

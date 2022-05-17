@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "205689974737",
-    "project_id": "yearlyprojecttest",
-    "storage_bucket": "yearlyprojecttest.appspot.com"
+    "project_number": "695513250145",
+    "project_id": "womens-courtyard",
+    "storage_bucket": "womens-courtyard.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:205689974737:android:27b6947a58cb28d74afaf0",
+        "mobilesdk_app_id": "1:695513250145:android:5f1623053b78004dd2ed20",
         "android_client_info": {
           "package_name": "com.technion.android.womens_courtyard"
         }
       },
       "oauth_client": [
         {
-          "client_id": "205689974737-66poj8un9n48g018rph5vq7sfunf5haf.apps.googleusercontent.com",
+          "client_id": "695513250145-3vf7u40att42859q8cpl0juehn8d4p6r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCguYSUcpteTbjXwDZbUjyRI9snBU8CBOQ"
+          "current_key": "AIzaSyCP1fJVEvOAqKGtvUmf7sndaO6HXqTelS8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "205689974737-66poj8un9n48g018rph5vq7sfunf5haf.apps.googleusercontent.com",
+              "client_id": "695513250145-3vf7u40att42859q8cpl0juehn8d4p6r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

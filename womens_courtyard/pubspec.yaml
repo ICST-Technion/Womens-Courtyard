@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -31,8 +31,22 @@ dependencies:
   flappy_search_bar: 1.4.1
   email_validator: ^1.0.6
   charts_flutter: ^0.12.0
-  cloud_firestore: ^3.1.6
   excel: ^1.1.5
+  url_launcher: 6.0.4
+  http: ^0.13.4
+  table_calendar: ^3.0.3
+  shared_preferences: ^2.0.12
+  syncfusion_flutter_calendar: ^19.4.42
+  date_format: ^2.0.5
+  firebase_core: ^1.11.0
+  cloud_functions: ^3.2.5
+  cloud_firestore: ^3.1.6
+  firebase_auth: ^3.3.5
+  firebase_database: ^9.0.7
+  fake_cloud_firestore: ^1.2.2
+  crypto: ^3.0.1
+  getwidget: ^2.0.5
+  multiselect_formfield: ^0.1.7
 
 dev_dependencies:
   flutter_test:
