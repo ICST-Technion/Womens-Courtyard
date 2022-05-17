@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'edit_personal_file.dart' as edit_personal_page;
-import 'edit_personal_file.dart' as personal_file_edit;
 
 class PersonalFileSearchPage extends StatefulWidget {
   PersonalFileSearchPage({Key? key, this.username = ''}) : super(key: key);
