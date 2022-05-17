@@ -42,99 +42,106 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
             shrinkWrap: true,
             padding: EdgeInsets.all(15.0),
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                      child: Text(
-                        'שם פרטי:' + widget.person.firstName,
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                      child: Text(
-                        'שם משפחה:' + widget.person.lastName,
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Text(
-                      'לאום:' //TODO: add to peronal_file.dart a field for that
-                      ,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
+              Card(
+                //padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    'תעודת זהות:' + widget.person.id.toString(),
-                    style: TextStyle(fontSize: 15),
+                    'שם פרטי: ' + widget.person.firstName,
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Center(
-                  child: Text(
-                    'מספר טלפון' //TODO: change personal_file.dart to include a phoneNumber field
-                    ,
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Center(
-                  child: Text(
-                    'מידע על הצעירה:\n' + widget.person.info,
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ),
-              Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: ElevatedButton(
-                    child: Text("מעבר לטפסים"),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => forms.FormsButtonsPage()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                    child: Text("לעריכה"),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
               ),
               SizedBox(
-                height: 10.0,
+                height: 15.0,
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
+              Card(
+                //padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Text(
+                    'שם משפחה: ' + widget.person.lastName,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Card(
+                //padding: const EdgeInsets.all(3.0),
+                child: Text(
+                  'לאום: ' + widget.person.nationality,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Card(
+                //padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Text(
+                    'תעודת זהות: ' + widget.person.idNo!,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Card(
+                //padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Text(
+                    'מספר טלפון: ' + widget.person.phoneNo,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Card(
+                //padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Text(
+                    'מידע על הצעירה:\n' + widget.person.clientNotes.last,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Card(
+                //padding: const EdgeInsets.all(40.0),
+                child: ElevatedButton(
+                  child: Text("מעבר לטפסים"),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => forms.FormsButtonsPage()));
+                  },
+                ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(20.0),
+              //   child: ElevatedButton(
+              //       child: Text("לעריכה"),
+              //       onPressed: () {},
+              //       style: ElevatedButton.styleFrom(
+              //           primary: Color.fromRGBO(250, 84, 9, 0),
+              //           elevation: 4,
+              //           minimumSize: Size(100, 50),
+              //           textStyle: TextStyle(color: Colors.white, fontSize: 20),
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(30.0)))),
+              // ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Card(
+                //padding: const EdgeInsets.all(10.0),
                 child: Text(
                   'אנשי קשר:' //TODO: add a list of contacts
                   ,

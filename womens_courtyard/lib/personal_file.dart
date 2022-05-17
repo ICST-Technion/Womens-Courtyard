@@ -23,6 +23,10 @@ class Attendance {
   Attendance({required this.date, required this.comment});
 }
 
+List<String>? strfy(List<dynamic>? dynamicList) {
+  return dynamicList?.map((e) => e.toString()).toList();
+}
+
 class PersonalFile {
   final String firstName;
   final String lastName;
@@ -59,9 +63,13 @@ class PersonalFile {
       address: doc.data()['address'] ?? 'לא ידועה',
       phoneNo: doc.data()['phoneNo'] ?? 'לא ידוע',
       nationality: doc.data()['nationality'] ?? 'לא ידועה',
-      clientNotes: doc.data()['clientNotes'] ?? [],
+      clientNotes: strfy(doc.data()['clientNotes']) ?? List<String>.empty(),
       inAssignment: doc.data()['inAssignment'],
-      processes: doc.data()['processes'] ?? [],
-      appointments: doc.data()['appointments'] ?? [],
-      attendances: doc.data()['attendances'] ?? []);
+      processes: strfy(doc.data()['processes']) ?? List<String>.empty(),
+      // appointments: doc.data()['appointments'] as List<Appointment> ??
+      //     List<Appointment>.empty(),
+      // attendances: doc.data()['attendances'] as List<Attendance> ??
+      //     List<Attendance>.empty());
+      appointments: List<Appointment>.empty(),
+      attendances: List<Attendance>.empty());
 }
