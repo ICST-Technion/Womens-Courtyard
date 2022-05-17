@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:womens_courtyard/firebase_options.dart';
 import 'dart:async';
 import 'login_screen.dart' as login_screen;
 import 'package:cloud_functions/cloud_functions.dart';
@@ -32,7 +33,8 @@ Future _connectToFirebaseEmulator() async {
 }
 
 class App extends StatelessWidget {
-  final Future<FirebaseApp> _initiallization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initiallization =
+      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'main.dart' as main_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
@@ -89,6 +90,7 @@ class _AttendancePageState extends State<AttendancePage> {
                 child: ElevatedButton(
                     child: Text('הזנה וסיום'),
                     onPressed: () {
+                      postAttendance(selectedDate, widget.file.key);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -119,9 +121,7 @@ class _AttendancePageState extends State<AttendancePage> {
           size: 30,
           color: Colors.white,
         ),
-        onPressed: () {
-          //TODO: push attendance to db
-        },
+        onPressed: () {},
       ),
       IconButton(
         icon: Icon(
@@ -133,4 +133,18 @@ class _AttendancePageState extends State<AttendancePage> {
       ),
     ]);
   }
+}
+
+void postAttendance(DateTime currDate, String clientKey) async {
+  CollectionReference ref = FirebaseFirestore.instance.collection('clients');
+  ref
+      .doc(clientKey)
+      .update({
+        'attendances': FieldValue.arrayUnion([
+          {'date': currDate, 'comment': ''}
+        ])
+      })
+      .then((_) => print('attendance updated'))
+      .catchError((e) => print('attendance update failed $e'));
+  ;
 }

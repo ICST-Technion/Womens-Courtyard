@@ -28,6 +28,7 @@ List<String>? strfy(List<dynamic>? dynamicList) {
 }
 
 class PersonalFile {
+  final String key;
   final String firstName;
   final String lastName;
   final String? idNo;
@@ -42,7 +43,8 @@ class PersonalFile {
   final List<Attendance> attendances;
 
   PersonalFile(
-      {required this.firstName,
+      {required this.key,
+      required this.firstName,
       required this.lastName,
       required this.idNo,
       required this.age,
@@ -56,6 +58,7 @@ class PersonalFile {
       required this.attendances});
 
   factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc) => PersonalFile(
+      key: doc.id,
       firstName: doc.data()['firstName'],
       lastName: doc.data()['lastName'],
       idNo: doc.data()['idNo'],

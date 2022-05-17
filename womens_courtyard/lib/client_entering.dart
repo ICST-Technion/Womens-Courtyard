@@ -23,8 +23,10 @@ class _AddClientPageState extends State<AddClientPage> {
   final FirebaseFunctions functions = FirebaseFunctions.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   //controller
-  final TextEditingController nameTextController = new TextEditingController();
-  final TextEditingController fNameTextController = new TextEditingController();
+  final TextEditingController firstNameTextController =
+      new TextEditingController();
+  final TextEditingController lastNameTextController =
+      new TextEditingController();
   final TextEditingController idNoTextController = new TextEditingController();
   final TextEditingController phoneNumberTextController =
       new TextEditingController();
@@ -37,8 +39,8 @@ class _AddClientPageState extends State<AddClientPage> {
 
   @override
   void dispose() {
-    nameTextController.dispose();
-    fNameTextController.dispose();
+    firstNameTextController.dispose();
+    lastNameTextController.dispose();
     idNoTextController.dispose();
     phoneNumberTextController.dispose();
     processDescriptionTextController.dispose();
@@ -51,7 +53,7 @@ class _AddClientPageState extends State<AddClientPage> {
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         autofocus: false,
-        controller: nameTextController,
+        controller: firstNameTextController,
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -60,7 +62,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          nameTextController.text = value ?? '';
+          firstNameTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -72,11 +74,11 @@ class _AddClientPageState extends State<AddClientPage> {
           ),
         ));
 
-    final fNameField = TextFormField(
+    final lastNameField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         autofocus: false,
-        controller: fNameTextController,
+        controller: lastNameTextController,
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -85,7 +87,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          fNameTextController.text = value ?? '';
+          lastNameTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -202,7 +204,7 @@ class _AddClientPageState extends State<AddClientPage> {
                     SizedBox(
                       width: 20.0,
                     ),
-                    Flexible(child: fNameField),
+                    Flexible(child: lastNameField),
                   ],
                 ),
                 SizedBox(
@@ -313,18 +315,19 @@ class _AddClientPageState extends State<AddClientPage> {
                         //   context: context,
                         //   builder: (context) {
                         //     return AlertDialog(
-                        //       content: Text(nameTextController.text),
+                        //       content: Text(firstNameTextController.text),
                         //     );
                         //   },
                         // );
                         if (_formKey.currentState != null &&
                             (_formKey.currentState!).validate()) {
                           enterFileToDatabase(
-                              nameTextController.text,
-                              fNameTextController.text,
-                              idNoTextController.text,
-                              phoneNumberTextController.text,
-                              processDescriptionTextController.text);
+                              firstName: firstNameTextController.text,
+                              lastName: lastNameTextController.text,
+                              idNo: idNoTextController.text,
+                              phone: phoneNumberTextController.text,
+                              nationality: nationality,
+                              pDec: processDescriptionTextController.text);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('הכנסת תיק מוצלחת')),
                           );
@@ -381,17 +384,31 @@ class _AddClientPageState extends State<AddClientPage> {
   }
 
   void enterFileToDatabase(
-      String name, String fname, String idNo, String phone, String pDec) async {
+      {required String firstName,
+      required String lastName,
+      String? idNo,
+      int? age,
+      String? address,
+      required String phone,
+      required String nationality,
+      required String pDec,
+      bool? inAssignment}) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
     CollectionReference ref = FirebaseFirestore.instance.collection('clients');
     ref
         .add({
-          'firstName': name,
-          'lastName': fname,
-          'idNo': idNo,
-          'nationality': '',
+          'firstName': firstName,
+          'lastName': lastName,
+          'idNo': idNo ?? "",
+          'age': age,
+          'address': address,
+          'phoneNo': phone,
+          'nationality': nationality,
           'clientNotes': [pDec],
+          'inAssignment': inAssignment,
+          'processes': [],
           'appointmentHistory': [],
+          'attendances': []
         })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));

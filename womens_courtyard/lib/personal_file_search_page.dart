@@ -20,6 +20,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
     try {
+      _personalFiles = [];
       final response =
           await FirebaseFirestore.instance.collection('clients').get();
       for (final doc in response.docs) {
