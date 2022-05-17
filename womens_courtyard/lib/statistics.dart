@@ -1,6 +1,7 @@
-import 'dart:ui';
+// import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:womens_courtyard/taskhomepage.dart';
 import 'attendance_search_page.dart' as search_page;
 import 'main.dart' as main_page;
 
@@ -80,7 +81,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
           child: Text('שלח בקשה'),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => main_page.MyApp()));
+                MaterialPageRoute(builder: (context) => TaskHomePage()));
           },
           style: ElevatedButton.styleFrom(
               primary: Color.fromRGBO(250, 84, 9, 0),
