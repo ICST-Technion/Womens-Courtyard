@@ -99,6 +99,39 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
                     style: TextStyle(fontSize: 15),
                   ),
                 ),
+              Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: ElevatedButton(
+                    child: Text("מעבר לטפסים"),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => forms.FormsButtonsPage()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(250, 84, 9, 0),
+                        elevation: 4,
+                        minimumSize: Size(100, 50),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)))),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                    child: Text("לעריכה"),
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(250, 84, 9, 0),
+                        elevation: 4,
+                        minimumSize: Size(100, 50),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)))),
+              ),
+              SizedBox(
+                height: 10.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),

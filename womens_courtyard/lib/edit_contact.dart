@@ -9,7 +9,7 @@ import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 class EditContactPage extends StatefulWidget {
   final Contact contact;
 
-  EditContactPage({Key? key, this.title = "", required this.contact})
+  EditContactPage({Key? key, this.title = '', required this.contact})
       : super(key: key);
 
   final String title;
@@ -82,9 +82,9 @@ class _EditContactPageState extends State<EditContactPage> {
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(
-                    child: Text("צור קשר"),
+                    child: Text('צור קשר'),
                     onPressed: () {
-                      UrlLauncher.launch("tel://" + widget.contact.phoneNumber);
+                      UrlLauncher.launch('tel://' + widget.contact.phoneNumber);
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -97,7 +97,7 @@ class _EditContactPageState extends State<EditContactPage> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
-                    child: Text("לעריכה"),
+                    child: Text('לעריכה'),
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -124,7 +124,7 @@ class _EditContactPageState extends State<EditContactPage> {
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: ElevatedButton(
-                    child: Text("סיום ושמירה"),
+                    child: Text('סיום ושמירה'),
                     onPressed: () {
                       Navigator.push(
                           context,

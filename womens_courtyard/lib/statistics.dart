@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 }
 
 class StatisticsPage extends StatefulWidget {
-  StatisticsPage({Key? key, this.title = ""}) : super(key: key);
+  StatisticsPage({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
 
@@ -77,7 +77,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
       child: ElevatedButton(
-          child: Text("שלח בקשה"),
+          child: Text('שלח בקשה'),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => main_page.MyApp()));
@@ -307,7 +307,7 @@ class EndDateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        child: Text("תאריך סוף"),
+        child: Text('תאריך סוף'),
         onPressed: () {
           showDatePicker(
                   context: context,
@@ -331,7 +331,7 @@ class StartDateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        child: Text("תאריך התחלה"),
+        child: Text('תאריך התחלה'),
         onPressed: () {
           showDatePicker(
                   context: context,
@@ -355,7 +355,7 @@ class PersonalStatisticWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 64.0, vertical: 20.0),
-      child: OutlinedButton(onPressed: () {}, child: Text("סטטיסטיקה אישית")),
+      child: OutlinedButton(onPressed: () {}, child: Text('סטטיסטיקה אישית')),
     );
   }
 }
@@ -370,7 +370,7 @@ class GeneralStatisticWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
           left: 40.0, right: 40.0, top: 20.0, bottom: 20.0),
-      child: OutlinedButton(onPressed: () {}, child: Text("סטטיסטיקה כללית")),
+      child: OutlinedButton(onPressed: () {}, child: Text('סטטיסטיקה כללית')),
     );
   }
 }

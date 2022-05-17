@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 Map<String, Color> roomColor = {
-  "room1": Color(0xFF0F8644),
-  "room2": Color(0x884432EF)
+  'room1': Color(0xFF0F8644),
+  'room2': Color(0x884432EF)
 };
-List<String> rooms = ["room1", "room2"];
+List<String> rooms = ['room1', 'room2'];
 
 class Meeting {
   String eventName;

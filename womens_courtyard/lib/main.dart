@@ -8,7 +8,7 @@ import 'login_screen.dart' as login_screen;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'dart:io' show Platform;
 
-const bool USE_EMULATOR = true;
+const bool USE_EMULATOR = false;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       _connectToFirebaseEmulator();
     }
     return MaterialApp(
-      title: "Login",
+      title: 'Login',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),

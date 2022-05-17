@@ -10,13 +10,13 @@ class Post {
   final PersonalFile file;
 
   Post(this.file) {
-    this.title = "שם פרטי: ${file.firstName}";
-    this.description = "שם משפחה: ${file.lastName}";
+    this.title = 'שם פרטי: ${file.firstName}';
+    this.description = 'שם משפחה: ${file.lastName}';
   }
 }
 
 class AttendanceSearchPage extends StatefulWidget {
-  AttendanceSearchPage({Key? key, this.title = "", this.username = ""})
+  AttendanceSearchPage({Key? key, this.title = '', this.username = ''})
       : super(key: key);
 
   final String title;
@@ -58,7 +58,7 @@ class _AttendanceSearchPageState extends State<AttendanceSearchPage> {
     }
 
     _personalFiles.forEach((personalFile) {
-      if (personalFile.id.toString().contains(text) ||
+      if (personalFile.idNo.toString().contains(text) ||
           personalFile.firstName.contains(text) ||
           personalFile.lastName.contains(text)) _searchResult.add(personalFile);
     });
@@ -77,7 +77,7 @@ class _AttendanceSearchPageState extends State<AttendanceSearchPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SearchBar<Post>(
-              hintText: "חיפוש",
+              hintText: 'חיפוש',
               onSearch: onSearchTextChanged,
               onItemFound: (Post post, int index) {
                 return ListTile(

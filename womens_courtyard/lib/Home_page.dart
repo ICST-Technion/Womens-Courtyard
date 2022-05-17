@@ -5,7 +5,7 @@ import 'statistics.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key, this.title = "", this.username = ""}) : super(key: key);
+  HomePage({Key? key, this.title = '', this.username = ''}) : super(key: key);
 
   final String title;
   final String username;
@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var name = "אנה";
+  var name = 'אנה';
   CollectionReference users = FirebaseFirestore.instance.collection('staff');
 
   @override
@@ -25,11 +25,11 @@ class _HomePageState extends State<HomePage> {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text("Something went wrong");
+            return Text('Something went wrong');
           }
 
           if (snapshot.hasData && snapshot.data == null) {
-            return Text("Document does not exist");
+            return Text('Document does not exist');
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
@@ -45,14 +45,14 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: Text(
-                          "שלום " + data['name'],
+                          'שלום ' + data['name'],
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: ElevatedButton(
-                            child: Text("סטטיסטיקה"),
+                            child: Text('סטטיסטיקה'),
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: ElevatedButton(
-                            child: Text("הוספת צעירה"),
+                            child: Text('הוספת צעירה'),
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: ElevatedButton(
-                            child: Text("יומן פעילוית"),
+                            child: Text('יומן פעילוית'),
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
             );
           }
 
-          return Text("loading");
+          return Text('loading');
         });
   }
 
