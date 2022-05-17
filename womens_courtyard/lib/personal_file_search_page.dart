@@ -22,6 +22,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     try {
       final response =
           await FirebaseFirestore.instance.collection('clients').get();
+      _personalFiles = [];
       for (final doc in response.docs) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
@@ -75,8 +76,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
             ),
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    ? FileList(list: _searchResult)
-                    : FileList(list: _personalFiles)),
+                    ? FileList(list: _searchResult, username: widget.username)
+                    : FileList(
+                        list: _personalFiles, username: widget.username)),
           ],
         ),
       ),
@@ -102,7 +104,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
 
 class FileList extends StatelessWidget {
   final List<PersonalFile> list;
-  FileList({required this.list});
+  FileList({required this.list, required this.username});
+
+  final String username;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +122,7 @@ class FileList extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) =>
                           edit_personal_page.PersonalFileEditPage(
-                              person: list[index])));
+                              username: this.username, person: list[index])));
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].firstName + ' ' + list[index].lastName),
