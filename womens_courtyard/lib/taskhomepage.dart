@@ -1,12 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore, QuerySnapshot, Timestamp;
+import 'package:cloud_firestore/cloud_firestore.dart'
+    show FirebaseFirestore, QueryDocumentSnapshot, QuerySnapshot, Timestamp;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:womens_courtyard/FirestoreQueryObjects.dart';
+// import 'package:womens_courtyard/FirestoreQueryObjects.dart';
+import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/Nationality.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
-import 'package:excel/excel.dart';
+// import 'package:excel/excel.dart';
 import 'StatisticsLogic.dart';
 
 const String NATION_FIELD = "לאום";
@@ -14,6 +16,7 @@ const String FIRST_NAME_FIELD = "שם פרטי";
 const String LAST_NAME_FIELD = "שם משפחה";
 const String VISITS_FIELD = "ביקורים";
 const String EXCEL_NAME = "womens_courtyard_report";
+
 // const Map<int, String> WEEKDAYS = <int, String>{
 //   1: 'שני',
 //   2: 'שלישי',
@@ -31,8 +34,8 @@ class TaskHomePage extends StatefulWidget {
 }
 
 class _TaskHomePageState extends State<TaskHomePage> {
-  List<charts.Series<String, String>> _seriesPieData;
-  List<charts.Series<String, String>> _seriesBarData;
+  List<charts.Series<String, String>> _seriesPieData = [];
+  List<charts.Series<String, String>> _seriesBarData = [];
   // Map<String, int> nationalitiesHist;
   _generatePieChartData(Map<String, int> nationalitiesHist) {
     // List<Nationality> nationatilies = Nationality.makeNationalitiesList(nationalitiesHist);
@@ -40,17 +43,18 @@ class _TaskHomePageState extends State<TaskHomePage> {
     _seriesPieData.add(
       charts.Series(
         domainFn: (String nat, _) => nat,
-        measureFn: (String nat, _){
+        measureFn: (String nat, _) {
           return nationalitiesHist[nat];
         },
-        colorFn: (String nat, _) =>
-            charts.ColorUtil.fromDartColor(Color((nat.hashCode * 0xFFFFFF)).withOpacity(1.0)),
+        colorFn: (String nat, _) => charts.ColorUtil.fromDartColor(
+            Color((nat.hashCode * 0xFFFFFF)).withOpacity(1.0)),
         id: 'התפלגות אוכלוסיה',
         data: nationalitiesHist.keys.toList(),
         labelAccessorFn: (String row, _) => "$row",
       ),
     );
   }
+
   _generateBarChartData(Map<String, int> weekdaysHist) {
     // List<Nationality> nationatilies = Nationality.makeNationalitiesList(nationalitiesHist);
     _seriesBarData = [];
@@ -58,25 +62,25 @@ class _TaskHomePageState extends State<TaskHomePage> {
       charts.Series(
         domainFn: (String weekday, _) => weekday,
         measureFn: (String weekday, _) => weekdaysHist[weekday],
-        colorFn: (String nat, _) =>
-            charts.ColorUtil.fromDartColor(Color((nat.hashCode * 0xFFFFFF)).withOpacity(1.0)),
+        colorFn: (String nat, _) => charts.ColorUtil.fromDartColor(
+            Color((nat.hashCode * 0xFFFFFF)).withOpacity(1.0)),
         id: 'התפלגות ביקורים',
         data: ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"],
         labelAccessorFn: (String row, _) => "$row",
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firebase.initializeApp(),
-      builder: (context, snapshot) {
-        return Scaffold(
-          appBar: AppBar(title: Text('סטטיסטיקה')),
-          body: _buildBody(context),
-        );
-      }
-    );
+        future: Firebase.initializeApp(),
+        builder: (context, snapshot) {
+          return Scaffold(
+            appBar: AppBar(title: Text('סטטיסטיקה')),
+            body: _buildBody(context),
+          );
+        });
   }
 
   Widget _buildBody(BuildContext context) {
@@ -87,10 +91,14 @@ class _TaskHomePageState extends State<TaskHomePage> {
           return LinearProgressIndicator();
         } else {
           print("got snapshot");
-          var pfList = snapshot.data.docs.map((e) => PersonalFile.fromDoc(e)).toList();
+          var pfList = snapshot.data!.docs
+              .map((doc) =>
+                  PersonalFile.fromDoc(doc as QueryDocumentSnapshot<Map>))
+              .toList();
           print("finished personal files processing");
           var nationalitiesHist = makeNationalitiesHist(pfList);
-          print("nationalities: $nationalitiesHist, type: ${nationalitiesHist.runtimeType}");
+          print(
+              "nationalities: $nationalitiesHist, type: ${nationalitiesHist.runtimeType}");
           var visitsHist = makeVisitsHist(pfList);
           print("visits histogram: $visitsHist");
           // return _buildPieChart(context, nationalitiesHist);
@@ -113,7 +121,9 @@ class _TaskHomePageState extends State<TaskHomePage> {
       },
     );
   }
-  Widget _buildPieChart(BuildContext context, Map<String, int> nationalitiesHist) {
+
+  Widget _buildPieChart(
+      BuildContext context, Map<String, int> nationalitiesHist) {
     // mydata = nationalitiesHist;
     _generatePieChartData(nationalitiesHist);
     return Padding(
@@ -136,11 +146,11 @@ class _TaskHomePageState extends State<TaskHomePage> {
                   behaviors: [
                     new charts.DatumLegend(
                       outsideJustification:
-                      charts.OutsideJustification.endDrawArea,
+                          charts.OutsideJustification.endDrawArea,
                       horizontalFirst: false,
                       desiredMaxRows: 2,
-                      cellPadding:
-                      new EdgeInsets.only(right: 4.0, bottom: 4.0,top:4.0),
+                      cellPadding: new EdgeInsets.only(
+                          right: 4.0, bottom: 4.0, top: 4.0),
                       entryTextStyle: charts.TextStyleSpec(
                           color: charts.MaterialPalette.purple.shadeDefault,
                           fontFamily: 'Georgia',
@@ -180,19 +190,20 @@ class _TaskHomePageState extends State<TaskHomePage> {
             ),
             SizedBox(
               height: 200.0,
-              child: charts.BarChart(_seriesBarData,
-                  animate: true,
-                  animationDuration: Duration(seconds: 1),
-                  behaviors: [
-                    // new charts.DatumLegend(
-                    //   entryTextStyle: charts.TextStyleSpec(
-                    //       color: charts.MaterialPalette.purple.shadeDefault,
-                    //       fontFamily: 'Georgia',
-                    //       fontSize: 5
-                    //   ),
-                    // )
-                  ],
-                  ),
+              child: charts.BarChart(
+                _seriesBarData,
+                animate: true,
+                animationDuration: Duration(seconds: 1),
+                behaviors: [
+                  // new charts.DatumLegend(
+                  //   entryTextStyle: charts.TextStyleSpec(
+                  //       color: charts.MaterialPalette.purple.shadeDefault,
+                  //       fontFamily: 'Georgia',
+                  //       fontSize: 5
+                  //   ),
+                  // )
+                ],
+              ),
             ),
             // Text(
             //   'מספר הגעות בכל יום',

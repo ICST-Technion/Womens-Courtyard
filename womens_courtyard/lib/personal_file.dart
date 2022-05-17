@@ -17,7 +17,7 @@ class Appointment {
 }
 
 class Attendance {
-  final Timestamp date;
+  final DateTime date;
   final String comment;
 
   Attendance({required this.date, required this.comment});
@@ -70,6 +70,17 @@ class PersonalFile {
       //     List<Appointment>.empty(),
       // attendances: doc.data()['attendances'] as List<Attendance> ??
       //     List<Attendance>.empty());
-      appointments: List<Appointment>.empty(),
-      attendances: List<Attendance>.empty());
+      appointments: doc
+              .data()['appointments']
+              ?.map((app) => Appointment(
+                  description: app['description'],
+                  date: app['date'].toDate(),
+                  location: app['location'],
+                  staffInCharge: app['staffInCharge']))
+              ?.toList() ??
+          List<Appointment>.empty(),
+      attendances: List<Attendance>.from(doc.data()['attendances']?.map((att) =>
+              Attendance(
+                  date: att['date']!.toDate(), comment: att['comment']!)) ??
+          []));
 }

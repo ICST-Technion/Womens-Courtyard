@@ -119,7 +119,9 @@ class _AttendancePageState extends State<AttendancePage> {
           size: 30,
           color: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () {
+          //TODO: push attendance to db
+        },
       ),
       IconButton(
         icon: Icon(
