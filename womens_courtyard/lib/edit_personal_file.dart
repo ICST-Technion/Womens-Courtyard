@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'main.dart' as main_page;
 import 'contact.dart' as contact;
 import 'contacts_data.dart' as contacts_data;
 import 'personal_file.dart';
 import 'forms_buttons.dart' as forms;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
+import 'client_editing.dart' as client_editing_page;
 
 class PersonalFileEditPage extends StatefulWidget {
-  PersonalFileEditPage({Key? key, this.title = "", required this.person})
+  PersonalFileEditPage(
+      {Key? key, this.title = "", this.username = '', required this.person})
       : super(key: key);
 
   final PersonalFile person;
   final String title;
+  List display_items = List<String>.empty();
+  final String username;
 
   @override
   _PersonalFileEditPageState createState() => _PersonalFileEditPageState();
@@ -33,115 +36,25 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     var curr_contact = contacts_data.allContacts[0];
+    widget.display_items =
+        fill_the_list(widget.person, context, widget.username);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.all(15.0),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Center(
-                  child: Text(
-                    widget.person.firstName + ' ' + widget.person.lastName,
-                    style: TextStyle(fontSize: 35),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Center(
-                  child: Text(
-                    widget.person.id.toString(),
-                    style: TextStyle(fontSize: 30),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextFormField(
-                    initialValue: widget.person.info,
-                    minLines: 1,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'מידע נוסף',
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: ElevatedButton(
-                    child: Text("מעבר לטפסים"),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => forms.FormsButtonsPage()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                    child: Text("לעריכה"),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: ElevatedButton(
-                    child: Text("סיום ושמירה"),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => bottom_navigation_bar
-                                  .MyBottomNavigationBar()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(150, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
-              ),
-            ],
-          ),
-        ),
+            child: ListView.builder(
+                itemCount: widget.display_items.length,
+                itemBuilder: (context, index) {
+                  return widget.display_items[index];
+                })),
       ),
     );
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הזנת נוכחות'), actions: [
+    return AppBar(title: Text('צפייה בתיק אישי'), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,
@@ -160,4 +73,82 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
       ),
     ]);
   }
+}
+
+List fill_the_list(PersonalFile person, BuildContext context, String username) {
+  List<Card> toRet = [];
+  toRet.add(Card(
+    child: Center(
+      child: Text(
+        'שם פרטי: ' + person.firstName,
+        style: TextStyle(fontSize: 20),
+      ),
+    ),
+  ));
+  toRet.add(Card(
+    child: Center(
+      child: Text(
+        'שם משפחה: ' + person.lastName,
+        style: TextStyle(fontSize: 20),
+      ),
+    ),
+  ));
+  toRet.add(Card(
+    child: Center(
+      child: Text(
+        'לאום: ' + person.nationality,
+        style: TextStyle(fontSize: 20),
+      ),
+    ),
+  ));
+  toRet.add(Card(
+    child: Center(
+      child: Text(
+        'תעודת זהות: ' + person.idNo!,
+        style: TextStyle(fontSize: 20),
+      ),
+    ),
+  ));
+  toRet.add(Card(
+    child: Center(
+      child: Text(
+        'מספר טלפון: ' + person.phoneNo,
+        style: TextStyle(fontSize: 20),
+      ),
+    ),
+  ));
+
+  String data_on_person = 'מידע על הצעירה:\n';
+  for (int i = 0; i < person.clientNotes.length; i++) {
+    data_on_person += '\n' + person.clientNotes[i];
+  }
+  toRet.add(Card(
+    child: Center(
+      child: Text(
+        data_on_person,
+        style: TextStyle(fontSize: 20),
+      ),
+    ),
+  ));
+
+  toRet.add(Card(
+      child: ElevatedButton(
+    child: Text('מעבר לטפסים', style: TextStyle(fontSize: 20)),
+    onPressed: () {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => forms.FormsButtonsPage()));
+    },
+  )));
+  toRet.add(Card(
+      child: ElevatedButton(
+    child: Text('לעריכה', style: TextStyle(fontSize: 20)),
+    onPressed: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => client_editing_page.EditClientPage(
+                  person: person, username: username)));
+    },
+  )));
+  return toRet;
 }

@@ -38,24 +38,24 @@ class _LoginScreenState extends State<LoginScreen> {
         keyboardType: TextInputType.emailAddress,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "הכניסי את כתובת המייל שלך";
+            return 'הכניסי את כתובת המייל שלך';
           }
 
           //reg expression for validation
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+          if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
               .hasMatch(value)) {
-            return "הכניסי כתובת טקסט תקינה";
+            return 'הכניסי כתובת טקסט תקינה';
           }
           return null;
         },
         onSaved: (value) {
-          emailController.text = value ?? "";
+          emailController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "מייל",
+          hintText: 'מייל',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -70,21 +70,21 @@ class _LoginScreenState extends State<LoginScreen> {
         validator: (value) {
           RegExp passReg = new RegExp(r'^.{6,}$');
           if (value == null || value.isEmpty) {
-            return "הכניסי את הסיסמה שלך";
+            return 'הכניסי את הסיסמה שלך';
           }
           if (!passReg.hasMatch(value)) {
-            return "על אורך הסיסמה להיות 6 תווים לפחות";
+            return 'על אורך הסיסמה להיות 6 תווים לפחות';
           }
           return null;
         },
         onSaved: (value) {
-          passController.text = value ?? "";
+          passController.text = value ?? '';
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "סיסמה",
+          hintText: 'סיסמה',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
             loginUser(emailController.text, passController.text);
           }
         },
-        child: Text("כניסה",
+        child: Text('כניסה',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
@@ -140,26 +140,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 35),
                         loginButton,
                         SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("הוספת משתמשת צוות (אפשרות זמנית): "),
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              registration_screen
-                                                  .RegistrationScreen()));
-                                },
-                                child: Text("הירשמי",
-                                    style: TextStyle(
-                                        color: Colors.purpleAccent,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15))),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: <Widget>[
+                        //     Text('הוספת משתמשת צוות (אפשרות זמנית): '),
+                        //     GestureDetector(
+                        //         onTap: () {
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       registration_screen
+                        //                           .RegistrationScreen()));
+                        //         },
+                        //         child: Text('הירשמי',
+                        //             style: TextStyle(
+                        //                 color: Colors.purpleAccent,
+                        //                 fontWeight: FontWeight.bold,
+                        //                 fontSize: 15))),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

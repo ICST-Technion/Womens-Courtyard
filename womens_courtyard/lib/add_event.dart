@@ -68,7 +68,7 @@ class _AddEventPageState extends State<AddEventPage> {
         _timeController.text = _time!;
         _timeController.text = formatDate(
             DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
-            [hh, ':', nn, " ", am]).toString();
+            [hh, ':', nn, ' ', am]).toString();
       });
   }
 
@@ -78,7 +78,7 @@ class _AddEventPageState extends State<AddEventPage> {
 
     _timeController.text = formatDate(
         DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
-        [hh, ':', nn, " ", am]).toString();
+        [hh, ':', nn, ' ', am]).toString();
     super.initState();
   }
 
@@ -115,7 +115,7 @@ class _AddEventPageState extends State<AddEventPage> {
             TextField(
               decoration: new InputDecoration(
                 border: UnderlineInputBorder(),
-                labelText: "שם הפעילות",
+                labelText: 'שם הפעילות',
               ),
               controller: meetingNameController,
             ),
@@ -203,7 +203,7 @@ class _AddEventPageState extends State<AddEventPage> {
             Padding(
               padding: const EdgeInsets.all(64.0),
               child: ElevatedButton(
-                  child: Text("סיום ושמירה"),
+                  child: Text('סיום ושמירה'),
                   onPressed: () {
                     // ToDo: update all values
                     // var date = DateTime.parse(_setDate + _setTime);

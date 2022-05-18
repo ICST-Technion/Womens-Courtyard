@@ -31,13 +31,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         keyboardType: TextInputType.name,
         //validator: () {},
         onSaved: (value) {
-          fullnameEditingController.text = value ?? "";
+          fullnameEditingController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.face),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "שם מלא",
+          hintText: 'שם מלא',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -50,24 +50,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         keyboardType: TextInputType.emailAddress,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "הכניסי את כתובת המייל שלך";
+            return 'הכניסי את כתובת המייל שלך';
           }
 
           //reg expression for validation
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+          if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
               .hasMatch(value)) {
-            return "הכניסי כתובת מייל תקינה";
+            return 'הכניסי כתובת מייל תקינה';
           }
           return null;
         },
         onSaved: (value) {
-          emailEditingController.text = value ?? "";
+          emailEditingController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "מייל",
+          hintText: 'מייל',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -81,21 +81,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         validator: (value) {
           RegExp passReg = new RegExp(r'^.{6,}$');
           if (value == null || value.isEmpty) {
-            return "הכניסי את הסיסמה שלך";
+            return 'הכניסי את הסיסמה שלך';
           }
           if (!passReg.hasMatch(value)) {
-            return "על אורך הסיסמה להיות לפחות 6 תווים";
+            return 'על אורך הסיסמה להיות לפחות 6 תווים';
           }
           return null;
         },
         onSaved: (value) {
-          passEditingController.text = value ?? "";
+          passEditingController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "סיסמה",
+          hintText: 'סיסמה',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -108,18 +108,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         obscureText: true,
         validator: (value) {
           if (confirmPassEditingController.text != passEditingController.text) {
-            return "אישור הסיסמה לא תואם את הסיסמה המקורית";
+            return 'אישור הסיסמה לא תואם את הסיסמה המקורית';
           }
           return null;
         },
         onSaved: (value) {
-          confirmPassEditingController.text = value ?? "";
+          confirmPassEditingController.text = value ?? '';
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "אישור הסיסמה",
+          hintText: 'אישור הסיסמה',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -139,11 +139,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             register(emailEditingController.text, passEditingController.text,
                 fullnameEditingController.text);
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("כניסה מוצלחת")),
+              const SnackBar(content: Text('כניסה מוצלחת')),
             );
           }
         },
-        child: Text("להרשמה",
+        child: Text('להרשמה',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,

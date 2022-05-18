@@ -7,7 +7,7 @@ import 'client_entering.dart' as main_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
 class AddContactPage extends StatefulWidget {
-  AddContactPage({Key? key, this.title = "", this.username = ""})
+  AddContactPage({Key? key, this.title = '', this.username = ''})
       : super(key: key);
 
   final String title;
@@ -97,7 +97,7 @@ class _AddContactPageState extends State<AddContactPage> {
                   controller: phoneNumberTextController,
                   decoration: new InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: "מספר טלפון",
+                    labelText: 'מספר טלפון',
                   ),
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
@@ -108,12 +108,12 @@ class _AddContactPageState extends State<AddContactPage> {
                   controller: emailTextController,
                   decoration: new InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: "כתובת מייל",
+                    labelText: 'כתובת מייל',
                   ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) => EmailValidator.validate(value)
                       ? null
-                      : "הכניסי בבקשה כתובת אימייל חוקית",
+                      : 'הכניסי בבקשה כתובת אימייל חוקית',
                 ),
                 DropdownButtonFormField(
                   decoration: new InputDecoration(
@@ -146,7 +146,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 Padding(
                   padding: const EdgeInsets.all(64.0),
                   child: ElevatedButton(
-                      child: Text("סיום ושמירה"),
+                      child: Text('סיום ושמירה'),
                       onPressed: () {
                         if (_formKey.currentState != null &&
                             (_formKey.currentState!).validate()) {
@@ -155,7 +155,7 @@ class _AddContactPageState extends State<AddContactPage> {
                               lastNameTextController.text,
                               phoneNumberTextController.text,
                               emailTextController.text,
-                              _selectedCategory ?? "לא מוגדר");
+                              _selectedCategory ?? 'לא מוגדר');
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -204,16 +204,16 @@ class _AddContactPageState extends State<AddContactPage> {
 
   void addContactToDatabase(String firstName, String lastName, String phone,
       String email, String field) async {
-    // DatabaseReference ref = FirebaseDatabase.instance.ref("clients/$idNo");
+    // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
     CollectionReference ref = FirebaseFirestore.instance.collection('contacts');
     ref
         .add({
-          "firstName": firstName,
-          "lastName": lastName,
-          "phoneNo": phone,
-          "email": email,
-          "field": field,
-          "info": ""
+          'firstName': firstName,
+          'lastName': lastName,
+          'phoneNo': phone,
+          'email': email,
+          'field': field,
+          'info': ''
         })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));

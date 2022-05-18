@@ -5,13 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5418bf65-6add-4e39-9868-4500699cbd19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/statistics.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/statistics.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Womens-Courtyard.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Womens-Courtyard.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/Home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/Home_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\omerm\.android\avd\Pixel_2_API_30.avd]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -26,7 +31,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/womens_courtyard" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/womens_courtyard/lib/main.dart" />
+      <option name="workingDirectory" value="$PROJECT_DIR$/womens_courtyard" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Dart Command Line App.main.dart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

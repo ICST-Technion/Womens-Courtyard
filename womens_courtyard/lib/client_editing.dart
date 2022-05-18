@@ -4,29 +4,31 @@ import 'add_contact.dart' as add_contact_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'personal_file.dart';
+import 'package:womens_courtyard/personal_file.dart';
 
-class AddClientPage extends StatefulWidget {
-  AddClientPage({Key? key, this.title = '', this.username = ''})
+class EditClientPage extends StatefulWidget {
+  EditClientPage(
+      {Key? key, this.title = '', this.username = '', required this.person})
       : super(key: key);
 
   final String title;
   final String username;
+  final PersonalFile person;
 
   @override
-  _AddClientPageState createState() => _AddClientPageState();
+  _EditClientPageState createState() => _EditClientPageState();
 }
 
-class _AddClientPageState extends State<AddClientPage> {
+class _EditClientPageState extends State<EditClientPage> {
   //form key
   final _formKey = GlobalKey<FormState>();
   // firebase instances
   final FirebaseFunctions functions = FirebaseFunctions.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   //controller
-  final TextEditingController firstNameTextController =
-      new TextEditingController();
-  final TextEditingController lastNameTextController =
-      new TextEditingController();
+  final TextEditingController nameTextController = new TextEditingController();
+  final TextEditingController fNameTextController = new TextEditingController();
   final TextEditingController idNoTextController = new TextEditingController();
   final TextEditingController phoneNumberTextController =
       new TextEditingController();
@@ -39,8 +41,8 @@ class _AddClientPageState extends State<AddClientPage> {
 
   @override
   void dispose() {
-    firstNameTextController.dispose();
-    lastNameTextController.dispose();
+    nameTextController.dispose();
+    fNameTextController.dispose();
     idNoTextController.dispose();
     phoneNumberTextController.dispose();
     processDescriptionTextController.dispose();
@@ -53,7 +55,7 @@ class _AddClientPageState extends State<AddClientPage> {
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         autofocus: false,
-        controller: firstNameTextController,
+        controller: nameTextController,
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -62,7 +64,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          firstNameTextController.text = value ?? '';
+          nameTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -74,11 +76,11 @@ class _AddClientPageState extends State<AddClientPage> {
           ),
         ));
 
-    final lastNameField = TextFormField(
+    final fNameField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         autofocus: false,
-        controller: lastNameTextController,
+        controller: fNameTextController,
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -87,7 +89,7 @@ class _AddClientPageState extends State<AddClientPage> {
           return null;
         },
         onSaved: (value) {
-          lastNameTextController.text = value ?? '';
+          fNameTextController.text = value ?? '';
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -179,7 +181,13 @@ class _AddClientPageState extends State<AddClientPage> {
             borderRadius: BorderRadius.circular(10),
           ),
         ));
-
+    load_text_editors(
+        nameTextController,
+        fNameTextController,
+        idNoTextController,
+        phoneNumberTextController,
+        processDescriptionTextController,
+        widget.person);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -204,7 +212,7 @@ class _AddClientPageState extends State<AddClientPage> {
                     SizedBox(
                       width: 20.0,
                     ),
-                    Flexible(child: lastNameField),
+                    Flexible(child: fNameField),
                   ],
                 ),
                 SizedBox(
@@ -315,21 +323,21 @@ class _AddClientPageState extends State<AddClientPage> {
                         //   context: context,
                         //   builder: (context) {
                         //     return AlertDialog(
-                        //       content: Text(firstNameTextController.text),
+                        //       content: Text(nameTextController.text),
                         //     );
                         //   },
                         // );
                         if (_formKey.currentState != null &&
                             (_formKey.currentState!).validate()) {
                           enterFileToDatabase(
-                              firstName: firstNameTextController.text,
-                              lastName: lastNameTextController.text,
-                              idNo: idNoTextController.text,
-                              phone: phoneNumberTextController.text,
-                              nationality: nationality,
-                              pDec: processDescriptionTextController.text);
+                              nameTextController.text,
+                              fNameTextController.text,
+                              idNoTextController.text,
+                              phoneNumberTextController.text,
+                              processDescriptionTextController.text,
+                              widget.person);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('הכנסת תיק מוצלחת')),
+                            const SnackBar(content: Text('עריכת תיק מוצלחת')),
                           );
                           Navigator.push(
                               context,
@@ -383,34 +391,49 @@ class _AddClientPageState extends State<AddClientPage> {
     );
   }
 
-  void enterFileToDatabase(
-      {required String firstName,
-      required String lastName,
-      String? idNo,
-      int? age,
-      String? address,
-      required String phone,
-      required String nationality,
-      required String pDec,
-      bool? inAssignment}) async {
+  void enterFileToDatabase(String name, String fname, String idNo, String phone,
+      String pDec, PersonalFile person) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
+    final response =
+        await FirebaseFirestore.instance.collection('clients').get();
+    PersonalFile search_for;
+    var matching_doc;
+    for (final doc in response.docs) {
+      search_for = PersonalFile.fromDoc(doc);
+      if (search_for.firstName == person.firstName &&
+          search_for.lastName == person.lastName) {
+        matching_doc = doc;
+        break;
+      }
+    }
+
+    person.clientNotes.add(pDec);
+
     CollectionReference ref = FirebaseFirestore.instance.collection('clients');
     ref
-        .add({
-          'firstName': firstName,
-          'lastName': lastName,
-          'idNo': idNo ?? "",
-          'age': age,
-          'address': address,
-          'phoneNo': phone,
-          'nationality': nationality,
-          'clientNotes': [pDec],
-          'inAssignment': inAssignment,
-          'processes': [],
-          'appointmentHistory': [],
-          'attendances': []
+        .doc(matching_doc.id)
+        .update({
+          'firstName': name,
+          'lastName': fname,
+          'idNo': idNo,
+          'nationality': '',
+          'clientNotes': person.clientNotes,
         })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));
   }
+}
+
+void load_text_editors(
+    TextEditingController nameTextController,
+    TextEditingController fNameTextController,
+    TextEditingController idNoTextController,
+    TextEditingController phoneNumberTextController,
+    TextEditingController processDescriptionTextController,
+    PersonalFile person) {
+  nameTextController.text = person.firstName;
+  fNameTextController.text = person.lastName;
+  idNoTextController.text = person.idNo.toString();
+  phoneNumberTextController.text = person.phoneNo;
+  processDescriptionTextController.text = '';
 }

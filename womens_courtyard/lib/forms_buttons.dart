@@ -3,7 +3,7 @@ import 'client_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 
 class FormsButtonsPage extends StatefulWidget {
-  FormsButtonsPage({Key? key, this.title = ""}) : super(key: key);
+  FormsButtonsPage({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
 
@@ -12,7 +12,7 @@ class FormsButtonsPage extends StatefulWidget {
 }
 
 class _FormsButtonsPageState extends State<FormsButtonsPage> {
-  var name = "אנה";
+  var name = 'אנה';
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -25,7 +25,7 @@ class _FormsButtonsPageState extends State<FormsButtonsPage> {
               Padding(
                 padding: const EdgeInsets.all(80.0),
                 child: ElevatedButton(
-                    child: Text("טפסים רפואיים"),
+                    child: Text('טפסים רפואיים'),
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -38,7 +38,7 @@ class _FormsButtonsPageState extends State<FormsButtonsPage> {
               Padding(
                 padding: const EdgeInsets.all(60.0),
                 child: ElevatedButton(
-                    child: Text("טפסי מיצוי זכויות"),
+                    child: Text('טפסי מיצוי זכויות'),
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -51,7 +51,7 @@ class _FormsButtonsPageState extends State<FormsButtonsPage> {
               Padding(
                 padding: const EdgeInsets.all(60.0),
                 child: ElevatedButton(
-                    child: Text("נוכחות אישית"),
+                    child: Text('נוכחות אישית'),
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),

@@ -20,7 +20,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCP1fJVEvOAqKGtvUmf7sndaO6HXqTelS8"
+          "current_key": "AIzaSyBwlr2gWN9npbvERdPxbRgAp2XL14FZfTU"
         }
       ],
       "services": {
@@ -29,6 +29,13 @@
             {
               "client_id": "695513250145-3vf7u40att42859q8cpl0juehn8d4p6r.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "695513250145-9170fi3iooifo2dg6ple3sifoi6ga0bu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.technion.android.womensCourtyard"
+              }
             }
           ]
         }

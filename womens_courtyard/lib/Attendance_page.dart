@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'main.dart' as main_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
@@ -5,7 +6,7 @@ import 'personal_file.dart';
 
 class AttendancePage extends StatefulWidget {
   AttendancePage(
-      {Key? key, this.title = "", this.username = "", required this.file})
+      {Key? key, this.title = '', this.username = '', required this.file})
       : super(key: key);
 
   final PersonalFile file;
@@ -64,9 +65,9 @@ class _AttendancePageState extends State<AttendancePage> {
                   child: SizedBox(
                       child: Text(
                     selectedDate.day.toString() +
-                        "." +
+                        '.' +
                         selectedDate.month.toString() +
-                        "." +
+                        '.' +
                         selectedDate.year.toString(),
                     style: TextStyle(fontSize: 20),
                   )),
@@ -87,13 +88,15 @@ class _AttendancePageState extends State<AttendancePage> {
               Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton(
-                    child: Text("הזנה וסיום"),
+                    child: Text('הזנה וסיום'),
                     onPressed: () {
+                      postAttendance(selectedDate, widget.file.key);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => bottom_navigation_bar
-                                  .MyBottomNavigationBar()));
+                              builder: (context) =>
+                                  bottom_navigation_bar.MyBottomNavigationBar(
+                                      username: widget.username)));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(250, 84, 9, 0),
@@ -130,4 +133,18 @@ class _AttendancePageState extends State<AttendancePage> {
       ),
     ]);
   }
+}
+
+void postAttendance(DateTime currDate, String clientKey) async {
+  CollectionReference ref = FirebaseFirestore.instance.collection('clients');
+  ref
+      .doc(clientKey)
+      .update({
+        'attendances': FieldValue.arrayUnion([
+          {'date': currDate, 'comment': ''}
+        ])
+      })
+      .then((_) => print('attendance updated'))
+      .catchError((e) => print('attendance update failed $e'));
+  ;
 }

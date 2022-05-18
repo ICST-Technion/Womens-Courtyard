@@ -7,7 +7,7 @@ import 'add_contact.dart' as add_contact_page;
 import 'edit_contact.dart' as edit_contact_page;
 
 class SearchContact extends StatefulWidget {
-  SearchContact({Key? key, this.title = "", this.username = ""})
+  SearchContact({Key? key, this.title = '', this.username = ''})
       : super(key: key);
 
   final String title;
@@ -86,7 +86,7 @@ class _SearchContactState extends State<SearchContact> {
             Padding(
               padding: const EdgeInsets.all(64.0),
               child: ElevatedButton(
-                  child: Text("הוספת איש קשר"),
+                  child: Text('הוספת איש קשר'),
                   onPressed: () {
                     Navigator.push(
                         context,

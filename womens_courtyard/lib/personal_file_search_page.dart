@@ -2,12 +2,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/personal_file_data.dart';
 import 'edit_personal_file.dart' as edit_personal_page;
-import 'edit_personal_file.dart' as personal_file_edit;
 
 class PersonalFileSearchPage extends StatefulWidget {
-  PersonalFileSearchPage({Key? key, this.username = ""}) : super(key: key);
+  PersonalFileSearchPage({Key? key, this.username = ''}) : super(key: key);
 
   final String username;
 
@@ -22,8 +20,10 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
     try {
+      _personalFiles = [];
       final response =
           await FirebaseFirestore.instance.collection('clients').get();
+      _personalFiles = [];
       for (final doc in response.docs) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
@@ -77,8 +77,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
             ),
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    ? FileList(list: _searchResult)
-                    : FileList(list: _personalFiles)),
+                    ? FileList(list: _searchResult, username: widget.username)
+                    : FileList(
+                        list: _personalFiles, username: widget.username)),
           ],
         ),
       ),
@@ -93,7 +94,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     }
 
     _personalFiles.forEach((personalFile) {
-      if (personalFile.id.toString().contains(text) ||
+      if (personalFile.idNo.toString().contains(text) ||
           personalFile.firstName.contains(text) ||
           personalFile.lastName.contains(text)) _searchResult.add(personalFile);
     });
@@ -104,7 +105,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
 
 class FileList extends StatelessWidget {
   final List<PersonalFile> list;
-  FileList({required this.list});
+  FileList({required this.list, required this.username});
+
+  final String username;
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +123,11 @@ class FileList extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) =>
                           edit_personal_page.PersonalFileEditPage(
-                              person: list[index])));
+                              username: this.username, person: list[index])));
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].firstName + ' ' + list[index].lastName),
-            subtitle: new Text("תעודת זהות: " + list[index].id.toString()),
+            subtitle: new Text('תעודת זהות: ' + list[index].idNo.toString()),
           ),
           margin: const EdgeInsets.all(0.0),
         );
