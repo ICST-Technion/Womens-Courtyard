@@ -140,26 +140,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 35),
                         loginButton,
                         SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('הוספת משתמשת צוות (אפשרות זמנית): '),
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              registration_screen
-                                                  .RegistrationScreen()));
-                                },
-                                child: Text('הירשמי',
-                                    style: TextStyle(
-                                        color: Colors.purpleAccent,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15))),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: <Widget>[
+                        //     Text('הוספת משתמשת צוות (אפשרות זמנית): '),
+                        //     GestureDetector(
+                        //         onTap: () {
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       registration_screen
+                        //                           .RegistrationScreen()));
+                        //         },
+                        //         child: Text('הירשמי',
+                        //             style: TextStyle(
+                        //                 color: Colors.purpleAccent,
+                        //                 fontWeight: FontWeight.bold,
+                        //                 fontSize: 15))),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

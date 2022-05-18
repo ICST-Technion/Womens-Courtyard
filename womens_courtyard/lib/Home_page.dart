@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'client_entering.dart' as add_client_page;
 import 'statistics.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
+import 'register_screen.dart' as registration_screen;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, this.title = '', this.username = ''}) : super(key: key);
@@ -51,6 +52,29 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(40.0),
+                        // child: Material(
+                        //   elevation: 5,
+                        //   borderRadius: BorderRadius.circular(30),
+                        //   color: Colors.purpleAccent,
+                        //   child: MaterialButton(
+                        //     padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        //     minWidth: 150,
+                        //     onPressed: () {
+                        //       Navigator.push(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //               builder: (context) =>
+                        //                   statistics_page.MyApp()));
+                        //     },
+                        //     child: Text('סטטיסטיקה',
+                        //         textAlign: TextAlign.center,
+                        //         style: TextStyle(
+                        //           fontSize: 20,
+                        //           color: Colors.white,
+                        //           fontWeight: FontWeight.bold,
+                        //         )),
+                        //   ),
+                        // )),
                         child: ElevatedButton(
                             child: Text('סטטיסטיקה'),
                             onPressed: () {
@@ -102,6 +126,27 @@ class _HomePageState extends State<HomePage> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           calendar_page.Calendar()));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                primary: Color.fromRGBO(250, 84, 9, 0),
+                                elevation: 4,
+                                minimumSize: Size(150, 50),
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(30.0)))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(40.0),
+                        child: ElevatedButton(
+                            child: Text('הוספת צוות'),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => registration_screen
+                                          .RegistrationScreen()));
                             },
                             style: ElevatedButton.styleFrom(
                                 primary: Color.fromRGBO(250, 84, 9, 0),

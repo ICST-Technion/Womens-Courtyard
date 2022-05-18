@@ -47,7 +47,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBKxdI0w3VJu4JDFnse8l6Fe40FqhpQTfA',
+    apiKey: 'AIzaSyBHK73K7uXSWzGzJ-BAOz9NjlDtWcsjs60',
     appId: '1:695513250145:web:739c8e36129459f1d2ed20',
     messagingSenderId: '695513250145',
     projectId: 'womens-courtyard',
@@ -56,7 +56,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCP1fJVEvOAqKGtvUmf7sndaO6HXqTelS8',
+    apiKey: 'AIzaSyBwlr2gWN9npbvERdPxbRgAp2XL14FZfTU',
     appId: '1:695513250145:android:5f1623053b78004dd2ed20',
     messagingSenderId: '695513250145',
     projectId: 'womens-courtyard',
@@ -64,12 +64,13 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB-qFhBiYF5KUSBxhDDhZsHsOLHAKW17A4',
+    apiKey: 'AIzaSyBn9I-f-ucN_WtGGHbcQzgv_K1Yt4XMhA0',
     appId: '1:695513250145:ios:6a6a5ba13d886c27d2ed20',
     messagingSenderId: '695513250145',
     projectId: 'womens-courtyard',
     storageBucket: 'womens-courtyard.appspot.com',
-    iosClientId: '695513250145-9170fi3iooifo2dg6ple3sifoi6ga0bu.apps.googleusercontent.com',
+    iosClientId:
+        '695513250145-9170fi3iooifo2dg6ple3sifoi6ga0bu.apps.googleusercontent.com',
     iosBundleId: 'com.technion.android.womensCourtyard',
   );
 }
