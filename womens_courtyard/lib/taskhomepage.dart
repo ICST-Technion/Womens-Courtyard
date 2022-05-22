@@ -10,6 +10,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
 // import 'package:excel/excel.dart';
 import 'StatisticsLogic.dart';
+import 'dart:ui' as ui;
 
 const String NATION_FIELD = "לאום";
 const String FIRST_NAME_FIELD = "שם פרטי";
@@ -76,9 +77,12 @@ class _TaskHomePageState extends State<TaskHomePage> {
     return FutureBuilder(
         future: Firebase.initializeApp(),
         builder: (context, snapshot) {
-          return Scaffold(
-            appBar: AppBar(title: Text('סטטיסטיקה')),
-            body: _buildBody(context),
+          return Directionality(
+            textDirection: ui.TextDirection.rtl,
+            child: Scaffold(
+              appBar: AppBar(title: Text('סטטיסטיקה')),
+              body: _buildBody(context),
+            ),
           );
         });
   }

@@ -1,40 +1,28 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:womens_courtyard/personal_file.dart';
 import 'attendance_page.dart' as attendance_page;
-import 'personal_file.dart';
-
-class Post {
-  late final String title;
-  late final String description;
-  final PersonalFile file;
-
-  Post(this.file) {
-    this.title = 'שם פרטי: ${file.firstName}';
-    this.description = 'שם משפחה: ${file.lastName}';
-  }
-}
 
 class AttendanceSearchPage extends StatefulWidget {
-  AttendanceSearchPage({Key? key, this.title = '', this.username = ''})
-      : super(key: key);
+  AttendanceSearchPage({Key? key, this.username = ''}) : super(key: key);
 
-  final String title;
   final String username;
+
   @override
-  _AttendanceSearchPageState createState() => new _AttendanceSearchPageState();
+  AttendanceSearchPageState createState() => new AttendanceSearchPageState();
 }
 
-class _AttendanceSearchPageState extends State<AttendanceSearchPage> {
+class AttendanceSearchPageState extends State<AttendanceSearchPage> {
   TextEditingController controller = new TextEditingController();
-  List<PersonalFile> _searchResult = [];
-  List<PersonalFile> _personalFiles = [];
 
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
     try {
+      _personalFiles = [];
       final response =
           await FirebaseFirestore.instance.collection('clients').get();
+      _personalFiles = [];
       for (final doc in response.docs) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
@@ -51,53 +39,103 @@ class _AttendanceSearchPageState extends State<AttendanceSearchPage> {
     getUserDetails();
   }
 
-  Future<List<Post>> onSearchTextChanged(String text) async {
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('חיפוש תיק אישי'),
+          elevation: 0.0,
+        ),
+        body: new Column(
+          children: <Widget>[
+            new Container(
+              color: Theme.of(context).primaryColor,
+              child: new Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Card(
+                  child: new ListTile(
+                    leading: new Icon(Icons.search),
+                    title: new TextField(
+                      controller: controller,
+                      decoration: new InputDecoration(
+                          hintText: 'חיפוש', border: InputBorder.none),
+                      onChanged: onSearchTextChanged,
+                    ),
+                    trailing: new IconButton(
+                      icon: new Icon(Icons.cancel),
+                      onPressed: () {
+                        controller.clear();
+                        onSearchTextChanged('');
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            new Expanded(
+                child: _searchResult.length != 0 || controller.text.isNotEmpty
+                    ? FileList(list: _searchResult, username: widget.username)
+                    : FileList(
+                        list: _personalFiles, username: widget.username)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
-      return List.empty();
+      setState(() {});
+      return;
     }
 
     _personalFiles.forEach((personalFile) {
       if (personalFile.idNo.toString().contains(text) ||
           personalFile.firstName.contains(text) ||
-          personalFile.lastName.contains(text)) _searchResult.add(personalFile);
+          personalFile.lastName.contains(text) ||
+          (personalFile.firstName + ' ' + personalFile.lastName).contains(text))
+        _searchResult.add(personalFile);
     });
 
-    return List.generate(_searchResult.length, (index) {
-      return Post(_searchResult[index]);
-    });
+    setState(() {});
   }
+}
+
+class FileList extends StatelessWidget {
+  final List<PersonalFile> list;
+  FileList({required this.list, required this.username});
+
+  final String username;
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SearchBar<Post>(
-              hintText: 'חיפוש',
-              onSearch: onSearchTextChanged,
-              onItemFound: (Post post, int index) {
-                return ListTile(
-                  title: Text(post.title),
-                  subtitle: Text(post.description),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                attendance_page.AttendancePage(
-                                    username: widget.username,
-                                    file: post.file)));
-                  },
-                );
-              },
-            ),
+    return new ListView.builder(
+      // Search query results
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        return new Card(
+          child: new ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => attendance_page.AttendancePage(
+                          username: this.username, file: list[index])));
+            },
+            leading: Icon(Icons.folder),
+            title: new Text(list[index].firstName + ' ' + list[index].lastName),
+            subtitle: new Text('תעודת זהות: ' + list[index].idNo.toString()),
           ),
-        ),
-      ),
+          margin: const EdgeInsets.all(0.0),
+        );
+      },
     );
   }
 }
+
+List<PersonalFile> _searchResult = [];
+
+List<PersonalFile> _personalFiles = [];
