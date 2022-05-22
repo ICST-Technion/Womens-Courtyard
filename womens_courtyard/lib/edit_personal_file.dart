@@ -133,22 +133,35 @@ List fill_the_list(PersonalFile person, BuildContext context, String username) {
 
   toRet.add(Card(
       child: ElevatedButton(
-    child: Text('מעבר לטפסים', style: TextStyle(fontSize: 20)),
-    onPressed: () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => forms.FormsButtonsPage()));
-    },
-  )));
+          child: Text('מעבר לטפסים', style: TextStyle(fontSize: 20)),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => forms.FormsButtonsPage()));
+          },
+          style: ElevatedButton.styleFrom(
+              primary: Color.fromRGBO(250, 84, 9, 0),
+              elevation: 4,
+              minimumSize: Size(150, 50),
+              textStyle: TextStyle(color: Colors.white, fontSize: 20),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0))))));
   toRet.add(Card(
       child: ElevatedButton(
-    child: Text('לעריכה', style: TextStyle(fontSize: 20)),
-    onPressed: () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => client_editing_page.EditClientPage(
-                  person: person, username: username)));
-    },
-  )));
+          child: Text('לעריכה', style: TextStyle(fontSize: 20)),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => client_editing_page.EditClientPage(
+                        person: person, username: username)));
+          },
+          style: ElevatedButton.styleFrom(
+              elevation: 4,
+              minimumSize: Size(150, 50),
+              textStyle: TextStyle(color: Colors.white, fontSize: 20),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0))))));
   return toRet;
 }

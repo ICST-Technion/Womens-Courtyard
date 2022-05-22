@@ -96,7 +96,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     _personalFiles.forEach((personalFile) {
       if (personalFile.idNo.toString().contains(text) ||
           personalFile.firstName.contains(text) ||
-          personalFile.lastName.contains(text)) _searchResult.add(personalFile);
+          personalFile.lastName.contains(text) ||
+          (personalFile.firstName + ' ' + personalFile.lastName).contains(text))
+        _searchResult.add(personalFile);
     });
 
     setState(() {});
