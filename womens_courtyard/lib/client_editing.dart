@@ -348,7 +348,6 @@ class _EditClientPageState extends State<EditClientPage> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Color.fromRGBO(250, 84, 9, 0),
                           elevation: 4,
                           minimumSize: Size(150, 50),
                           textStyle:

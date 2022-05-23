@@ -208,6 +208,9 @@ class _AddClientPageState extends State<AddClientPage> {
                   ],
                 ),
                 SizedBox(
+                  height: 10.0,
+                ),
+                SizedBox(
                   height: 150,
                   child: Flex(
                     direction: Axis.vertical,
@@ -340,7 +343,6 @@ class _AddClientPageState extends State<AddClientPage> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Color.fromRGBO(250, 84, 9, 0),
                           elevation: 4,
                           minimumSize: Size(150, 50),
                           textStyle:

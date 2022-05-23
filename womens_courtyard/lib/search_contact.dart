@@ -117,8 +117,7 @@ class _SearchContactState extends State<SearchContact> {
     }
 
     _contactDetails.forEach((contact) {
-      if (contact.name.contains(text) || contact.name.contains(text))
-        _searchResult.add(contact);
+      if (contact.name.contains(text)) _searchResult.add(contact);
     });
 
     setState(() {});
