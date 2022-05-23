@@ -36,18 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         autofocus: false,
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'הכניסי את כתובת המייל שלך';
-          }
-
-          //reg expression for validation
-          if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
-              .hasMatch(value)) {
-            return 'הכניסי כתובת טקסט תקינה';
-          }
-          return null;
-        },
+        validator: emailFieldValidator,
         onSaved: (value) {
           emailController.text = value ?? '';
         },
@@ -67,16 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         autofocus: false,
         controller: passController,
         obscureText: true,
-        validator: (value) {
-          RegExp passReg = new RegExp(r'^.{6,}$');
-          if (value == null || value.isEmpty) {
-            return 'הכניסי את הסיסמה שלך';
-          }
-          if (!passReg.hasMatch(value)) {
-            return 'על אורך הסיסמה להיות 6 תווים לפחות';
-          }
-          return null;
-        },
+        validator: passFieldValidator,
         onSaved: (value) {
           passController.text = value ?? '';
         },
@@ -129,10 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        // SizedBox(
-                        //   height: 200,
-                        //   child: Image.asset(name, fit: BoxFit.contain, )
-                        // ),
                         SizedBox(height: 45),
                         emailField,
                         SizedBox(height: 25),
@@ -140,26 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 35),
                         loginButton,
                         SizedBox(height: 15),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: <Widget>[
-                        //     Text('הוספת משתמשת צוות (אפשרות זמנית): '),
-                        //     GestureDetector(
-                        //         onTap: () {
-                        //           Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       registration_screen
-                        //                           .RegistrationScreen()));
-                        //         },
-                        //         child: Text('הירשמי',
-                        //             style: TextStyle(
-                        //                 color: Colors.purpleAccent,
-                        //                 fontWeight: FontWeight.bold,
-                        //                 fontSize: 15))),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),
@@ -170,16 +126,35 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
+  String? emailFieldValidator(value) {
+        if (value == null || value.isEmpty) {
+          return 'הכניסי את כתובת המייל שלך';
+        }
+
+        //reg expression for validation
+        if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
+            .hasMatch(value)) {
+          return 'הכניסי כתובת טקסט תקינה';
+        }
+        return null;
+      }
+
+  String? passFieldValidator(value) {
+        RegExp passReg = new RegExp(r'^.{6,}$');
+        if (value == null || value.isEmpty) {
+          return 'הכניסי את הסיסמה שלך';
+        }
+        if (!passReg.hasMatch(value)) {
+          return 'על אורך הסיסמה להיות 6 תווים לפחות';
+        }
+        return null;
+      }
+
   void loginUser(String username, String password) async {
     //Call token generator
-    HttpsCallable callable = functions.httpsCallable('generateToken');
-    var passbytes = utf8.encode(password);
-    var passhash = sha256.convert(passbytes).toString();
-    final results = await callable
-        .call(<String, dynamic>{'username': username, 'password': passhash});
-
+    var results = await tryLogin(username, password);
+    // print('token request returned with status $success');
     bool success = results.data['success'];
-    print('token request returned with status $success');
     if (!success) {
       showDialog(
           context: context,
@@ -217,5 +192,14 @@ class _LoginScreenState extends State<LoginScreen> {
         //TODO: enter client main page
       }
     }
+  }
+
+  Future<HttpsCallableResult> tryLogin(String username, String password) async{
+    HttpsCallable callable = functions.httpsCallable('generateToken');
+    var passbytes = utf8.encode(password);
+    var passhash = sha256.convert(passbytes).toString();
+    final results = await callable
+        .call(<String, dynamic>{'username': username, 'password': passhash});
+    return results;
   }
 }

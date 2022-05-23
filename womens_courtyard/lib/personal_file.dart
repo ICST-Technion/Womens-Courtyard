@@ -57,33 +57,40 @@ class PersonalFile {
       required this.appointments,
       required this.attendances});
 
-  factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc) => PersonalFile(
-      key: doc.id,
-      firstName: doc.data()['firstName'],
-      lastName: doc.data()['lastName'],
-      idNo: doc.data()['idNo'],
-      age: doc.data()['age'],
-      address: doc.data()['address'] ?? 'לא ידועה',
-      phoneNo: doc.data()['phoneNo'] ?? 'לא ידוע',
-      nationality: doc.data()['nationality'] ?? 'לא ידועה',
-      clientNotes: strfy(doc.data()['clientNotes']) ?? List<String>.empty(),
-      inAssignment: doc.data()['inAssignment'],
-      processes: strfy(doc.data()['processes']) ?? List<String>.empty(),
-      // appointments: doc.data()['appointments'] as List<Appointment> ??
-      //     List<Appointment>.empty(),
-      // attendances: doc.data()['attendances'] as List<Attendance> ??
-      //     List<Attendance>.empty());
-      appointments: doc
-              .data()['appointments']
-              ?.map((app) => Appointment(
-                  description: app['description'],
-                  date: app['date'].toDate(),
-                  location: app['location'],
-                  staffInCharge: app['staffInCharge']))
-              ?.toList() ??
-          List<Appointment>.empty(),
-      attendances: List<Attendance>.from(doc.data()['attendances']?.map((att) =>
-              Attendance(
-                  date: att['date']!.toDate(), comment: att['comment']!)) ??
-          []));
+  factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc){
+    var nationality;
+    if (doc.data()['nationality'] == null || doc.data()['nationality'] == '')
+      nationality = 'לא ידוע';
+    else
+      nationality = doc.data()['nationality'];
+    return PersonalFile(
+        key: doc.id,
+        firstName: doc.data()['firstName'],
+        lastName: doc.data()['lastName'],
+        idNo: doc.data()['idNo'],
+        age: doc.data()['age'],
+        address: doc.data()['address'] ?? 'לא ידועה',
+        phoneNo: doc.data()['phoneNo'] ?? 'לא ידוע',
+        nationality: nationality,
+        clientNotes: strfy(doc.data()['clientNotes']) ?? List<String>.empty(),
+        inAssignment: doc.data()['inAssignment'],
+        processes: strfy(doc.data()['processes']) ?? List<String>.empty(),
+        // appointments: doc.data()['appointments'] as List<Appointment> ??
+        //     List<Appointment>.empty(),
+        // attendances: doc.data()['attendances'] as List<Attendance> ??
+        //     List<Attendance>.empty());
+        appointments: doc
+            .data()['appointments']
+            ?.map((app) => Appointment(
+            description: app['description'],
+            date: app['date'].toDate(),
+            location: app['location'],
+            staffInCharge: app['staffInCharge']))
+            ?.toList() ??
+            List<Appointment>.empty(),
+        attendances: List<Attendance>.from(doc.data()['attendances']?.map((att) =>
+            Attendance(
+                date: att['date']!.toDate(), comment: att['comment']!)) ??
+            []));
+  }
 }
