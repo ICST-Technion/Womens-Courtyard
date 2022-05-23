@@ -18,7 +18,14 @@ class AddContactPage extends StatefulWidget {
 }
 
 class _AddContactPageState extends State<AddContactPage> {
-  List<String> _categories = ['רווחה', 'משפט', 'רפואה'];
+  List<String> _categories = [
+    'עו"ס רווחה',
+    'פסיכיאטר/ מרפאה בריאות הנפש',
+    'סל שיקום',
+    'עמותות מסייעות',
+    'חינוך',
+    'הורים'
+  ];
   String? _selectedCategory;
   final _formKey = GlobalKey<FormState>();
 
@@ -165,7 +172,6 @@ class _AddContactPageState extends State<AddContactPage> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Color.fromRGBO(250, 84, 9, 0),
                           elevation: 4,
                           minimumSize: Size(150, 50),
                           textStyle:

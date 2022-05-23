@@ -96,7 +96,6 @@ class _SearchContactState extends State<SearchContact> {
                                     username: widget.username)));
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Color.fromRGBO(250, 84, 9, 0),
                       elevation: 4,
                       minimumSize: Size(150, 50),
                       textStyle: TextStyle(color: Colors.white, fontSize: 20),

@@ -45,7 +45,7 @@ class AttendanceSearchPageState extends State<AttendanceSearchPage> {
       textDirection: TextDirection.rtl,
       child: new Scaffold(
         appBar: new AppBar(
-          title: new Text('חיפוש תיק אישי'),
+          title: new Text('הזנת נוכחות'),
           elevation: 0.0,
         ),
         body: new Column(

@@ -45,10 +45,11 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(40.0),
-                        child: Text(
+                        child: Center(
+                            child: Text(
                           'שלום ' + data['name'],
                           style: TextStyle(fontSize: 30),
-                        ),
+                        )),
                       ),
                       Column(
                         children: [
@@ -162,7 +163,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('דף הבית'), actions: [
+    return AppBar(title: Center(child: Text('דף הבית')), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,
