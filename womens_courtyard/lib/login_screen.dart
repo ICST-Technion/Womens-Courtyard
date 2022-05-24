@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     //email field
     final emailField = TextFormField(
-        textDirection: TextDirection.rtl,
+        textDirection: TextDirection.ltr,
         textAlign: TextAlign.right,
         autofocus: false,
         controller: emailController,
@@ -97,10 +97,40 @@ class _LoginScreenState extends State<LoginScreen> {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
+        onPressed: () async {
           if (_formKey.currentState != null &&
               _formKey.currentState!.validate()) {
-            loginUser(emailController.text, passController.text);
+            showLoaderDialog(context);
+            bool res =
+                await loginUser(emailController.text, passController.text);
+            if (!res) {
+              Navigator.of(context, rootNavigator: true).pop();
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: AlertDialog(
+                            title: Text('ניסיון התחברות שגוי'),
+                            content: Text('בבקשה נסי שוב'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                },
+                                child: Text('הבנתי'),
+                              )
+                            ]));
+                  });
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          bottom_navigation_bar.MyBottomNavigationBar(
+                              username: emailController.text)));
+            }
           }
         },
         child: Text('כניסה',
@@ -170,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  void loginUser(String username, String password) async {
+  Future<bool> loginUser(String username, String password) async {
     //Call token generator
     HttpsCallable callable = functions.httpsCallable('generateToken');
     var passbytes = utf8.encode(password);
@@ -181,23 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
     bool success = results.data['success'];
     print('token request returned with status $success');
     if (!success) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return Directionality(
-                textDirection: TextDirection.rtl,
-                child: AlertDialog(
-                    title: Text('ניסיון התחברות שגוי'),
-                    content: Text('בבקשה נסי שוב'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).pop();
-                        },
-                        child: Text('הבנתי'),
-                      )
-                    ]));
-          });
+      return false;
     } else {
       final role = results.data['data']['role'];
       final token = results.data['data']['token'];
@@ -206,16 +220,35 @@ class _LoginScreenState extends State<LoginScreen> {
         print('logging in as staff');
         // var id = results.data['data']['id'];
         print('the name is $username');
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    bottom_navigation_bar.MyBottomNavigationBar(
-                        username: username)));
+        return true;
       } else if (role == 'client') {
         print('logging in as client');
         //TODO: enter client main page
       }
+      return false;
     }
   }
+}
+
+showLoaderDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+    content: new Row(
+      children: [
+        CircularProgressIndicator(),
+        Container(
+          margin: EdgeInsets.only(left: 70),
+          child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text('מתחבר...', style: TextStyle(fontSize: 12))),
+        ),
+      ],
+    ),
+  );
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

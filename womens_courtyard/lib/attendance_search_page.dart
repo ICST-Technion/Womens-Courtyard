@@ -26,6 +26,7 @@ class AttendanceSearchPageState extends State<AttendanceSearchPage> {
       for (final doc in response.docs) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
+      _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
       setState(() {});
     } catch (e) {
       print('caught $e');
@@ -99,6 +100,7 @@ class AttendanceSearchPageState extends State<AttendanceSearchPage> {
           (personalFile.firstName + ' ' + personalFile.lastName).contains(text))
         _searchResult.add(personalFile);
     });
+    _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
 
     setState(() {});
   }

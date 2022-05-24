@@ -75,6 +75,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //password field
     final passField = TextFormField(
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.right,
         autofocus: false,
         controller: passEditingController,
         obscureText: true,
@@ -103,6 +105,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //confirm password field
     final confirmPassField = TextFormField(
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.right,
         autofocus: false,
         controller: confirmPassEditingController,
         obscureText: true,

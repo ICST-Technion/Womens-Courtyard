@@ -27,6 +27,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
       for (final doc in response.docs) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
+      _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
       setState(() {});
     } catch (e) {
       print('caught $e');
@@ -100,7 +101,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
           (personalFile.firstName + ' ' + personalFile.lastName).contains(text))
         _searchResult.add(personalFile);
     });
-
+    _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
     setState(() {});
   }
 }

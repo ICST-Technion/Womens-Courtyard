@@ -100,7 +100,7 @@ class _AddClientPageState extends State<AddClientPage> {
         ));
 
     final idNoField = TextFormField(
-        textDirection: TextDirection.rtl,
+        textDirection: TextDirection.ltr,
         textAlign: TextAlign.right,
         autofocus: false,
         controller: idNoTextController,
@@ -130,7 +130,7 @@ class _AddClientPageState extends State<AddClientPage> {
         ));
 
     final phoneNumberField = TextFormField(
-        textDirection: TextDirection.rtl,
+        textDirection: TextDirection.ltr,
         textAlign: TextAlign.right,
         autofocus: false,
         controller: phoneNumberTextController,

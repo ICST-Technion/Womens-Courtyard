@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                   child: ListView(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(40.0),
+                        padding: const EdgeInsets.all(30.0),
                         child: Center(
                             child: Text(
                           'שלום ' + data['name'],
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(40.0),
+                            padding: const EdgeInsets.all(30.0),
                             child: ElevatedButton(
                                 child: Text('סטטיסטיקה'),
                                 onPressed: () {
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(40.0),
+                            padding: const EdgeInsets.all(30.0),
                             child: ElevatedButton(
                                 child: Text('הוספת צעירה'),
                                 onPressed: () {
@@ -104,15 +104,15 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(40.0),
+                            padding: const EdgeInsets.all(30.0),
                             child: ElevatedButton(
                                 child: Text('יומן פעילוית'),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              calendar_page.Calendar()));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             calendar_page.Calendar()));
                                 },
                                 style: ElevatedButton.styleFrom(
                                     primary: Color.fromRGBO(250, 84, 9, 0),
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(40.0),
+                            padding: const EdgeInsets.all(30.0),
                             child: ElevatedButton(
                                 child: Text('הוספת צוות'),
                                 onPressed: () {
@@ -164,22 +164,23 @@ class _HomePageState extends State<HomePage> {
 
   AppBar getHomepageAppBar() {
     return AppBar(title: Center(child: Text('דף הבית')), actions: [
-      IconButton(
-        icon: Icon(
-          Icons.account_circle,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
+      Padding(padding: const EdgeInsets.all(30.0))
+      // IconButton(
+      //   icon: Icon(
+      //     Icons.account_circle,
+      //     size: 30,
+      //     color: Colors.white,
+      //   ),
+      //   onPressed: () {},
+      // ),
+      // IconButton(
+      //   icon: Icon(
+      //     Icons.info,
+      //     size: 30,
+      //     color: Colors.white,
+      //   ),
+      //   onPressed: () {},
+      // ),
     ]);
   }
 }

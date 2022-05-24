@@ -19,9 +19,6 @@
     "ui": {
       "enabled": true
     },
-    "auth": {
-      "port": 9099
-    },
     "hosting": {
       "port": 5002
     }

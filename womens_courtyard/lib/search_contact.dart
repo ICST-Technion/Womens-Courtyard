@@ -29,6 +29,7 @@ class _SearchContactState extends State<SearchContact> {
       for (final doc in response.docs) {
         _contactDetails.add(Contact.fromDoc(doc));
       }
+      _contactDetails.sort((a, b) => a.name.compareTo(b.name));
       setState(() {});
     } catch (e) {
       print('caught $e');
@@ -118,6 +119,7 @@ class _SearchContactState extends State<SearchContact> {
     _contactDetails.forEach((contact) {
       if (contact.name.contains(text)) _searchResult.add(contact);
     });
+    _contactDetails.sort((a, b) => a.name.compareTo(b.name));
 
     setState(() {});
   }
