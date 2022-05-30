@@ -46,10 +46,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('חיפוש תיק אישי'),
-          elevation: 0.0,
-        ),
+        appBar: new AppBar(title: Text('חיפוש תיק אישי')),
         body: new Column(
           children: <Widget>[
             new Container(

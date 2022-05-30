@@ -162,6 +162,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: Scaffold(
           backgroundColor: Colors.purple,
           appBar: AppBar(
+            title: new Text('הוספת חברת צוות'),
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(

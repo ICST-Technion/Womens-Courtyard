@@ -146,6 +146,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+          appBar: new AppBar(
+            title: new Padding(
+                padding: EdgeInsets.all(100), child: Text('התחברות')),
+            titleSpacing: 100,
+            elevation: 0.0,
+          ),
           backgroundColor: Colors.purple,
           body: Center(
             child: SingleChildScrollView(
