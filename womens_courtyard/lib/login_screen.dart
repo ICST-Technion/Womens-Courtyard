@@ -127,28 +127,27 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   String? emailFieldValidator(value) {
-        if (value == null || value.isEmpty) {
-          return 'הכניסי את כתובת המייל שלך';
-        }
+    if (value == null || value.isEmpty) {
+      return 'הכניסי את כתובת המייל שלך';
+    }
 
-        //reg expression for validation
-        if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
-            .hasMatch(value)) {
-          return 'הכניסי כתובת טקסט תקינה';
-        }
-        return null;
-      }
+    //reg expression for validation
+    if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]').hasMatch(value)) {
+      return 'הכניסי כתובת טקסט תקינה';
+    }
+    return null;
+  }
 
   String? passFieldValidator(value) {
-        RegExp passReg = new RegExp(r'^.{6,}$');
-        if (value == null || value.isEmpty) {
-          return 'הכניסי את הסיסמה שלך';
-        }
-        if (!passReg.hasMatch(value)) {
-          return 'על אורך הסיסמה להיות 6 תווים לפחות';
-        }
-        return null;
-      }
+    RegExp passReg = new RegExp(r'^.{6,}$');
+    if (value == null || value.isEmpty) {
+      return 'הכניסי את הסיסמה שלך';
+    }
+    if (!passReg.hasMatch(value)) {
+      return 'על אורך הסיסמה להיות 6 תווים לפחות';
+    }
+    return null;
+  }
 
   void loginUser(String username, String password) async {
     //Call token generator
@@ -193,13 +192,14 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+}
 
-  Future<HttpsCallableResult> tryLogin(String username, String password) async{
-    HttpsCallable callable = functions.httpsCallable('generateToken');
-    var passbytes = utf8.encode(password);
-    var passhash = sha256.convert(passbytes).toString();
-    final results = await callable
-        .call(<String, dynamic>{'username': username, 'password': passhash});
-    return results;
-  }
+Future<HttpsCallableResult> tryLogin(String username, String password) async {
+  var functions = FirebaseFunctions.instance;
+  HttpsCallable callable = functions.httpsCallable('generateToken');
+  var passbytes = utf8.encode(password);
+  var passhash = sha256.convert(passbytes).toString();
+  final results = await callable
+      .call(<String, dynamic>{'username': username, 'password': passhash});
+  return results;
 }
