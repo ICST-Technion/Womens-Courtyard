@@ -1,81 +1,38 @@
-<!-- # Ideal Permissions Version
-
-## **client fields content:**
-### key: user ID
-| Field | Type | Part of | Client Permissions | Staff Permissions |
-| --- | --- | --- | --- | --- |
-| name | String | Client | R | RW |
-| ID number | String | Client | N/A | RW |
-| personal file | Map | Client | N/A | RW |
-| client notes | Array[String] | Personal File | N/A | RW |
-| appointment history | Array[Appointment] | Client | R | RW |
-
-## **appointment fields content (per client)**
-| Field | Type | Part of | Client Permissions | Staff Permissions |
-| --- | --- | --- | --- | --- |
-| appointment name | String | appointment | R | RW |
-| date | Timestamp | appointment | R | RW |
-| location | String | appointment | R | RW |
-| staff in charge | String | appointment | N/A | RW |
-
-
-## **users fields content**
-### key: user ID
-| Field | Type | Part of | Client Permissions | Staff Permissions |
-| --- | --- | --- | --- | --- |
-| username | String | User | N/A | RW |
-| password | String | User | N/A | N/A |
-| role | String | User | N/A | N/A | 
-
-### **ids fields content**
-### key: username
-| Field | Type | Part of | Client Permissions | Staff Permissions |
-| --- | --- | --- | --- | --- |
-| id | string | user | N/A | N/A | -->
-
-
-## **staff fields content**
-### key: user ID
-| Field | Type | Part of | Client Permissions | Staff Permissions |
-| --- | --- | --- | --- | --- |
-| name | String | staff | N/A | RW |
-
-
-
 # Current Permission Version (restrictive + staff-only users)
 
 ## **client fields content**
 ### key: Some hash
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| firstName | String | Client | N/A | RW |
-| lastName | String | Client | N/A | RW |
-| idNo | String (optional) | Client | N/A | RW |
-| age | Int | Client | N/A | RW |
-| address | String | N/A | RW |
-| phoneNo | String | Client | N/A | RW |
-| nationality | String (optional) | Client | N/A | RW |
-| clientNotes | Array[String] | Client | N/A | RW |
-| inAssignment | Boolean | Client | N/A | RW |
-| processes | Array[String] | Client | N/A | RW |
-| appointmentHistory | Array[Appointment] | Client | N/A | RW |
-| attendances | Array[Attendance] | Client | N/A | RW |
+| firstName | String | Client | N/A | RW same branch |
+| lastName | String | Client | N/A | RW same branch |
+| idNo | String (optional) | Client | N/A | RW same branch |
+| age | Int | Client | N/A | RW same branch |
+| address | String | Client | N/A | RW same branch |
+| phoneNo | String | Client | N/A | RW same branch |
+| nationality | String (optional) | Client | N/A | RW same branch |
+| branch | String | Client | N/A | RW same branch |
+| clientNotes | Array[String] | Client | N/A | RW same branch |
+| inAssignment | Boolean | Client | N/A | RW same branch |
+| processes | Array[String] | Client | N/A | RW same branch |
+| appointmentHistory | Array[Appointment] | Client | N/A | RW same branch |
+| attendances | Array[Attendance] | Client | N/A | RW same branch |
 
 
 ## **attendance fields content (per client):**
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| date | Timestamp | attendance | N/A | RW |
-| comment | String | attendance | N/A | RW |
+| date | Timestamp | attendance | N/A | RW same branch |
+| comment | String | attendance | N/A | RW same branch |
 
 
 ## **appointment fields content (per client)**
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| description | String | appointment | N/A | RW |
-| date | Timestamp | appointment | N/A | RW |
-| location | String | appointment | N/A | RW |
-| staffInCharge | String | appointment | N/A | RW |
+| description | String | appointment | N/A | RW same branch |
+| date | Timestamp | appointment | N/A | RW same branch |
+| location | String | appointment | N/A | RW same branch |
+| staffInCharge | String | appointment | N/A | RW same branch |
 
 ## **users fields content**
 ### key: username
@@ -89,16 +46,16 @@
 ### key: username
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| name | String | staff | N/A | RW |
+| name | String | staff | N/A | R Same User, C(reate)|
 
 
 ## **Contacts fields content**
 ### key: some hash
 | Field | Type | Part of | Client Permissions | Staff Permissions |
 | --- | --- | --- | --- | --- |
-| firstName | String | Contact | N/A | RW |
-| lastName | String | Contact | N/A | RW |
-| field | String | Contact | N/A | RW |
-| phoneNo | String | Contact | N/A | RW |
-| email | String | Contact | N/A | RW |
-| info | String | Contact | N/A | RW |
+| firstName | String | Contact | N/A | RW same branch |
+| lastName | String | Contact | N/A | RW same branch |
+| field | String | Contact | N/A | RW same branch |
+| phoneNo | String | Contact | N/A | RW same branch |
+| email | String | Contact | N/A | RW same branch |
+| info | String | Contact | N/A | RW same branch |

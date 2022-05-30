@@ -22,6 +22,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passEditingController = new TextEditingController();
   final confirmPassEditingController = new TextEditingController();
 
+  List<String> branchOptions = ['חיפה', 'נתניה', 'יפו', 'מטה'];
+  String branch = 'חיפה';
+
   @override
   Widget build(BuildContext context) {
     //full name field
@@ -72,6 +75,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
         ));
+
+    final branchField = Row(children: [
+      Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          'סניף:',
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+      DropdownButton(
+        // Initial Value
+        value: branch,
+
+        // Down Arrow Icon
+        icon: const Icon(Icons.keyboard_arrow_down),
+
+        // Array list of items
+        items: branchOptions.map((String items) {
+          return DropdownMenuItem(
+            value: items,
+            child: Text(items),
+          );
+        }).toList(),
+        // After selecting the desired option,it will
+        // change button value to selected value
+        onChanged: (String? newValue) {
+          setState(() {
+            branch = newValue!;
+          });
+        },
+      )
+    ]);
 
     //password field
     final passField = TextFormField(
@@ -141,7 +176,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           if (_formKey.currentState != null &&
               (_formKey.currentState!).validate()) {
             register(emailEditingController.text, passEditingController.text,
-                fullnameEditingController.text);
+                fullnameEditingController.text, branch);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('כניסה מוצלחת')),
             );
@@ -192,7 +227,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         fullNameField,
                         SizedBox(height: 25),
                         emailField,
-                        SizedBox(height: 25),
+                        SizedBox(height: 20),
+                        branchField,
+                        SizedBox(height: 20),
                         passField,
                         SizedBox(height: 25),
                         confirmPassField,
@@ -209,7 +246,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ));
   }
 
-  void register(String username, String password, String name,
+  void register(String username, String password, String name, String branch,
       {String role = 'staff'}) async {
     var passbytes = utf8.encode(password);
     var passhash = sha256.convert(passbytes).toString();
@@ -218,7 +255,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       'username': username,
       'name': name,
       'password': passhash,
-      // 'password': password,
+      'branch': branch,
       'role': role
     });
     print(results.data['success'].toString());

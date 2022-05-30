@@ -35,7 +35,6 @@ class _AddClientPageState extends State<AddClientPage> {
 
   List<String> nationalityOptions = ['יהודיה', 'ערביה', 'אחר'];
   String nationality = 'אחר';
-  List? _myActivities;
 
   @override
   void dispose() {
