@@ -6,6 +6,13 @@ import 'package:womens_courtyard/contacts_data.dart';
 import 'add_contact.dart' as add_contact_page;
 import 'edit_contact.dart' as edit_contact_page;
 
+/// A file in charge of searching a contact.
+/// While searching, the app helps with suggestions of contacts that match
+/// the current text in the search bar.
+/// When a suggestion is pressed, it leads the user to the contact
+/// selected.
+
+
 class SearchContact extends StatefulWidget {
   SearchContact({Key? key, this.title = '', this.username = ''})
       : super(key: key);
@@ -16,6 +23,9 @@ class SearchContact extends StatefulWidget {
   @override
   _SearchContactState createState() => new _SearchContactState();
 }
+
+
+/// This function brings every contact from the database (for a fast search).
 
 class _SearchContactState extends State<SearchContact> {
   TextEditingController controller = new TextEditingController();
@@ -124,6 +134,8 @@ class _SearchContactState extends State<SearchContact> {
     setState(() {});
   }
 }
+
+/// This class builds us the list like structure of the page.
 
 class FileList extends StatelessWidget {
   final List<Contact> list;

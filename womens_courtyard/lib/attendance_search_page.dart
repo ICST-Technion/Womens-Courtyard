@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'attendance_page.dart' as attendance_page;
 
+/// This page is in charge of searching certain parameters and women in the
+/// attendance forms.
+/// For a certain user, this page is able to trace the details of the user's
+/// attendance from the firebase.
+
 class AttendanceSearchPage extends StatefulWidget {
   AttendanceSearchPage({Key? key, this.username = ''}) : super(key: key);
 

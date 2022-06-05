@@ -12,6 +12,10 @@ import 'package:intl/intl.dart';
 import 'StatisticsLogic.dart';
 import 'dart:ui' as ui;
 
+
+/// THis page is in charge of building the visual statistic needed for the
+/// queries send to the database.
+
 const String NATION_FIELD = "לאום";
 const String FIRST_NAME_FIELD = "שם פרטי";
 const String LAST_NAME_FIELD = "שם משפחה";
@@ -55,6 +59,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
       ),
     );
   }
+
+  /// This function generates a bar chart of the information.
 
   _generateBarChartData(Map<String, int> weekdaysHist) {
     // List<Nationality> nationatilies = Nationality.makeNationalitiesList(nationalitiesHist);
@@ -125,6 +131,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
       },
     );
   }
+
+  /// This function generates a pie chart of the information.
 
   Widget _buildPieChart(
       BuildContext context, Map<String, int> nationalitiesHist) {

@@ -5,6 +5,14 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:crypto/crypto.dart';
 import 'login_screen.dart' as login_screen;
 
+/// Main app registration screen.
+/// The registration works directly in parallel with the database, and sends the
+/// information there
+/// The page also makes sure the registration details are valid, and only then tries
+/// to perform the action.
+/// Notice that this page is only for registration, a regular user can't reach
+/// this page on her own, only a meta user can do so.
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -208,6 +216,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
   }
+
+  /// Here we deal with the registration in terms of the database, we do it by
+  /// encoding the password, sending the regular username, and insert it to the
+  /// system.
+  /// After the registration, the app sends the user to the login screen.
 
   void register(String username, String password, String name,
       {String role = 'staff'}) async {

@@ -10,6 +10,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 
+/// Main app login screen.
+/// The login works directly in parallel with the databsae, and confirms the
+/// logging in with it.
+/// The page also makes sure the login details are valid, and only then tries
+/// to login.
+/// Notice that this page is only for login, a regular user can't perform a
+/// registration on her own, and only a meta user needs to register the girls.
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -205,6 +213,14 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ));
   }
+
+
+  /// Here we deal with the login in terms of the database, we do it by encoding
+  /// the password, sending the regular username, and see whether there's a fit
+  /// in the system.
+  /// We recognize if the person trying to sign in is a worker or not, and print
+  /// a suitable message, and also go into the part of the app suitable for the
+  /// role of the user trying to sign in.
 
   Future<bool> loginUser(String username, String password) async {
     //Call token generator

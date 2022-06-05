@@ -11,6 +11,17 @@ import 'dart:ui';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+/// This file is in charge of handling the adding of an event to the calendar.
+///
+/// The fields each contact has are:
+/// * Time.
+/// * Date.
+/// * Room.
+/// * Name of activity.
+///
+/// Only by adding valid details, the worker is able to add an event to the
+/// calendar.
+
 class AddEventPage extends StatefulWidget {
   @override
   _AddEventPageState createState() => _AddEventPageState();

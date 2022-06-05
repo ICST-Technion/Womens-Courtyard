@@ -5,6 +5,12 @@ import 'package:womens_courtyard/taskhomepage.dart';
 import 'attendance_search_page.dart' as search_page;
 import 'main.dart' as main_page;
 
+/// This page is in charge of statistics.
+/// Using the database and several option, the app sends a request for certain
+/// data to the database and receives the matching data.
+/// After performing the calculations, we extract a file detailing the
+/// statistics the user asked for.
+
 // void main() {
 //   runApp(MyApp());
 // }

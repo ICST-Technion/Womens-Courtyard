@@ -6,6 +6,16 @@ import 'contacts_data.dart' as contacts_data;
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
+/// This file details the page regarding the editing
+/// of each existing contact page in the app.
+/// The fields that are present editable in this file are the following:
+/// * Name.
+/// * Phone number.
+/// * Occupation
+/// * Info.
+///
+
+
 class EditContactPage extends StatefulWidget {
   final Contact contact;
 

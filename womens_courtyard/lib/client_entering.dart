@@ -5,6 +5,19 @@ import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// This file details the page regarding the adding
+/// of a new client page in the app.
+/// The fields needed for each client in this file are the following:
+/// * Name and surname.
+/// * Title.
+/// * Nationality.
+/// * Process description.
+/// * ID.
+/// * Phone number.
+///
+/// Additionally there's an option to add extra contacts, and add files for this
+/// account.
+
 class AddClientPage extends StatefulWidget {
   AddClientPage({Key? key, this.title = '', this.username = ''})
       : super(key: key);
@@ -384,6 +397,13 @@ class _AddClientPageState extends State<AddClientPage> {
       onTap: action,
     );
   }
+
+  /// This functions inserts every new file to the database.
+  /// It uses the info gathered for the new client, and inserts it to the
+  /// database in the way needed in order to keep its correctness.
+  ///
+  /// It also prints a message to the console of whether a certain adding action
+  /// succeeded or not.
 
   void enterFileToDatabase(
       {required String firstName,

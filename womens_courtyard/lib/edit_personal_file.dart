@@ -6,6 +6,11 @@ import 'forms_buttons.dart' as forms;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'client_editing.dart' as client_editing_page;
 
+/// This file details the page from which one can go and edit the personal file.
+/// Each card contains the information regarding a certain user, if an edit is
+/// needed for the personal file, there's a button sending the worker to
+/// client_editing.dart.
+
 class PersonalFileEditPage extends StatefulWidget {
   PersonalFileEditPage(
       {Key? key, this.title = "", this.username = '', required this.person})
@@ -74,6 +79,8 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
     ]);
   }
 }
+
+/// This function builds the card constructing the personal files.
 
 List fill_the_list(PersonalFile person, BuildContext context, String username) {
   List<Card> toRet = [];

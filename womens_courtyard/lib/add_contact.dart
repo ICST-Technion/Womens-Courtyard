@@ -6,6 +6,18 @@ import 'package:email_validator/email_validator.dart';
 import 'client_entering.dart' as main_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
+/// This file is in charge of handling the adding of another contact to a
+/// contact list.
+///
+/// The fields each contact has are:
+/// * Phone number.
+/// * Name and surname.
+/// * Category of service.
+/// * Email.
+///
+/// Only by adding valid details, the worker is able to add a contact to the
+/// registery.
+
 class AddContactPage extends StatefulWidget {
   AddContactPage({Key? key, this.title = '', this.username = ''})
       : super(key: key);
@@ -207,6 +219,9 @@ class _AddContactPageState extends State<AddContactPage> {
       ),
     ]);
   }
+
+  /// A function that is in charge for the synchronization of the added contacts
+  /// to the firebase database.
 
   void addContactToDatabase(String firstName, String lastName, String phone,
       String email, String field) async {

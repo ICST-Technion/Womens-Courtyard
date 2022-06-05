@@ -4,6 +4,12 @@ import 'home_page.dart' as home_page;
 import 'attendance_search_page.dart' as attendance_search_page;
 import 'search_contact.dart' as view_contact;
 
+/// This page is in charge of the bottom navigation bar, containing:
+/// * A Home screen.
+/// * An attendance records screen.
+/// * A files screen.
+/// * A contacts screen.
+
 //MyBottomNavigationBar()
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({Key? key, this.username = ''}) : super(key: key);

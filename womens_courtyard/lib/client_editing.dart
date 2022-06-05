@@ -7,6 +7,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'personal_file.dart';
 import 'package:womens_courtyard/personal_file.dart';
 
+/// This file details the page regarding the editing
+/// of each existing client page in the app.
+/// The fields that are present editable in this file are the following:
+/// * Name and surname.
+/// * Title.
+/// * Nationality.
+/// * Process description.
+/// * ID.
+/// * Phone number.
+///
+/// Additionally there's an option to add extra contacts, and add files for this
+/// account.
+
 class EditClientPage extends StatefulWidget {
   EditClientPage(
       {Key? key, this.title = '', this.username = '', required this.person})
@@ -51,6 +64,9 @@ class _EditClientPageState extends State<EditClientPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // We define several form fields, which we can edit, and start with a
+    // default value for the comfort of the user.
     final privateNameField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
@@ -181,6 +197,7 @@ class _EditClientPageState extends State<EditClientPage> {
             borderRadius: BorderRadius.circular(10),
           ),
         ));
+    // We use the loaded text editors mentioned in the end of this file.
     load_text_editors(
         nameTextController,
         fNameTextController,
@@ -389,7 +406,8 @@ class _EditClientPageState extends State<EditClientPage> {
       onTap: action,
     );
   }
-
+  /// A function that is in charge for the synchronization of the edited fields,
+  /// to the firebase database.
   void enterFileToDatabase(String name, String fname, String idNo, String phone,
       String pDec, PersonalFile person) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
@@ -422,6 +440,9 @@ class _EditClientPageState extends State<EditClientPage> {
         .catchError((e) => print('update failed $e'));
   }
 }
+
+/// Here a connection is made between the controllers of the text forms
+/// to the primary values of the info of each person.
 
 void load_text_editors(
     TextEditingController nameTextController,

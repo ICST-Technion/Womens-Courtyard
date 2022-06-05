@@ -3,6 +3,16 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:womens_courtyard/main.dart';
 
+/// This file contains every attribute needed for a personal file.
+/// We define here several classes with multiple fields, including:
+/// * Appointment
+/// * Attendance
+/// * Personal file
+///
+/// We get all information needed for the personal file of a certain user
+/// from the database and fill up the classes presented above using it.
+///
+
 class Appointment {
   final String description;
   final Timestamp date;

@@ -9,6 +9,10 @@ import 'login_screen.dart' as login_screen;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'dart:io' show Platform;
 
+/// This file is in charge of connecting to the firebase emulator.
+/// When starting the app, this file is called, and it handles the start of the
+/// app and navigates the user to the login page.
+
 const bool USE_EMULATOR = false;
 
 Future main() async {

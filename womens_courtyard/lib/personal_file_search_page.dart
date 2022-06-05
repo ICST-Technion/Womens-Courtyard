@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'edit_personal_file.dart' as edit_personal_page;
 
+/// A file in charge of searching a personal file.
+/// While searching, the app helps with suggestions of personal files that match
+/// the current text in the search bar.
+/// When a suggestion is pressed, it leads the user to the personal file
+/// selected.
+
 class PersonalFileSearchPage extends StatefulWidget {
   PersonalFileSearchPage({Key? key, this.username = ''}) : super(key: key);
 
@@ -13,6 +19,9 @@ class PersonalFileSearchPage extends StatefulWidget {
   _PersonalFileSearchPageState createState() =>
       new _PersonalFileSearchPageState();
 }
+
+/// This function brings every personal file from the database (for a fast
+/// search).
 
 class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   TextEditingController controller = new TextEditingController();
@@ -102,6 +111,8 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     setState(() {});
   }
 }
+
+/// This class builds us the list like structure of the page.
 
 class FileList extends StatelessWidget {
   final List<PersonalFile> list;

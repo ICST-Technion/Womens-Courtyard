@@ -5,6 +5,15 @@ import 'taskhomepage.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 import 'register_screen.dart' as registration_screen;
 
+/// The homepage of the application.
+/// It doesn't important information but holds links to features of the app
+/// not noted in the bottom navigation bar.
+/// Including:
+///
+/// * Statistics.
+/// * Adding a user (Both crew and non-crew).
+/// * Calendar.
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key, this.title = '', this.username = ''}) : super(key: key);
 

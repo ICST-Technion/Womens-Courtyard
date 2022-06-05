@@ -11,6 +11,12 @@ import 'meeting.dart';
 import 'meetings.dart';
 import 'add_event.dart';
 
+/// This page is in charge of the calendar in the app.
+/// It builds the calendar, all of its possible events, and has an option of
+/// adding different events to the calendar.
+/// For each activity, a user is able to see the time, date, room and the name
+/// of the activity.
+
 class Calendar extends StatefulWidget {
   @override
   _CalendarState createState() => _CalendarState();

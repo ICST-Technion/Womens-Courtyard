@@ -4,6 +4,13 @@ import 'main.dart' as main_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'personal_file.dart';
 
+/// This file is in charge of handling the adding of an attendance record for a
+/// certain participant.
+///
+/// each attendance form contains a date and a comment, and is attached to a
+/// certain woman and her personal file.
+
+
 class AttendancePage extends StatefulWidget {
   AttendancePage(
       {Key? key, this.title = '', this.username = '', required this.file})
@@ -133,6 +140,10 @@ class _AttendancePageState extends State<AttendancePage> {
     ]);
   }
 }
+
+/// A function that is in charge for adding the new attendance record (date and
+/// comment) to firebase.
+
 
 void postAttendance(DateTime currDate, String clientKey) async {
   CollectionReference ref = FirebaseFirestore.instance.collection('clients');

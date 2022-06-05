@@ -6,17 +6,40 @@
   <component name="ChangeListManager">
     <list default="true" id="5418bf65-6add-4e39-9868-4500699cbd19" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/Womens-Courtyard.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Womens-Courtyard.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/womens_courtyard/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/womens_courtyard/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/Attendance_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/Attendance_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/FirestoreQueryObjects.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/FirestoreQueryObjects.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/Home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/Home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/Nationality.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/Nationality.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/StatisticsLogic.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/StatisticsLogic.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/add_contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/add_contact.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/add_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/add_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/attendance_search_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/attendance_search_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/bottom_navigation_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/bottom_navigation_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/calendar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/client_editing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/client_editing.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/client_entering.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/client_entering.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/contact.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/edit_contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/edit_contact.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/edit_personal_file.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/edit_personal_file.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/forms_buttons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/forms_buttons.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/meeting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/meeting.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/meetings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/meetings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/personal_file.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/personal_file.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/personal_file_search_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/personal_file_search_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/search_contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/search_contact.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/womens_courtyard/lib/statistics.dart" beforeDir="false" afterPath="$PROJECT_DIR$/womens_courtyard/lib/statistics.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\omerm\.android\avd\Pixel_2_API_30.avd]" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -29,10 +52,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/womens_courtyard" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/dartsdk-windows-x64-release/dart-sdk" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
     <configuration name="main.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">

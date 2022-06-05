@@ -1,5 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// This file indicates the structure of the contact listing in our database.
+/// It contains the following fields:
+/// * Name.
+/// * Phone number.
+/// * Occupation
+/// * Info.
+
 class Contact {
   final String name;
   final String phoneNumber;

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'client_entering.dart' as add_costumer_page;
 import 'statistics.dart' as statistics_page;
 
+/// A page containing several buttons that direct to the pages of attendance,
+/// and several types of forms.
+
 class FormsButtonsPage extends StatefulWidget {
   FormsButtonsPage({Key? key, this.title = ''}) : super(key: key);
 
