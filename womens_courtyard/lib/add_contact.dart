@@ -5,14 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:email_validator/email_validator.dart';
 import 'client_entering.dart' as main_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
+import 'user.dart';
 
 class AddContactPage extends StatefulWidget {
-  AddContactPage({Key? key, this.title = '', this.username = ''})
-      : super(key: key);
+  AddContactPage({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
-  final String username;
-
   @override
   _AddContactPageState createState() => _AddContactPageState();
 }
@@ -167,8 +165,7 @@ class _AddContactPageState extends State<AddContactPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar(
-                                          username: widget.username)));
+                                      .MyBottomNavigationBar()));
                         }
                       },
                       style: ElevatedButton.styleFrom(

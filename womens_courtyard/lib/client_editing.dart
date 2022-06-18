@@ -6,14 +6,13 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'personal_file.dart';
 import 'package:womens_courtyard/personal_file.dart';
+import 'user.dart';
 
 class EditClientPage extends StatefulWidget {
-  EditClientPage(
-      {Key? key, this.title = '', this.username = '', required this.person})
+  EditClientPage({Key? key, this.title = '', required this.person})
       : super(key: key);
 
   final String title;
-  final String username;
   final PersonalFile person;
 
   @override
@@ -343,8 +342,7 @@ class _EditClientPageState extends State<EditClientPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar(
-                                          username: widget.username)));
+                                      .MyBottomNavigationBar()));
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -393,8 +391,7 @@ class _EditClientPageState extends State<EditClientPage> {
   void enterFileToDatabase(String name, String fname, String idNo, String phone,
       String pDec, PersonalFile person) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
-    final response =
-        await FirebaseFirestore.instance.collection('clients').get();
+    final response = await getPersonalFileDocs();
     PersonalFile search_for;
     var matching_doc;
     for (final doc in response.docs) {
@@ -408,8 +405,7 @@ class _EditClientPageState extends State<EditClientPage> {
 
     person.clientNotes.add(pDec);
 
-    CollectionReference ref = FirebaseFirestore.instance.collection('clients');
-    ref
+    getPersonalFileRef()
         .doc(matching_doc.id)
         .update({
           'firstName': name,

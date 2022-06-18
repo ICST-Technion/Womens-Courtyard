@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:womens_courtyard/personal_file.dart';
+import 'package:womens_courtyard/user.dart';
 import 'add_contact.dart' as add_contact_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddClientPage extends StatefulWidget {
-  AddClientPage({Key? key, this.title = '', this.username = ''})
-      : super(key: key);
+  AddClientPage({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
-  final String username;
 
   @override
   _AddClientPageState createState() => _AddClientPageState();
@@ -337,8 +337,7 @@ class _AddClientPageState extends State<AddClientPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar(
-                                          username: widget.username)));
+                                      .MyBottomNavigationBar()));
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -395,14 +394,14 @@ class _AddClientPageState extends State<AddClientPage> {
       required String pDec,
       bool? inAssignment}) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
-    CollectionReference ref = FirebaseFirestore.instance.collection('clients');
-    ref
+    getPersonalFileRef()
         .add({
           'firstName': firstName,
           'lastName': lastName,
           'idNo': idNo ?? "",
           'age': age,
           'address': address,
+          'branch': AppUser().branch,
           'phoneNo': phone,
           'nationality': nationality,
           'clientNotes': [pDec],

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:womens_courtyard/main.dart';
+import 'user.dart';
 
 class Appointment {
   final String description;
@@ -86,4 +87,16 @@ class PersonalFile {
               Attendance(
                   date: att['date']!.toDate(), comment: att['comment']!)) ??
           []));
+}
+
+Future<QuerySnapshot<Map<String, dynamic>>> getPersonalFileDocs() async {
+  final branches = FirebaseFirestore.instance.collection('branches');
+  final branchClients = branches.doc(AppUser().branch).collection('clients');
+  return branchClients.get();
+}
+
+CollectionReference getPersonalFileRef() {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  return branchRef.doc(AppUser().branch).collection('clients');
 }

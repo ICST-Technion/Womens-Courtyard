@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 // import 'package:womens_courtyard/FirestoreQueryObjects.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/Nationality.dart';
+import 'user.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
 // import 'package:excel/excel.dart';
@@ -89,7 +90,11 @@ class _TaskHomePageState extends State<TaskHomePage> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('clients').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('branches')
+          .doc(AppUser().branch)
+          .collection('clients')
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return LinearProgressIndicator();

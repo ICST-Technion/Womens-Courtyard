@@ -2,12 +2,11 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
+import 'package:womens_courtyard/user.dart';
 import 'edit_personal_file.dart' as edit_personal_page;
 
 class PersonalFileSearchPage extends StatefulWidget {
-  PersonalFileSearchPage({Key? key, this.username = ''}) : super(key: key);
-
-  final String username;
+  PersonalFileSearchPage({Key? key}) : super(key: key);
 
   @override
   _PersonalFileSearchPageState createState() =>
@@ -21,8 +20,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   Future<Null> getUserDetails() async {
     try {
       _personalFiles = [];
-      final response =
-          await FirebaseFirestore.instance.collection('clients').get();
+      final response = await getPersonalFileDocs();
       _personalFiles = [];
       for (final doc in response.docs) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
@@ -75,9 +73,8 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
             ),
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    ? FileList(list: _searchResult, username: widget.username)
-                    : FileList(
-                        list: _personalFiles, username: widget.username)),
+                    ? FileList(list: _searchResult)
+                    : FileList(list: _personalFiles)),
           ],
         ),
       ),
@@ -105,9 +102,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
 
 class FileList extends StatelessWidget {
   final List<PersonalFile> list;
-  FileList({required this.list, required this.username});
-
-  final String username;
+  FileList({required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +118,7 @@ class FileList extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) =>
                           edit_personal_page.PersonalFileEditPage(
-                              username: this.username, person: list[index])));
+                              person: list[index])));
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].firstName + ' ' + list[index].lastName),

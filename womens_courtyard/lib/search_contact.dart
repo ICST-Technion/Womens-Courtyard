@@ -5,13 +5,12 @@ import 'package:womens_courtyard/contact.dart';
 import 'package:womens_courtyard/contacts_data.dart';
 import 'add_contact.dart' as add_contact_page;
 import 'edit_contact.dart' as edit_contact_page;
+import 'user.dart';
 
 class SearchContact extends StatefulWidget {
-  SearchContact({Key? key, this.title = '', this.username = ''})
-      : super(key: key);
+  SearchContact({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
-  final String username;
 
   @override
   _SearchContactState createState() => new _SearchContactState();
@@ -24,8 +23,7 @@ class _SearchContactState extends State<SearchContact> {
   Future<Null> getUserDetails() async {
     try {
       _contactDetails.clear();
-      final response =
-          await FirebaseFirestore.instance.collection('contacts').get();
+      final response = await getContactDocs();
       for (final doc in response.docs) {
         _contactDetails.add(Contact.fromDoc(doc));
       }
@@ -93,8 +91,7 @@ class _SearchContactState extends State<SearchContact> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                add_contact_page.AddContactPage(
-                                    username: widget.username)));
+                                add_contact_page.AddContactPage()));
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 4,

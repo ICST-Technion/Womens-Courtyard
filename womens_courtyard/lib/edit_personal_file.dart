@@ -7,14 +7,12 @@ import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'client_editing.dart' as client_editing_page;
 
 class PersonalFileEditPage extends StatefulWidget {
-  PersonalFileEditPage(
-      {Key? key, this.title = "", this.username = '', required this.person})
+  PersonalFileEditPage({Key? key, this.title = "", required this.person})
       : super(key: key);
 
   final PersonalFile person;
   final String title;
   List display_items = List<String>.empty();
-  final String username;
 
   @override
   _PersonalFileEditPageState createState() => _PersonalFileEditPageState();
@@ -37,8 +35,7 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
   @override
   Widget build(BuildContext context) {
     var curr_contact = contacts_data.allContacts[0];
-    widget.display_items =
-        fill_the_list(widget.person, context, widget.username);
+    widget.display_items = fill_the_list(widget.person, context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -75,7 +72,7 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
   }
 }
 
-List fill_the_list(PersonalFile person, BuildContext context, String username) {
+List fill_the_list(PersonalFile person, BuildContext context) {
   List<Card> toRet = [];
   toRet.add(Card(
     child: Center(
@@ -154,8 +151,8 @@ List fill_the_list(PersonalFile person, BuildContext context, String username) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => client_editing_page.EditClientPage(
-                        person: person, username: username)));
+                    builder: (context) =>
+                        client_editing_page.EditClientPage(person: person)));
           },
           style: ElevatedButton.styleFrom(
               elevation: 4,

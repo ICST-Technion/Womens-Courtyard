@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'user.dart';
 
 class Contact {
   final String name;
@@ -22,4 +23,10 @@ class Contact {
       phoneNumber: doc.data()['phoneNo'],
       occupation: doc.data()['field'],
       info: doc.data()['info']);
+}
+
+Future<QuerySnapshot<Map<String, dynamic>>> getContactDocs() async {
+  final branches = FirebaseFirestore.instance.collection('branches');
+  final branchClients = branches.doc(AppUser().branch).collection('contacts');
+  return branchClients.get();
 }

@@ -4,12 +4,13 @@ import 'client_entering.dart' as add_client_page;
 import 'taskhomepage.dart' as statistics_page;
 import 'calendar.dart' as calendar_page;
 import 'register_screen.dart' as registration_screen;
+import 'user.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key, this.title = '', this.username = ''}) : super(key: key);
+  HomePage({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
-  final String username;
+  final String username = AppUser().username ?? "";
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -86,9 +87,7 @@ class _HomePageState extends State<HomePage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              add_client_page.AddClientPage(
-                                                  username:
-                                                      (widget.username))));
+                                              add_client_page.AddClientPage()));
                                 },
                                 style: ElevatedButton.styleFrom(
                                     elevation: 4,

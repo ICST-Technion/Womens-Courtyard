@@ -1,5 +1,13 @@
 # Current Permission Version (restrictive + staff-only users)
 
+## **Branches fields content**
+## key: branch name
+| Field | Type | Part of | Client Permissions | Staff Permissions |
+| --- | --- | --- | --- | --- |
+| Name | String | Branch | N/A | RW |
+| Clients | Collection | Branch | N/A | RW same branch |
+| Contacts | Collection | Branch | N/A | RW same branch |
+
 ## **client fields content**
 ### key: Some hash
 | Field | Type | Part of | Client Permissions | Staff Permissions |
@@ -59,3 +67,5 @@
 | phoneNo | String | Contact | N/A | RW same branch |
 | email | String | Contact | N/A | RW same branch |
 | info | String | Contact | N/A | RW same branch |
+
+

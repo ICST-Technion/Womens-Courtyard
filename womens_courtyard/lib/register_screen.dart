@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:crypto/crypto.dart';
 import 'login_screen.dart' as login_screen;
+import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -259,7 +260,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       'role': role
     });
     print(results.data['success'].toString());
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => login_screen.LoginScreen()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                bottom_navigation_bar.MyBottomNavigationBar()));
   }
 }

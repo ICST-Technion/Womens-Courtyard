@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'main.dart' as main_page;
 import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
 import 'personal_file.dart';
+import 'user.dart';
 
 class AttendancePage extends StatefulWidget {
-  AttendancePage(
-      {Key? key, this.title = '', this.username = '', required this.file})
+  AttendancePage({Key? key, this.title = '', required this.file})
       : super(key: key);
 
   final PersonalFile file;
   final String title;
-  final String username;
 
   @override
   _AttendancePageState createState() => _AttendancePageState();
@@ -94,9 +93,8 @@ class _AttendancePageState extends State<AttendancePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  bottom_navigation_bar.MyBottomNavigationBar(
-                                      username: widget.username)));
+                              builder: (context) => bottom_navigation_bar
+                                  .MyBottomNavigationBar()));
                     },
                     style: ElevatedButton.styleFrom(
                         elevation: 4,
@@ -135,8 +133,7 @@ class _AttendancePageState extends State<AttendancePage> {
 }
 
 void postAttendance(DateTime currDate, String clientKey) async {
-  CollectionReference ref = FirebaseFirestore.instance.collection('clients');
-  ref
+  getPersonalFileRef()
       .doc(clientKey)
       .update({
         'attendances': FieldValue.arrayUnion([
