@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'user.dart';
+import 'package:womens_courtyard/user.dart';
 
 class Contact {
   final String name;

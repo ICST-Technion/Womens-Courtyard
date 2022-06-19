@@ -1,16 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
-    show FirebaseFirestore, QueryDocumentSnapshot, QuerySnapshot, Timestamp;
+    show FirebaseFirestore, QueryDocumentSnapshot, QuerySnapshot;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 // import 'package:womens_courtyard/FirestoreQueryObjects.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/Nationality.dart';
-import 'user.dart';
+import 'package:womens_courtyard/user.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:intl/intl.dart';
 // import 'package:excel/excel.dart';
-import 'StatisticsLogic.dart';
+import 'package:womens_courtyard/StatisticsLogic.dart';
 import 'dart:ui' as ui;
 
 const String NATION_FIELD = "לאום";

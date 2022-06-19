@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'contact.dart' as contact;
-import 'contacts_data.dart' as contacts_data;
-import 'personal_file.dart';
-import 'forms_buttons.dart' as forms;
-import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
-import 'client_editing.dart' as client_editing_page;
+import 'package:womens_courtyard/personal_file.dart';
+import 'package:womens_courtyard/forms_buttons.dart' as forms;
+import 'package:womens_courtyard/client_editing.dart' as client_editing_page;
 
 class PersonalFileEditPage extends StatefulWidget {
-  PersonalFileEditPage({Key? key, this.title = "", required this.person})
+  PersonalFileEditPage({Key? key, required this.title, required this.person})
       : super(key: key);
 
   final PersonalFile person;
@@ -20,21 +17,21 @@ class PersonalFileEditPage extends StatefulWidget {
 
 class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
   DateTime selectedDate = DateTime.now();
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
+  // Future<void> _selectDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //       context: context,
+  //       initialDate: selectedDate,
+  //       firstDate: DateTime(2015, 8),
+  //       lastDate: DateTime(2101));
+  //   if (picked != null && picked != selectedDate)
+  //     setState(() {
+  //       selectedDate = picked;
+  //     });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var curr_contact = contacts_data.allContacts[0];
+    //var curr_contact = contacts_data.allContacts[0];
     widget.display_items = fill_the_list(widget.person, context);
     return Directionality(
       textDirection: TextDirection.rtl,

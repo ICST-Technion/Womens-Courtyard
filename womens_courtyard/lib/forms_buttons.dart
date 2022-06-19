@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'client_entering.dart' as add_costumer_page;
-import 'statistics.dart' as statistics_page;
 
 class FormsButtonsPage extends StatefulWidget {
   FormsButtonsPage({Key? key, this.title = ''}) : super(key: key);

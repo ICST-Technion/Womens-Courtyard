@@ -1,5 +1,4 @@
-import 'meeting.dart';
-import 'package:flutter/material.dart';
+import 'package:womens_courtyard/meeting.dart';
 
 final DateTime today = DateTime.now();
 final DateTime startTime =

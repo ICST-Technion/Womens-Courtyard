@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:womens_courtyard/main.dart';
-import 'user.dart';
+import 'package:womens_courtyard/user.dart';
 
 class Appointment {
   final String description;

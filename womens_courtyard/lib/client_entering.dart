@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/user.dart';
-import 'add_contact.dart' as add_contact_page;
-import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
+import 'package:womens_courtyard/add_contact.dart' as add_contact_page;
+import 'package:womens_courtyard/bottom_navigation_bar.dart'
+    as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

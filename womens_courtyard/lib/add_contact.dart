@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:email_validator/email_validator.dart';
-import 'client_entering.dart' as main_page;
-import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
-import 'user.dart';
+import 'package:womens_courtyard/bottom_navigation_bar.dart'
+    as bottom_navigation_bar;
 
 class AddContactPage extends StatefulWidget {
   AddContactPage({Key? key, this.title = ''}) : super(key: key);
@@ -116,9 +113,6 @@ class _AddContactPageState extends State<AddContactPage> {
                     labelText: 'כתובת מייל',
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => EmailValidator.validate(value)
-                      ? null
-                      : 'הכניסי בבקשה כתובת אימייל חוקית',
                 ),
                 DropdownButtonFormField(
                   decoration: new InputDecoration(

@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/contact.dart';
-import 'package:womens_courtyard/contacts_data.dart';
-import 'add_contact.dart' as add_contact_page;
-import 'edit_contact.dart' as edit_contact_page;
-import 'user.dart';
+import 'package:womens_courtyard/add_contact.dart' as add_contact_page;
+import 'package:womens_courtyard/edit_contact.dart' as edit_contact_page;
 
 class SearchContact extends StatefulWidget {
   SearchContact({Key? key, this.title = ''}) : super(key: key);

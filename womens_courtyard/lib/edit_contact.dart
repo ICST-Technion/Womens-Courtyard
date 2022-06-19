@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'contact.dart';
-import 'main.dart' as main_page;
-import 'contact.dart' as contact;
-import 'contacts_data.dart' as contacts_data;
+import 'package:womens_courtyard/contact.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
+import 'package:womens_courtyard/bottom_navigation_bar.dart'
+    as bottom_navigation_bar;
 
 class EditContactPage extends StatefulWidget {
   final Contact contact;
@@ -20,17 +18,17 @@ class EditContactPage extends StatefulWidget {
 
 class _EditContactPageState extends State<EditContactPage> {
   DateTime selectedDate = DateTime.now();
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
+  // Future<void> _selectDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //       context: context,
+  //       initialDate: selectedDate,
+  //       firstDate: DateTime(2015, 8),
+  //       lastDate: DateTime(2101));
+  //   if (picked != null && picked != selectedDate)
+  //     setState(() {
+  //       selectedDate = picked;
+  //     });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,7 @@ class _EditContactPageState extends State<EditContactPage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    var curr_contact = contacts_data.allContacts[0];
+    //var curr_contact = contacts_data.allContacts[0];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

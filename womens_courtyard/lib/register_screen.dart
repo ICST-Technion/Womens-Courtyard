@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:crypto/crypto.dart';
-import 'login_screen.dart' as login_screen;
-import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
+import 'package:womens_courtyard/bottom_navigation_bar.dart'
+    as bottom_navigation_bar;
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);

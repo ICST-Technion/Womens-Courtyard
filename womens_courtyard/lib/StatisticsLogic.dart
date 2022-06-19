@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 // import "FirestoreQueryObjects.dart";
-import 'personal_file.dart';
+import 'package:womens_courtyard/personal_file.dart';
 
 const Map<int, String> WEEKDAYS = <int, String>{
   1: 'שני',

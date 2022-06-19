@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'attendance_page.dart' as attendance_page;
-import 'user.dart';
+import 'package:womens_courtyard/attendance_page.dart' as attendance_page;
 
 class AttendanceSearchPage extends StatefulWidget {
   AttendanceSearchPage({Key? key}) : super(key: key);

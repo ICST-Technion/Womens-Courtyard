@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/taskhomepage.dart';
-import 'attendance_search_page.dart' as search_page;
-import 'main.dart' as main_page;
+import 'package:womens_courtyard/attendance_search_page.dart' as search_page;
 
 // void main() {
 //   runApp(MyApp());

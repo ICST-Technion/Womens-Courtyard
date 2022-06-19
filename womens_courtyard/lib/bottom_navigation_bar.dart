@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'personal_file_search_page.dart' as file_search_page;
-import 'home_page.dart' as home_page;
-import 'attendance_search_page.dart' as attendance_search_page;
-import 'search_contact.dart' as view_contact;
-import 'user.dart';
+import 'package:womens_courtyard/personal_file_search_page.dart'
+    as file_search_page;
+import 'package:womens_courtyard/home_page.dart' as home_page;
+import 'package:womens_courtyard/attendance_search_page.dart'
+    as attendance_search_page;
+import 'package:womens_courtyard/search_contact.dart' as view_contact;
 
 //MyBottomNavigationBar()
 class MyBottomNavigationBar extends StatefulWidget {

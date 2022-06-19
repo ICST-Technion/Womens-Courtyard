@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'main.dart' as main_page;
-import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
-import 'personal_file.dart';
-import 'user.dart';
+import 'package:womens_courtyard/bottom_navigation_bar.dart'
+    as bottom_navigation_bar;
+import 'package:womens_courtyard/personal_file.dart';
 
 class AttendancePage extends StatefulWidget {
   AttendancePage({Key? key, this.title = '', required this.file})

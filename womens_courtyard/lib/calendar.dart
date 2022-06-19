@@ -1,15 +1,8 @@
-import 'dart:collection';
-import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'main.dart' as main_page;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'meeting.dart';
-import 'meetings.dart';
-import 'add_event.dart';
+import 'package:womens_courtyard/meeting.dart';
+import 'package:womens_courtyard/meetings.dart';
+import 'package:womens_courtyard/add_event.dart';
 
 class Calendar extends StatefulWidget {
   @override

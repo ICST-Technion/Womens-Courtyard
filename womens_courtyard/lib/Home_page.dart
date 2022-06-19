@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'client_entering.dart' as add_client_page;
-import 'taskhomepage.dart' as statistics_page;
-import 'calendar.dart' as calendar_page;
-import 'register_screen.dart' as registration_screen;
-import 'user.dart';
+import 'package:womens_courtyard/client_entering.dart' as add_client_page;
+import 'package:womens_courtyard/taskhomepage.dart' as statistics_page;
+import 'package:womens_courtyard/register_screen.dart' as registration_screen;
+import 'package:womens_courtyard/user.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, this.title = ''}) : super(key: key);

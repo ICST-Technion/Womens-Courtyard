@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 // collection name
 const PERSONAL_FILE_COLLECTION_NAME = "clients";
 // personal file fields
@@ -25,11 +24,9 @@ const LOCATION_FIELD = "location";
 const STAFF_FIELD = "staffInCharge";
 // const DATE_FIELD = "date";
 
-
-
 class PersonalFile {
   final String firstName;
-  final String lastName	;
+  final String lastName;
   final String idNo;
   final int age;
   final String address;
@@ -40,30 +37,31 @@ class PersonalFile {
   final List processes;
   final List appointmentHistory;
   final List attendances;
-  PersonalFile(this.firstName,
-    this.lastName,
-    this.idNo,
-    this.age,
-    this.address,
-    this.phoneNo,
-    this.nationality,
-    this.clientNotes,
-    this.inAssignment,
-    this.processes,
-    this.appointmentHistory,
-    this.attendances);
+  PersonalFile(
+      this.firstName,
+      this.lastName,
+      this.idNo,
+      this.age,
+      this.address,
+      this.phoneNo,
+      this.nationality,
+      this.clientNotes,
+      this.inAssignment,
+      this.processes,
+      this.appointmentHistory,
+      this.attendances);
   //
   // factory PersonalFile.fromJson(Map<String, dynamic> json) => PersonalFile(
   //     id: json['id'],
   //     firstName: json['name'],
   //     lastName: json['name'],
   //     info: json['info']);
-  
+
   factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc) {
     // assumes a single client document is received
     print("started personal file construction");
     final String firstName = doc[FIRST_NAME_FIELD];
-    final String lastName	= doc[LAST_NAME_FIELD];
+    final String lastName = doc[LAST_NAME_FIELD];
     final String idNo = doc[ID_FIELD];
     final int age = doc[AGE_FIELD];
     final String address = doc[ADDR_FIELD];
@@ -72,9 +70,23 @@ class PersonalFile {
     final List clientNotes = doc[CLIENT_NOTES_FIELD];
     final bool inAssignment = doc[IN_ASSIGNMENT_FIELD];
     final List processes = doc[PROCESS_FIELD].toList();
-    final List appointmentHistory = doc[HISTORY_FIELD].map((e) => Appointment.fromMap(e)).toList();
-    final List attendances = doc["attendances"].map((e) => Attendance.fromMap(e)).toList();
-    return PersonalFile(firstName, lastName, idNo, age, address, phoneNo, nationality, clientNotes, inAssignment, processes, appointmentHistory, attendances);
+    final List appointmentHistory =
+        doc[HISTORY_FIELD].map((e) => Appointment.fromMap(e)).toList();
+    final List attendances =
+        doc["attendances"].map((e) => Attendance.fromMap(e)).toList();
+    return PersonalFile(
+        firstName,
+        lastName,
+        idNo,
+        age,
+        address,
+        phoneNo,
+        nationality,
+        clientNotes,
+        inAssignment,
+        processes,
+        appointmentHistory,
+        attendances);
   }
 }
 
@@ -86,11 +98,11 @@ class Appointment {
   Appointment(this.description, this.date, this.location, this.staffInCharge);
 
   factory Appointment.fromDoc(QueryDocumentSnapshot<Map> doc) => Appointment(
-    doc[DESCRIPTION_FIELD],
-    doc[DATE_FIELD].toDate(),
-    doc[LOCATION_FIELD],
-    doc[STAFF_FIELD] == 'true'  // TODO: check if works correctly
-  );
+      doc[DESCRIPTION_FIELD],
+      doc[DATE_FIELD].toDate(),
+      doc[LOCATION_FIELD],
+      doc[STAFF_FIELD] == 'true' // TODO: check if works correctly
+      );
 
   factory Appointment.fromMap(Map doc) {
     print("the date is: " + doc[DATE_FIELD].toString());
@@ -99,7 +111,7 @@ class Appointment {
         doc[DATE_FIELD].toDate(),
         doc[LOCATION_FIELD],
         doc[STAFF_FIELD] == 'true' // TODO: check if works correctly
-    );
+        );
   }
 }
 
@@ -108,16 +120,11 @@ class Attendance {
   final String comment;
   Attendance(this.date, this.comment);
 
-  factory Attendance.fromDoc(QueryDocumentSnapshot<Map> doc) => Attendance(
-      doc[DATE_FIELD].toDate(),
-      doc[COMMENT_FIELD]
-  );
+  factory Attendance.fromDoc(QueryDocumentSnapshot<Map> doc) =>
+      Attendance(doc[DATE_FIELD].toDate(), doc[COMMENT_FIELD]);
 
-  factory Attendance.fromMap(Map doc){
+  factory Attendance.fromMap(Map doc) {
     print("DEBUG 13");
-    return Attendance(
-        doc[DATE_FIELD].toDate(),
-        doc[COMMENT_FIELD]
-    );
+    return Attendance(doc[DATE_FIELD].toDate(), doc[COMMENT_FIELD]);
   }
 }

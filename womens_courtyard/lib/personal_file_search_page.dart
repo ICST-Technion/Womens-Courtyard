@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/user.dart';
-import 'edit_personal_file.dart' as edit_personal_page;
+import 'package:womens_courtyard/edit_personal_file.dart' as edit_personal_page;
 
 class PersonalFileSearchPage extends StatefulWidget {
   PersonalFileSearchPage({Key? key}) : super(key: key);
@@ -118,7 +116,7 @@ class FileList extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) =>
                           edit_personal_page.PersonalFileEditPage(
-                              person: list[index])));
+                              title: "", person: list[index])));
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].firstName + ' ' + list[index].lastName),

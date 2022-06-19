@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/main.dart';
-import 'register_screen.dart' as registration_screen;
-import 'bottom_navigation_bar.dart' as bottom_navigation_bar;
+import 'package:womens_courtyard/bottom_navigation_bar.dart'
+    as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:womens_courtyard/user.dart';
 
@@ -21,9 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
-  // firebase instances
-  final FirebaseFunctions functions = FirebaseFunctions.instance;
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  final login_user = logInUser();
   //controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passController = new TextEditingController();
@@ -102,8 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
           if (_formKey.currentState != null &&
               _formKey.currentState!.validate()) {
             showLoaderDialog(context);
-            bool res =
-                await loginUser(emailController.text, passController.text);
+            bool res = await login_user.loginUser(
+                emailController.text, passController.text);
             if (!res) {
               Navigator.of(context, rootNavigator: true).pop();
               showDialog(
@@ -185,6 +180,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ));
   }
+}
+
+class logInUser {
+  // firebase instances
+  final FirebaseFunctions functions = FirebaseFunctions.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<bool> loginUser(String username, String password) async {
     //Call token generator
