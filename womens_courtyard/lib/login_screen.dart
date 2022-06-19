@@ -18,7 +18,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
-  final login_user = logInUser();
+  final login_user = LoginHandler(
+      auth: FirebaseAuth.instance,
+      dynamicHandler:
+          DynamicLoginHandler(functions: FirebaseFunctions.instance));
   //controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passController = new TextEditingController();
@@ -182,18 +185,32 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class logInUser {
-  // firebase instances
-  final FirebaseFunctions functions = FirebaseFunctions.instance;
-  final FirebaseAuth auth = FirebaseAuth.instance;
+class DynamicLoginHandler {
+  final FirebaseFunctions functions;
 
-  Future<bool> loginUser(String username, String password) async {
-    //Call token generator
+  DynamicLoginHandler({required this.functions});
+
+  dynamic get_login_result(String username, String password) async {
     HttpsCallable callable = functions.httpsCallable('generateToken');
     var passbytes = utf8.encode(password);
     var passhash = sha256.convert(passbytes).toString();
     final results = await callable
         .call(<String, dynamic>{'username': username, 'password': passhash});
+    return results;
+  }
+}
+
+class LoginHandler {
+  // firebase instances
+  final FirebaseAuth auth;
+  final DynamicLoginHandler dynamicHandler;
+
+  LoginHandler({required this.auth, required this.dynamicHandler});
+
+  Future<bool> loginUser(String username, String password) async {
+    //Call token generator
+    var results =
+        await this.dynamicHandler.get_login_result(username, password);
 
     bool success = results.data['success'];
     print('token request returned with status $success');
