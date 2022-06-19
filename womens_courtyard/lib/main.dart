@@ -9,7 +9,7 @@ import 'login_screen.dart' as login_screen;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'dart:io' show Platform;
 
-const bool USE_EMULATOR = false;
+const bool USE_EMULATOR = true;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

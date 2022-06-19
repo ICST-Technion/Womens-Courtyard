@@ -3,30 +3,25 @@ import 'personal_file_search_page.dart' as file_search_page;
 import 'home_page.dart' as home_page;
 import 'attendance_search_page.dart' as attendance_search_page;
 import 'search_contact.dart' as view_contact;
+import 'user.dart';
 
 //MyBottomNavigationBar()
 class MyBottomNavigationBar extends StatefulWidget {
-  const MyBottomNavigationBar({Key? key, this.username = ''}) : super(key: key);
-
-  final String username;
+  const MyBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
-  _MyBottomNavigationBarState createState() =>
-      _MyBottomNavigationBarState(username: username);
+  _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  final String username;
   int _currentIndex = 0;
   late List<Widget> _children;
-  _MyBottomNavigationBarState({this.username = ''}) {
+  _MyBottomNavigationBarState() {
     _children = [
-      home_page.HomePage(username: username),
-      attendance_search_page.AttendanceSearchPage(
-        username: username,
-      ),
-      file_search_page.PersonalFileSearchPage(username: username),
-      view_contact.SearchContact(username: username),
+      home_page.HomePage(),
+      attendance_search_page.AttendanceSearchPage(),
+      file_search_page.PersonalFileSearchPage(),
+      view_contact.SearchContact(),
     ];
   }
 

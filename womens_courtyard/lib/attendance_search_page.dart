@@ -3,11 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'attendance_page.dart' as attendance_page;
+import 'user.dart';
 
 class AttendanceSearchPage extends StatefulWidget {
-  AttendanceSearchPage({Key? key, this.username = ''}) : super(key: key);
-
-  final String username;
+  AttendanceSearchPage({Key? key}) : super(key: key);
 
   @override
   AttendanceSearchPageState createState() => new AttendanceSearchPageState();
@@ -20,8 +19,7 @@ class AttendanceSearchPageState extends State<AttendanceSearchPage> {
   Future<Null> getUserDetails() async {
     try {
       _personalFiles = [];
-      final response =
-          await FirebaseFirestore.instance.collection('clients').get();
+      final response = await getPersonalFileDocs();
       _personalFiles = [];
       for (final doc in response.docs) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
@@ -77,9 +75,8 @@ class AttendanceSearchPageState extends State<AttendanceSearchPage> {
             ),
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    ? FileList(list: _searchResult, username: widget.username)
-                    : FileList(
-                        list: _personalFiles, username: widget.username)),
+                    ? FileList(list: _searchResult)
+                    : FileList(list: _personalFiles)),
           ],
         ),
       ),
@@ -108,9 +105,7 @@ class AttendanceSearchPageState extends State<AttendanceSearchPage> {
 
 class FileList extends StatelessWidget {
   final List<PersonalFile> list;
-  FileList({required this.list, required this.username});
-
-  final String username;
+  FileList({required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +119,8 @@ class FileList extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => attendance_page.AttendancePage(
-                          username: this.username, file: list[index])));
+                      builder: (context) =>
+                          attendance_page.AttendancePage(file: list[index])));
             },
             leading: Icon(Icons.folder),
             title: new Text(list[index].firstName + ' ' + list[index].lastName),

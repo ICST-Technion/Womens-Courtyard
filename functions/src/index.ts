@@ -18,6 +18,7 @@ export const registerClient = functions.https.onCall( async (data, context) => {
     const password = data.password as string;
     const role = data.role as string;
     const name = data.name as string;
+    const branch = data.branch as string;
 
     // functions.logger.debug(`request: value ${request}, type ${typeof request}`);
     // functions.logger.debug(`username: value ${username}, type ${typeof username}`);
@@ -73,6 +74,7 @@ export const registerClient = functions.https.onCall( async (data, context) => {
         // Add to staff collection
         staffRef.doc(username).set({
             "name": name,
+            "branch": branch
         });
     }
     else {
@@ -96,6 +98,7 @@ export const generateToken = functions.https.onCall( async (data, context) => {
 
     const db = admin.firestore();
     const usersRef = db.collection("users");
+    const staffRef = db.collection("staff");
 
     // Get user data
     
@@ -122,11 +125,13 @@ export const generateToken = functions.https.onCall( async (data, context) => {
     // If passed all checks
     functions.logger.info(`user ${username} passed login checks`);
     const role = userEntry.data()?.role
-    const additionalClaims = { "role": role };
+    const staffEntry = await staffRef.doc(username).get();
+    const branch = staffEntry.data()?.branch;
+    const additionalClaims = { "role": role, "branch": branch};
     try {
         const customToken = await admin.auth().createCustomToken(userEntry.id, additionalClaims);
-        functions.logger.info(`user ${username} got generated token`);
-        return {"success": true, "data": {"role": role, "token": customToken, "username": userEntry.id}};
+        functions.logger.info(`user ${username} got generated token, branch ${branch}`);
+        return {"success": true, "data": {"role": role, "token": customToken, "username": userEntry.id, "branch": branch}};
         functions.logger.error("SHOULD NOT GET HERE - AFTER RETURN");
     }
     catch (error) {

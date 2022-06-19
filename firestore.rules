@@ -37,6 +37,15 @@ service cloud.firestore {
     //   allow read: if request.auth.uid == userId || isStaff();
     //   allow write: if isStaff();
     // }
+    match /branches/{branchName}/clients/{userId} {
+      allow read, write: if isStaff() && request.auth.token.branch == branchName;
+    }
+
+    match /branches/{branchName}/contacts/{userId} {
+      allow read, write: if isStaff() && request.auth.token.branch == branchName;
+    }
+
+
     match /clients/{userId} {
       allow read, write: if isStaff();
     }

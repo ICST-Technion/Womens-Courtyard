@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:womens_courtyard/user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -128,8 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          bottom_navigation_bar.MyBottomNavigationBar(
-                              username: emailController.text)));
+                          bottom_navigation_bar.MyBottomNavigationBar()));
             }
           }
         },
@@ -176,26 +176,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 35),
                         loginButton,
                         SizedBox(height: 15),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: <Widget>[
-                        //     Text('הוספת משתמשת צוות (אפשרות זמנית): '),
-                        //     GestureDetector(
-                        //         onTap: () {
-                        //           Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       registration_screen
-                        //                           .RegistrationScreen()));
-                        //         },
-                        //         child: Text('הירשמי',
-                        //             style: TextStyle(
-                        //                 color: Colors.purpleAccent,
-                        //                 fontWeight: FontWeight.bold,
-                        //                 fontSize: 15))),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),
@@ -221,6 +201,10 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       final role = results.data['data']['role'];
       final token = results.data['data']['token'];
+      final name = results.data['data']['username'];
+      final branch = results.data['data']['branch'];
+      var user = AppUser();
+      user.setFields(name, username, branch);
       await auth.signInWithCustomToken(token);
       if (role == 'staff') {
         print('logging in as staff');
