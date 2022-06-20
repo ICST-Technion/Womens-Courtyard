@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -14,9 +15,11 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final RegisterHandle registerHandle = RegisterHandle(
+      registerFunctionHandle:
+          RegisterFunctionHandle(functions: FirebaseFunctions.instance));
   //our form key
   final _formKey = GlobalKey<FormState>();
-  final FirebaseFunctions functions = FirebaseFunctions.instance;
   //editing controller
   final fullnameEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
@@ -173,14 +176,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
+        onPressed: () async {
           if (_formKey.currentState != null &&
               (_formKey.currentState!).validate()) {
-            register(emailEditingController.text, passEditingController.text,
-                fullnameEditingController.text, branch);
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('כניסה מוצלחת')),
-            );
+            bool res = await this.registerHandle.register(
+                emailEditingController.text,
+                passEditingController.text,
+                fullnameEditingController.text,
+                branch);
+            if (res) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          bottom_navigation_bar.MyBottomNavigationBar()));
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('כניסה מוצלחת')),
+              );
+            } else {
+              throw FirebaseAuthException(
+                  message: 'something went horribly wrong', code: '-1');
+            }
           }
         },
         child: Text('להרשמה',
@@ -246,8 +262,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
   }
+}
 
-  void register(String username, String password, String name, String branch,
+class RegisterFunctionHandle {
+  final FirebaseFunctions functions;
+
+  RegisterFunctionHandle({required this.functions});
+
+  dynamic getRegisterResult(
+      String username, String password, String name, String branch,
       {String role = 'staff'}) async {
     var passbytes = utf8.encode(password);
     var passhash = sha256.convert(passbytes).toString();
@@ -259,11 +282,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       'branch': branch,
       'role': role
     });
-    print(results.data['success'].toString());
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                bottom_navigation_bar.MyBottomNavigationBar()));
+    return results;
+  }
+}
+
+class RegisterHandle {
+  final RegisterFunctionHandle registerFunctionHandle;
+
+  RegisterHandle({required this.registerFunctionHandle});
+
+  Future<bool> register(
+      String username, String password, String name, String branch,
+      {String role = 'staff'}) async {
+    var results = await this
+        .registerFunctionHandle
+        .getRegisterResult(username, password, name, branch);
+    bool success = results.data['success'];
+    if (!success) {
+      print('NEVER EVER SHOULD GET HERE');
+      return false;
+    } else {
+      print(results.data['success'].toString());
+      return true;
+    }
   }
 }
