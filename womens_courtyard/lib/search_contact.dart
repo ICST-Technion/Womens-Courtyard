@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/contact.dart';
 import 'package:womens_courtyard/add_contact.dart' as add_contact_page;
 import 'package:womens_courtyard/edit_contact.dart' as edit_contact_page;
+import 'package:womens_courtyard/personal_file.dart';
 
 class SearchContact extends StatefulWidget {
   SearchContact({Key? key, this.title = ''}) : super(key: key);
@@ -19,12 +19,12 @@ class _SearchContactState extends State<SearchContact> {
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
     try {
-      _contactDetails.clear();
-      final response = await getContactDocs();
+      _contactDetails = [];
+      final response = await getContactsDocs();
       for (final doc in response.docs) {
-        _contactDetails.add(Contact.fromDoc(doc));
+        _contactDetails.add(ContactFile.fromDoc(doc));
       }
-      _contactDetails.sort((a, b) => a.name.compareTo(b.name));
+      _contactDetails.sort((a, b) => a.firstName.compareTo(b.firstName));
       setState(() {});
     } catch (e) {
       print('caught $e');
@@ -111,16 +111,16 @@ class _SearchContactState extends State<SearchContact> {
     }
 
     _contactDetails.forEach((contact) {
-      if (contact.name.contains(text)) _searchResult.add(contact);
+      if (contact.firstName.contains(text)) _searchResult.add(contact);
     });
-    _contactDetails.sort((a, b) => a.name.compareTo(b.name));
+    _contactDetails.sort((a, b) => a.firstName.compareTo(b.firstName));
 
     setState(() {});
   }
 }
 
 class FileList extends StatelessWidget {
-  final List<Contact> list;
+  final List<ContactFile> list;
   FileList({required this.list});
 
   @override
@@ -134,8 +134,8 @@ class FileList extends StatelessWidget {
           return new Card(
             child: new ListTile(
               leading: Icon(Icons.contact_page),
-              title: new Text(list[index].name),
-              subtitle: new Text(list[index].occupation),
+              title: new Text(list[index].firstName),
+              subtitle: new Text(list[index].field),
               onTap: () {
                 Navigator.push(
                     context,
@@ -152,6 +152,6 @@ class FileList extends StatelessWidget {
   }
 }
 
-List<Contact> _searchResult = [];
+List<ContactFile> _searchResult = [];
 
-List<Contact> _contactDetails = [];
+List<ContactFile> _contactDetails = [];

@@ -25,6 +25,34 @@ List<String>? strfy(List<dynamic>? dynamicList) {
   return dynamicList?.map((e) => e.toString()).toList();
 }
 
+class ContactFile {
+  final String key;
+  final String firstName;
+  final String lastName;
+  final String field;
+  final String phoneNo;
+  final String? email;
+  final String info;
+
+  ContactFile(
+      {required this.key,
+      required this.firstName,
+      required this.lastName,
+      required this.field,
+      required this.phoneNo,
+      required this.email,
+      required this.info});
+
+  factory ContactFile.fromDoc(QueryDocumentSnapshot<Map> doc) => ContactFile(
+      key: doc.id,
+      firstName: doc.data()['firstName'],
+      lastName: doc.data()['lastName'],
+      field: doc.data()['field'],
+      phoneNo: doc.data()['phoneNo'],
+      email: doc.data()['email'] ?? 'no email',
+      info: doc.data()['info']);
+}
+
 class PersonalFile {
   final String key;
   final String firstName;
@@ -92,8 +120,20 @@ Future<QuerySnapshot<Map<String, dynamic>>> getPersonalFileDocs() async {
   return branchClients.get();
 }
 
+Future<QuerySnapshot<Map<String, dynamic>>> getContactsDocs() async {
+  final branches = FirebaseFirestore.instance.collection('branches');
+  final branchClients = branches.doc(AppUser().branch).collection('contacts');
+  return branchClients.get();
+}
+
 CollectionReference getPersonalFileRef() {
   CollectionReference branchRef =
       FirebaseFirestore.instance.collection('branches');
   return branchRef.doc(AppUser().branch).collection('clients');
+}
+
+CollectionReference getContactsCollection() {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  return branchRef.doc(AppUser().branch).collection('contacts');
 }
