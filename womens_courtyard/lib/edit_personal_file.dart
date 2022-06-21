@@ -125,6 +125,22 @@ List fill_the_list(PersonalFile person, BuildContext context) {
     ),
   ));
 
+  String comments_on_person = 'משפטים יומיים על הצעירה:\n';
+  for (int i = 0; i < person.attendances.length; i++) {
+    comments_on_person += '\n' +
+        person.attendances[i].date.toString() +
+        ':\n' +
+        person.attendances[i].comment;
+  }
+  toRet.add(Card(
+    child: Center(
+      child: Text(
+        comments_on_person,
+        style: TextStyle(fontSize: 20),
+      ),
+    ),
+  ));
+
   toRet.add(Card(
       child: ElevatedButton(
           child: Text('מעבר לטפסים', style: TextStyle(fontSize: 20)),

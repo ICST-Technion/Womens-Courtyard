@@ -17,6 +17,10 @@ class AttendancePage extends StatefulWidget {
 
 class _AttendancePageState extends State<AttendancePage> {
   DateTime selectedDate = DateTime.now();
+
+  final TextEditingController dailySentenceController =
+      new TextEditingController();
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -31,12 +35,25 @@ class _AttendancePageState extends State<AttendancePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final dailySentenceField = TextFormField(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        autofocus: false,
+        controller: dailySentenceController,
+        keyboardType: TextInputType.name,
+        onSaved: (value) {
+          dailySentenceController.text = value ?? '';
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.text_fields),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: 'משפט יומי',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -83,17 +100,18 @@ class _AttendancePageState extends State<AttendancePage> {
               SizedBox(
                 height: 10.0,
               ),
+              Flexible(child: dailySentenceField),
+              SizedBox(
+                height: 10.0,
+              ),
               Padding(
                 padding: const EdgeInsets.all(64.0),
                 child: ElevatedButton(
                     child: Text('הזנה וסיום'),
                     onPressed: () {
-                      postAttendance(selectedDate, widget.file.key);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => bottom_navigation_bar
-                                  .MyBottomNavigationBar()));
+                      postAttendance(selectedDate, widget.file.key,
+                          dailySentenceController.text);
+                      Navigator.of(context, rootNavigator: true).pop();
                     },
                     style: ElevatedButton.styleFrom(
                         elevation: 4,
@@ -131,12 +149,13 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 }
 
-void postAttendance(DateTime currDate, String clientKey) async {
+void postAttendance(
+    DateTime currDate, String clientKey, String dailySentence) async {
   getPersonalFileRef()
       .doc(clientKey)
       .update({
         'attendances': FieldValue.arrayUnion([
-          {'date': currDate, 'comment': ''}
+          {'date': currDate, 'comment': dailySentence}
         ])
       })
       .then((_) => print('attendance updated'))

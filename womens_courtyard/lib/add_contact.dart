@@ -155,11 +155,7 @@ class _AddContactPageState extends State<AddContactPage> {
                               phoneNumberTextController.text,
                               emailTextController.text,
                               _selectedCategory ?? 'לא מוגדר');
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar()));
+                          Navigator.of(context, rootNavigator: true).pop();
                         }
                       },
                       style: ElevatedButton.styleFrom(

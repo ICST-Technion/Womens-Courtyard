@@ -335,11 +335,7 @@ class _EditClientPageState extends State<EditClientPage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('עריכת תיק מוצלחת')),
                           );
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar()));
+                          Navigator.of(context, rootNavigator: true).pop();
                         }
                       },
                       style: ElevatedButton.styleFrom(
