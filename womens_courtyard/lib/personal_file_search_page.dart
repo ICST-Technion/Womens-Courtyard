@@ -71,8 +71,8 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
             ),
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    ? FileList(list: _searchResult)
-                    : FileList(list: _personalFiles)),
+                    ? createPersonalFile(_searchResult)
+                    : createPersonalFile(_personalFiles)),
           ],
         ),
       ),
@@ -96,35 +96,36 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
     setState(() {});
   }
-}
 
-class FileList extends StatelessWidget {
-  final List<PersonalFile> list;
-  FileList({required this.list});
-
-  @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-      // Search query results
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        return new Card(
-          child: new ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          edit_personal_page.PersonalFileEditPage(
-                              title: "", person: list[index])));
-            },
-            leading: Icon(Icons.folder),
-            title: new Text(list[index].firstName + ' ' + list[index].lastName),
-            subtitle: new Text('תעודת זהות: ' + list[index].idNo.toString()),
-          ),
-          margin: const EdgeInsets.all(0.0),
-        );
-      },
+  Container createPersonalFile(List<PersonalFile> personalList) {
+    return Container(
+      height: 750,
+      child: new ListView.builder(
+        // Search query results
+        itemCount: personalList.length,
+        itemBuilder: (context, index) {
+          return new Card(
+            child: new ListTile(
+              leading: Icon(Icons.contact_page),
+              title: new Text(personalList[index].firstName +
+                  " " +
+                  personalList[index].lastName),
+              subtitle: new Text(personalList[index].idNo.toString()),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            edit_personal_page.PersonalFileEditPage(
+                                person: personalList[index]))).then(
+                    (value) async =>
+                        {await getUserDetails(), print("got here!")});
+              },
+            ),
+            margin: const EdgeInsets.all(0.0),
+          );
+        },
+      ),
     );
   }
 }

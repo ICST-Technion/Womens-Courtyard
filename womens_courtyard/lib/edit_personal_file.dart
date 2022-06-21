@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/forms_buttons.dart' as forms;
 import 'package:womens_courtyard/client_editing.dart' as client_editing_page;
 
 class PersonalFileEditPage extends StatefulWidget {
-  PersonalFileEditPage({Key? key, required this.title, required this.person})
-      : super(key: key);
+  PersonalFileEditPage({Key? key, required this.person}) : super(key: key);
 
   final PersonalFile person;
-  final String title;
-  List display_items = List<String>.empty();
 
   @override
   _PersonalFileEditPageState createState() => _PersonalFileEditPageState();
@@ -17,31 +13,21 @@ class PersonalFileEditPage extends StatefulWidget {
 
 class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
   DateTime selectedDate = DateTime.now();
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //       context: context,
-  //       initialDate: selectedDate,
-  //       firstDate: DateTime(2015, 8),
-  //       lastDate: DateTime(2101));
-  //   if (picked != null && picked != selectedDate)
-  //     setState(() {
-  //       selectedDate = picked;
-  //     });
-  // }
+  List display_items = [];
 
   @override
   Widget build(BuildContext context) {
     //var curr_contact = contacts_data.allContacts[0];
-    widget.display_items = fill_the_list(widget.person, context);
+    display_items = fill_the_list(widget.person, context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
         body: Center(
             child: ListView.builder(
-                itemCount: widget.display_items.length,
+                itemCount: display_items.length,
                 itemBuilder: (context, index) {
-                  return widget.display_items[index];
+                  return display_items[index];
                 })),
       ),
     );
@@ -67,111 +53,114 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
       ),
     ]);
   }
-}
 
-List fill_the_list(PersonalFile person, BuildContext context) {
-  List<Card> toRet = [];
-  toRet.add(Card(
-    child: Center(
-      child: Text(
-        'שם פרטי: ' + person.firstName,
-        style: TextStyle(fontSize: 20),
+  List<Card> fill_the_list(PersonalFile person, BuildContext context) {
+    List<Card> toRet = [];
+    toRet.add(Card(
+      child: Center(
+        child: Text(
+          'שם פרטי: ' + person.firstName,
+          style: TextStyle(fontSize: 20),
+        ),
       ),
-    ),
-  ));
-  toRet.add(Card(
-    child: Center(
-      child: Text(
-        'שם משפחה: ' + person.lastName,
-        style: TextStyle(fontSize: 20),
+    ));
+    toRet.add(Card(
+      child: Center(
+        child: Text(
+          'שם משפחה: ' + person.lastName,
+          style: TextStyle(fontSize: 20),
+        ),
       ),
-    ),
-  ));
-  toRet.add(Card(
-    child: Center(
-      child: Text(
-        'לאום: ' + person.nationality,
-        style: TextStyle(fontSize: 20),
+    ));
+    toRet.add(Card(
+      child: Center(
+        child: Text(
+          'לאום: ' + person.nationality,
+          style: TextStyle(fontSize: 20),
+        ),
       ),
-    ),
-  ));
-  toRet.add(Card(
-    child: Center(
-      child: Text(
-        'תעודת זהות: ' + person.idNo!,
-        style: TextStyle(fontSize: 20),
+    ));
+    toRet.add(Card(
+      child: Center(
+        child: Text(
+          'תעודת זהות: ' + person.idNo!,
+          style: TextStyle(fontSize: 20),
+        ),
       ),
-    ),
-  ));
-  toRet.add(Card(
-    child: Center(
-      child: Text(
-        'מספר טלפון: ' + person.phoneNo,
-        style: TextStyle(fontSize: 20),
+    ));
+    toRet.add(Card(
+      child: Center(
+        child: Text(
+          'מספר טלפון: ' + person.phoneNo,
+          style: TextStyle(fontSize: 20),
+        ),
       ),
-    ),
-  ));
+    ));
 
-  String data_on_person = 'מידע על הצעירה:\n';
-  for (int i = 0; i < person.clientNotes.length; i++) {
-    data_on_person += '\n' + person.clientNotes[i];
+    String data_on_person = 'מידע על הצעירה:\n';
+    for (int i = 0; i < person.clientNotes.length; i++) {
+      if (person.clientNotes[i] == "") {
+        continue;
+      }
+      data_on_person += '\n' + person.clientNotes[i];
+    }
+    toRet.add(Card(
+      child: Center(
+        child: Text(
+          data_on_person,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    ));
+
+    String comments_on_person = 'משפטים יומיים על הצעירה:\n';
+    for (int i = 0; i < person.attendances.length; i++) {
+      comments_on_person += '\n' +
+          person.attendances[i].date.toString() +
+          ':\n' +
+          person.attendances[i].comment;
+    }
+    toRet.add(Card(
+      child: Center(
+        child: Text(
+          comments_on_person,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    ));
+
+    toRet.add(Card(
+        child: ElevatedButton(
+            child: Text('מעבר לטפסים', style: TextStyle(fontSize: 20)),
+            onPressed: () {
+              //   Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => forms.FormsButtonsPage()));
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(250, 84, 9, 0),
+                elevation: 4,
+                minimumSize: Size(150, 50),
+                textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0))))));
+    toRet.add(Card(
+        child: ElevatedButton(
+            child: Text('לעריכה', style: TextStyle(fontSize: 20)),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => client_editing_page.EditClientPage(
+                          person: person))).then((value) => setState(() {}));
+            },
+            style: ElevatedButton.styleFrom(
+                elevation: 4,
+                minimumSize: Size(150, 50),
+                textStyle: TextStyle(color: Colors.white, fontSize: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0))))));
+    return toRet;
   }
-  toRet.add(Card(
-    child: Center(
-      child: Text(
-        data_on_person,
-        style: TextStyle(fontSize: 20),
-      ),
-    ),
-  ));
-
-  String comments_on_person = 'משפטים יומיים על הצעירה:\n';
-  for (int i = 0; i < person.attendances.length; i++) {
-    comments_on_person += '\n' +
-        person.attendances[i].date.toString() +
-        ':\n' +
-        person.attendances[i].comment;
-  }
-  toRet.add(Card(
-    child: Center(
-      child: Text(
-        comments_on_person,
-        style: TextStyle(fontSize: 20),
-      ),
-    ),
-  ));
-
-  toRet.add(Card(
-      child: ElevatedButton(
-          child: Text('מעבר לטפסים', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => forms.FormsButtonsPage()));
-          },
-          style: ElevatedButton.styleFrom(
-              primary: Color.fromRGBO(250, 84, 9, 0),
-              elevation: 4,
-              minimumSize: Size(150, 50),
-              textStyle: TextStyle(color: Colors.white, fontSize: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0))))));
-  toRet.add(Card(
-      child: ElevatedButton(
-          child: Text('לעריכה', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        client_editing_page.EditClientPage(person: person)));
-          },
-          style: ElevatedButton.styleFrom(
-              elevation: 4,
-              minimumSize: Size(150, 50),
-              textStyle: TextStyle(color: Colors.white, fontSize: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0))))));
-  return toRet;
 }

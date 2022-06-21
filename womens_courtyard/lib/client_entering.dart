@@ -410,7 +410,7 @@ class _AddClientPageState extends State<AddClientPage> {
           'appointmentHistory': [],
           'attendances': []
         })
-        .then((_) => print('updated'))
+        .then((_) => print('added'))
         .catchError((e) => print('update failed $e'));
   }
 }

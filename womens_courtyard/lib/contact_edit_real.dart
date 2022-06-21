@@ -221,7 +221,11 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
                               emailTextController.text,
                               _selectedCategory ?? 'לא מוגדר',
                               widget.contact);
-                          Navigator.of(context, rootNavigator: true).pop();
+                          var count = 0;
+                          Navigator.of(context, rootNavigator: true)
+                              .popUntil((route) {
+                            return count++ == 2;
+                          });
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -275,7 +279,7 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
           'email': email,
           'info': ""
         })
-        .then((_) => print('updated'))
+        .then((_) => print('updated contact'))
         .catchError((e) => print('update failed $e'));
   }
 }

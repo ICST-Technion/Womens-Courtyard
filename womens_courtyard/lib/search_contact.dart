@@ -77,18 +77,19 @@ class _SearchContactState extends State<SearchContact> {
             ),
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    ? FileList(list: _searchResult)
-                    : FileList(list: _contactDetails)),
+                    ? createFilesWidget(_searchResult)
+                    : createFilesWidget(_contactDetails)),
             Padding(
               padding: const EdgeInsets.all(64.0),
               child: ElevatedButton(
                   child: Text('הוספת איש קשר'),
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                add_contact_page.AddContactPage()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    add_contact_page.AddContactPage()))
+                        .then((_) => getUserDetails());
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 4,
@@ -117,31 +118,27 @@ class _SearchContactState extends State<SearchContact> {
 
     setState(() {});
   }
-}
 
-class FileList extends StatelessWidget {
-  final List<ContactFile> list;
-  FileList({required this.list});
-
-  @override
-  Widget build(BuildContext context) {
+  Container createFilesWidget(List<ContactFile> contacts) {
     return Container(
       height: 750,
       child: new ListView.builder(
         // Search query results
-        itemCount: list.length,
+        itemCount: contacts.length,
         itemBuilder: (context, index) {
           return new Card(
             child: new ListTile(
               leading: Icon(Icons.contact_page),
-              title: new Text(list[index].firstName),
-              subtitle: new Text(list[index].field),
+              title: new Text(contacts[index].firstName),
+              subtitle: new Text(contacts[index].field),
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => edit_contact_page.EditContactPage(
-                            contact: list[index])));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                edit_contact_page.EditContactPage(
+                                    contact: contacts[index])))
+                    .then((value) => getUserDetails());
               },
             ),
             margin: const EdgeInsets.all(0.0),

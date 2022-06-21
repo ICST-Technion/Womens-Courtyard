@@ -266,11 +266,11 @@ class _EditClientPageState extends State<EditClientPage> {
                   child: ElevatedButton(
                       child: Text('הוספת איש קשר'),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    add_contact_page.AddContactPage()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             add_contact_page.AddContactPage()));
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Color.fromRGBO(250, 84, 9, 0),
@@ -311,29 +311,21 @@ class _EditClientPageState extends State<EditClientPage> {
                   padding: const EdgeInsets.all(64.0),
                   child: ElevatedButton(
                       child: Text('סיום ושמירה'),
-                      onPressed: () {
-                        //enter the results from the controllers.text into the firebase, then navigate back.
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (context) {
-                        //     return AlertDialog(
-                        //       content: Text(nameTextController.text),
-                        //     );
-                        //   },
-                        // );
+                      onPressed: () async {
                         if (_formKey.currentState != null &&
                             (_formKey.currentState!).validate()) {
-                          enterFileToDatabase(
+                          await enterFileToDatabase(
                               nameTextController.text,
                               fNameTextController.text,
                               idNoTextController.text,
                               phoneNumberTextController.text,
                               processDescriptionTextController.text,
                               widget.person);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('עריכת תיק מוצלחת')),
-                          );
-                          Navigator.of(context, rootNavigator: true).pop();
+                          var count = 0;
+                          Navigator.of(context, rootNavigator: true)
+                              .popUntil((route) {
+                            return count++ == 2;
+                          });
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -379,8 +371,8 @@ class _EditClientPageState extends State<EditClientPage> {
     );
   }
 
-  void enterFileToDatabase(String name, String fname, String idNo, String phone,
-      String pDec, PersonalFile person) async {
+  Future<Null> enterFileToDatabase(String name, String fname, String idNo,
+      String phone, String pDec, PersonalFile person) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
     final response = await getPersonalFileDocs();
     PersonalFile search_for;
