@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/edit_personal_file.dart' as edit_personal_page;
+import 'package:womens_courtyard/view_personal_file.dart' as edit_personal_page;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PersonalFileSearchPage extends StatefulWidget {
   PersonalFileSearchPage({Key? key}) : super(key: key);
@@ -111,15 +112,17 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
                   " " +
                   personalList[index].lastName),
               subtitle: new Text(personalList[index].idNo.toString()),
-              onTap: () {
+              onTap: () async {
+                List<ContactFile> myContacts =
+                    await getContactList(personalList[index].contactKeys);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
                             edit_personal_page.PersonalFileEditPage(
-                                person: personalList[index]))).then(
-                    (value) async =>
-                        {await getUserDetails(), print("got here!")});
+                                person: personalList[index],
+                                contacts: myContacts))).then((value) async =>
+                    {await getUserDetails(), print("got here!")});
               },
             ),
             margin: const EdgeInsets.all(0.0),
@@ -127,6 +130,16 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
         },
       ),
     );
+  }
+
+  Future<List<ContactFile>> getContactList(List<String> contactKeys) async {
+    List<ContactFile> result = [];
+    var contactsCollection = getContactsCollection();
+    for (String key in contactKeys) {
+      var currDoc = await contactsCollection.doc(key).get();
+      result.add(ContactFile.fromDocNoQuery(currDoc as DocumentSnapshot<Map>));
+    }
+    return result;
   }
 }
 

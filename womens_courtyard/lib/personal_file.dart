@@ -51,6 +51,15 @@ class ContactFile {
       phoneNo: doc.data()['phoneNo'],
       email: doc.data()['email'] ?? 'no email',
       info: doc.data()['info']);
+
+  factory ContactFile.fromDocNoQuery(DocumentSnapshot<Map> doc) => ContactFile(
+      key: doc.id,
+      firstName: doc.data()?['firstName'],
+      lastName: doc.data()?['lastName'],
+      field: doc.data()?['field'],
+      phoneNo: doc.data()?['phoneNo'],
+      email: doc.data()?['email'] ?? 'no email',
+      info: doc.data()?['info']);
 }
 
 class PersonalFile {
@@ -67,6 +76,7 @@ class PersonalFile {
   final List<String> processes;
   final List<Appointment> appointments;
   final List<Attendance> attendances;
+  final List<String> contactKeys;
 
   PersonalFile(
       {required this.key,
@@ -81,7 +91,8 @@ class PersonalFile {
       required this.inAssignment,
       required this.processes,
       required this.appointments,
-      required this.attendances});
+      required this.attendances,
+      required this.contactKeys});
 
   factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc) => PersonalFile(
       key: doc.id,
@@ -111,7 +122,8 @@ class PersonalFile {
       attendances: List<Attendance>.from(doc.data()['attendances']?.map((att) =>
               Attendance(
                   date: att['date']!.toDate(), comment: att['comment']!)) ??
-          []));
+          []),
+      contactKeys: List<String>.from(doc.data()['contacts'] ?? []));
 }
 
 Future<QuerySnapshot<Map<String, dynamic>>> getPersonalFileDocs() async {

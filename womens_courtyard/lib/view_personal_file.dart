@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/client_editing.dart' as client_editing_page;
+import 'package:womens_courtyard/edit_contact.dart' as contact_view;
 
 class PersonalFileEditPage extends StatefulWidget {
-  PersonalFileEditPage({Key? key, required this.person}) : super(key: key);
+  PersonalFileEditPage({Key? key, required this.person, required this.contacts})
+      : super(key: key);
 
   final PersonalFile person;
+  final List<ContactFile> contacts;
 
   @override
   _PersonalFileEditPageState createState() => _PersonalFileEditPageState();
@@ -130,6 +133,35 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
     ));
 
     toRet.add(Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          'אנשי קשר:',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    ));
+
+    for (ContactFile c in widget.contacts) {
+      toRet.add(Card(
+        child: new ListTile(
+          leading: Icon(Icons.contact_page),
+          title: new Text(c.firstName + " " + c.lastName),
+          subtitle: new Text(c.field),
+          onTap: () {
+            Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            contact_view.EditContactPage(contact: c)))
+                .then((value) => setState(() {}));
+          },
+        ),
+        margin: const EdgeInsets.all(0.0),
+      ));
+    }
+
+    toRet.add(Card(
         child: ElevatedButton(
             child: Text('מעבר לטפסים', style: TextStyle(fontSize: 20)),
             onPressed: () {
@@ -145,15 +177,19 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
                 textStyle: TextStyle(color: Colors.white, fontSize: 20),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0))))));
+
     toRet.add(Card(
         child: ElevatedButton(
             child: Text('לעריכה', style: TextStyle(fontSize: 20)),
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => client_editing_page.EditClientPage(
-                          person: person))).then((value) => setState(() {}));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              client_editing_page.EditClientPage(
+                                  person: person,
+                                  initialContacts: widget.contacts)))
+                  .then((value) => setState(() {}));
             },
             style: ElevatedButton.styleFrom(
                 elevation: 4,

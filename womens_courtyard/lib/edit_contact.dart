@@ -107,7 +107,7 @@ class _EditContactPageState extends State<EditContactPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('עריכת איש קשר'), actions: [
+    return AppBar(title: Text('צפייה באיש/ת קשר'), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,
