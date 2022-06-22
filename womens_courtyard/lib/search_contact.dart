@@ -21,7 +21,7 @@ class _SearchContactState extends State<SearchContact> {
     try {
       _contactDetails = [];
       final response = await getContactsDocs();
-      for (final doc in response.docs) {
+      for (final doc in response) {
         _contactDetails.add(ContactFile.fromDoc(doc));
       }
       _contactDetails.sort((a, b) => a.firstName.compareTo(b.firstName));
@@ -82,21 +82,32 @@ class _SearchContactState extends State<SearchContact> {
             Padding(
               padding: const EdgeInsets.all(64.0),
               child: ElevatedButton(
-                  child: Text('הוספת איש קשר'),
+                  child: Text('הוספת איש/ת קשר'),
                   onPressed: () {
-                    Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    add_contact_page.AddContactPage()))
-                        .then((_) => getUserDetails());
+                    if (!isHQ())
+                      Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      add_contact_page.AddContactPage()))
+                          .then((_) => getUserDetails());
                   },
-                  style: ElevatedButton.styleFrom(
-                      elevation: 4,
-                      minimumSize: Size(150, 50),
-                      textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)))),
+                  style: (!isHQ())
+                      ? ElevatedButton.styleFrom(
+                          elevation: 4,
+                          minimumSize: Size(150, 50),
+                          textStyle:
+                              TextStyle(color: Colors.white, fontSize: 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)))
+                      : ElevatedButton.styleFrom(
+                          primary: Color.fromRGBO(250, 84, 9, 0),
+                          elevation: 4,
+                          minimumSize: Size(150, 50),
+                          textStyle:
+                              TextStyle(color: Colors.white, fontSize: 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)))),
             )
           ],
         ),
@@ -129,7 +140,8 @@ class _SearchContactState extends State<SearchContact> {
           return new Card(
             child: new ListTile(
               leading: Icon(Icons.contact_page),
-              title: new Text(contacts[index].firstName),
+              title: new Text(
+                  contacts[index].firstName + ' ' + contacts[index].lastName),
               subtitle: new Text(contacts[index].field),
               onTap: () {
                 Navigator.push(

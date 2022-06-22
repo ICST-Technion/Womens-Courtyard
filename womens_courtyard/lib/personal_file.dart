@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:womens_courtyard/user.dart';
 
+List<String> nonHQBranches = ['נתניה', 'יפו', 'חיפה'];
+
 class Appointment {
   final String description;
   final Timestamp date;
@@ -126,26 +128,85 @@ class PersonalFile {
       contactKeys: List<String>.from(doc.data()['contacts'] ?? []));
 }
 
-Future<QuerySnapshot<Map<String, dynamic>>> getPersonalFileDocs() async {
+Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+    getPersonalFileDocs() async {
   final branches = FirebaseFirestore.instance.collection('branches');
-  final branchClients = branches.doc(AppUser().branch).collection('clients');
-  return branchClients.get();
+  if (!isHQ()) {
+    final branchClients = branches.doc(AppUser().branch).collection('clients');
+    var res = await branchClients.get();
+    return res.docs;
+  } else {
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> allDocs = [];
+    for (String branch in nonHQBranches) {
+      final branchClients = branches.doc(branch).collection('clients');
+      var currClients = await branchClients.get();
+      allDocs.addAll(currClients.docs);
+    }
+    return allDocs;
+  }
 }
 
-Future<QuerySnapshot<Map<String, dynamic>>> getContactsDocs() async {
-  final branches = FirebaseFirestore.instance.collection('branches');
-  final branchClients = branches.doc(AppUser().branch).collection('contacts');
-  return branchClients.get();
-}
-
-CollectionReference getPersonalFileRef() {
+Future<void> updatePersonalFile(String key, Map<String, Object?> value) async {
   CollectionReference branchRef =
       FirebaseFirestore.instance.collection('branches');
-  return branchRef.doc(AppUser().branch).collection('clients');
+  CollectionReference clientsRef =
+      branchRef.doc(AppUser().branch).collection('clients');
+
+  clientsRef.doc(key).update(value);
+}
+
+Future<void> putPersonalFile(Map<String, Object?> value) async {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  CollectionReference clientsRef =
+      branchRef.doc(AppUser().branch).collection('clients');
+
+  clientsRef.add(value);
+}
+
+Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+    getContactsDocs() async {
+  final branches = FirebaseFirestore.instance.collection('branches');
+  if (!isHQ()) {
+    final branchContacts =
+        branches.doc(AppUser().branch).collection('contacts');
+    var res = await branchContacts.get();
+    return res.docs;
+  } else {
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> allDocs = [];
+    for (String branch in nonHQBranches) {
+      final branchContacts = branches.doc(branch).collection('contacts');
+      var currContacts = await branchContacts.get();
+      allDocs.addAll(currContacts.docs);
+    }
+    return allDocs;
+  }
 }
 
 CollectionReference getContactsCollection() {
   CollectionReference branchRef =
       FirebaseFirestore.instance.collection('branches');
   return branchRef.doc(AppUser().branch).collection('contacts');
+}
+
+Future<void> updateContact(String key, Map<String, Object?> value) async {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  CollectionReference contactsRef =
+      branchRef.doc(AppUser().branch).collection('contacts');
+
+  contactsRef.doc(key).update(value);
+}
+
+Future<void> putContact(Map<String, Object?> value) async {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  CollectionReference contactsRef =
+      branchRef.doc(AppUser().branch).collection('contacts');
+
+  contactsRef.add(value);
+}
+
+bool isHQ() {
+  return AppUser().branch == 'מטה';
 }

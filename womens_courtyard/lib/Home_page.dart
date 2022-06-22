@@ -5,6 +5,8 @@ import 'package:womens_courtyard/taskhomepage.dart' as statistics_page;
 import 'package:womens_courtyard/register_screen.dart' as registration_screen;
 import 'package:womens_courtyard/user.dart';
 
+import 'personal_file.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key, this.title = ''}) : super(key: key);
 
@@ -51,6 +53,14 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(fontSize: 30),
                         )),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Center(
+                            child: Text(
+                          'סניף ' + AppUser().branch!,
+                          style: TextStyle(fontSize: 20),
+                        )),
+                      ),
                       Column(
                         children: [
                           Padding(
@@ -77,25 +87,38 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Column(
                         children: [
+                          // if(!isHQ())
                           Padding(
                             padding: const EdgeInsets.all(30.0),
                             child: ElevatedButton(
                                 child: Text('הוספת צעירה'),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              add_client_page.AddClientPage()));
+                                  if (!isHQ())
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                add_client_page
+                                                    .AddClientPage()));
                                 },
-                                style: ElevatedButton.styleFrom(
-                                    elevation: 4,
-                                    minimumSize: Size(150, 50),
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0)))),
+                                style: (!isHQ())
+                                    ? ElevatedButton.styleFrom(
+                                        elevation: 4,
+                                        minimumSize: Size(150, 50),
+                                        textStyle: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0)))
+                                    : ElevatedButton.styleFrom(
+                                        primary: Color.fromRGBO(250, 84, 9, 0),
+                                        elevation: 4,
+                                        minimumSize: Size(150, 50),
+                                        textStyle: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0)))),
                           ),
                         ],
                       ),

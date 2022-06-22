@@ -151,7 +151,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    'הוספת איש קשר',
+                    'הוספת איש/ת קשר',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -238,7 +238,7 @@ class _AddContactPageState extends State<AddContactPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הוספת איש קשר'), actions: [
+    return AppBar(title: Text('הוספת איש/ת קשר'), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,
@@ -261,15 +261,14 @@ class _AddContactPageState extends State<AddContactPage> {
   void addContactToDatabase(String firstName, String lastName, String phone,
       String email, String field) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
-    getContactsCollection()
-        .add({
-          'firstName': firstName,
-          'lastName': lastName,
-          'field': field,
-          'phoneNo': phone,
-          'email': email,
-          'info': ""
-        })
+    putContact({
+      'firstName': firstName,
+      'lastName': lastName,
+      'field': field,
+      'phoneNo': phone,
+      'email': email,
+      'info': ""
+    })
         .then((_) => print('added contact'))
         .catchError((e) => print('update failed $e'));
   }

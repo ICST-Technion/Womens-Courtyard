@@ -20,7 +20,7 @@ class _SearchContactForClientState extends State<SearchContactForClient> {
     try {
       _contactDetails = [];
       final response = await getContactsDocs();
-      for (final doc in response.docs) {
+      for (final doc in response) {
         _contactDetails.add(ContactFile.fromDoc(doc));
       }
       _contactDetails.sort((a, b) => a.firstName.compareTo(b.firstName));

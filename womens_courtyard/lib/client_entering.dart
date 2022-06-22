@@ -444,24 +444,21 @@ class _AddClientPageState extends State<AddClientPage> {
       bool? inAssignment,
       List<String>? contactKeys}) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
-    getPersonalFileRef()
-        .add({
-          'firstName': firstName,
-          'lastName': lastName,
-          'idNo': idNo ?? "",
-          'age': age,
-          'address': address,
-          'branch': AppUser().branch,
-          'phoneNo': phone,
-          'nationality': nationality,
-          'clientNotes': [pDec],
-          'inAssignment': inAssignment,
-          'processes': [],
-          'appointmentHistory': [],
-          'attendances': [],
-          'contacts': contactKeys ?? []
-        })
-        .then((_) => print('added'))
-        .catchError((e) => print('update failed $e'));
+    putPersonalFile({
+      'firstName': firstName,
+      'lastName': lastName,
+      'idNo': idNo ?? "",
+      'age': age,
+      'address': address,
+      'branch': AppUser().branch,
+      'phoneNo': phone,
+      'nationality': nationality,
+      'clientNotes': [pDec],
+      'inAssignment': inAssignment,
+      'processes': [],
+      'appointmentHistory': [],
+      'attendances': [],
+      'contacts': contactKeys ?? []
+    }).then((_) => print('added')).catchError((e) => print('update failed $e'));
   }
 }

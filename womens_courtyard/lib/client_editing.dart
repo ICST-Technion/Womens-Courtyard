@@ -276,7 +276,7 @@ class _EditClientPageState extends State<EditClientPage> {
                 Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: ElevatedButton(
-                    child: Text('הוספת איש קשר'),
+                    child: Text('הוספת איש/ת קשר'),
                     onPressed: () async {
                       ContactFile chosenContact = await Navigator.push(
                           context,
@@ -440,17 +440,15 @@ class _EditClientPageState extends State<EditClientPage> {
 
     // person.clientNotes.add(pDec);
 
-    getPersonalFileRef()
-        .doc(person.key)
-        .update({
-          'firstName': name,
-          'lastName': fname,
-          'idNo': idNo,
-          'phoneNo': phoneNo,
-          'nationality': nationality,
-          'contacts': contacts.map((c) => c.key).toList(),
-          'clientNotes': person.clientNotes,
-        })
+    updatePersonalFile(person.key, {
+      'firstName': name,
+      'lastName': fname,
+      'idNo': idNo,
+      'phoneNo': phoneNo,
+      'nationality': nationality,
+      'contacts': contacts.map((c) => c.key).toList(),
+      'clientNotes': person.clientNotes,
+    })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));
   }

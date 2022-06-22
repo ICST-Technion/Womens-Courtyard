@@ -6,6 +6,9 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:crypto/crypto.dart';
 import 'package:womens_courtyard/bottom_navigation_bar.dart'
     as bottom_navigation_bar;
+import 'package:womens_courtyard/user.dart';
+
+import 'personal_file.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -27,7 +30,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final confirmPassEditingController = new TextEditingController();
 
   List<String> branchOptions = ['חיפה', 'נתניה', 'יפו', 'מטה'];
-  String branch = 'חיפה';
+  String branch = AppUser().branch!;
 
   @override
   Widget build(BuildContext context) {
@@ -88,28 +91,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           style: TextStyle(fontSize: 16),
         ),
       ),
-      DropdownButton(
-        // Initial Value
-        value: branch,
+      (isHQ())
+          ? DropdownButton(
+              // Initial Value
+              value: branch,
 
-        // Down Arrow Icon
-        icon: const Icon(Icons.keyboard_arrow_down),
+              // Down Arrow Icon
+              icon: const Icon(Icons.keyboard_arrow_down),
 
-        // Array list of items
-        items: branchOptions.map((String items) {
-          return DropdownMenuItem(
-            value: items,
-            child: Text(items),
-          );
-        }).toList(),
-        // After selecting the desired option,it will
-        // change button value to selected value
-        onChanged: (String? newValue) {
-          setState(() {
-            branch = newValue!;
-          });
-        },
-      )
+              // Array list of items
+              items: branchOptions.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+              }).toList(),
+              // After selecting the desired option,it will
+              // change button value to selected value
+              onChanged: (String? newValue) {
+                setState(() {
+                  branch = newValue!;
+                });
+              },
+            )
+          : Text(
+              AppUser().branch!,
+              style: TextStyle(fontSize: 16),
+            )
     ]);
 
     //password field

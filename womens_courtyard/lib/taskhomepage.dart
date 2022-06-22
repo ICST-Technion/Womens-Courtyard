@@ -86,46 +86,41 @@ class _TaskHomePageState extends State<TaskHomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('branches')
-          .doc(AppUser().branch)
-          .collection('clients')
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return LinearProgressIndicator();
-        } else {
-          print("got snapshot");
-          var pfList = snapshot.data!.docs
-              .map((doc) =>
-                  PersonalFile.fromDoc(doc as QueryDocumentSnapshot<Map>))
-              .toList();
-          print("finished personal files processing");
-          var nationalitiesHist = makeNationalitiesHist(pfList);
-          print(
-              "nationalities: $nationalitiesHist, type: ${nationalitiesHist.runtimeType}");
-          var visitsHist = makeVisitsHist(pfList);
-          print("visits histogram: $visitsHist");
-          // return _buildPieChart(context, nationalitiesHist);
-          // return _buildBarChart(context, visitsHist);
-          return CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  children: <Widget>[
-                    _buildPieChart(context, nationalitiesHist),
-                    _buildBarChart(context, visitsHist),
-                    // _buildExcelButton(context, givenSnapshots)
-                  ],
+    return FutureBuilder(
+        future: getPersonalFileDocs(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            final docs = (snapshot.data ?? [])
+                as List<QueryDocumentSnapshot<Map<String, Object?>>>;
+            var pfList = docs.map((doc) => PersonalFile.fromDoc(doc)).toList();
+            print("finished personal files processing");
+            var nationalitiesHist = makeNationalitiesHist(pfList);
+            print(
+                "nationalities: $nationalitiesHist, type: ${nationalitiesHist.runtimeType}");
+            var visitsHist = makeVisitsHist(pfList);
+            print("visits histogram: $visitsHist");
+            // return _buildPieChart(context, nationalitiesHist);
+            // return _buildBarChart(context, visitsHist);
+            return CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    children: <Widget>[
+                      _buildPieChart(context, nationalitiesHist),
+                      _buildBarChart(context, visitsHist),
+                      // _buildExcelButton(context, givenSnapshots)
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        }
-      },
-    );
+              ],
+            );
+          }
+          return Text("Failed");
+        });
   }
 
   Widget _buildPieChart(

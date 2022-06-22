@@ -269,16 +269,14 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
       String email, String field, ContactFile contact) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
     print(field);
-    getContactsCollection()
-        .doc(contact.key)
-        .update({
-          'firstName': firstName,
-          'lastName': lastName,
-          'field': field,
-          'phoneNo': phone,
-          'email': email,
-          'info': ""
-        })
+    updateContact(contact.key, {
+      'firstName': firstName,
+      'lastName': lastName,
+      'field': field,
+      'phoneNo': phone,
+      'email': email,
+      'info': ""
+    })
         .then((_) => print('updated contact'))
         .catchError((e) => print('update failed $e'));
   }

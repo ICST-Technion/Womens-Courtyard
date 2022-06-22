@@ -21,7 +21,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
       _personalFiles = [];
       final response = await getPersonalFileDocs();
       _personalFiles = [];
-      for (final doc in response.docs) {
+      for (final doc in response) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
       _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));

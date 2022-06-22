@@ -151,13 +151,11 @@ class _AttendancePageState extends State<AttendancePage> {
 
 void postAttendance(
     DateTime currDate, String clientKey, String dailySentence) async {
-  getPersonalFileRef()
-      .doc(clientKey)
-      .update({
-        'attendances': FieldValue.arrayUnion([
-          {'date': currDate, 'comment': dailySentence}
-        ])
-      })
+  updatePersonalFile(clientKey, {
+    'attendances': FieldValue.arrayUnion([
+      {'date': currDate, 'comment': dailySentence}
+    ])
+  })
       .then((_) => print('attendance updated'))
       .catchError((e) => print('attendance update failed $e'));
   ;
