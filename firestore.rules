@@ -6,43 +6,23 @@ service cloud.firestore {
     	// return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'staff';
       return request.auth.token.role == 'staff';
     }
-    
-    // function isClient() {
-    // 	return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role == 'client';
-    // }
+  
+    function branchMatch(branchName) {
+      return request.auth.token.branch == branchName || request.auth.token.branch == 'מטה'
+    }
 
 
     // users collection rules
     match /users/{userId} {
       allow read, write: if false;
     }
-    
-    // clients collection rules
-    
-    // match /clients/{userId}/id {
-    // 	allow read: if request.auth.uid == userId || isStaff();
-    //   allow write: if isStaff();
-    // }
-    
-    // match /clients/{userId}/name {
-    // 	allow read: if request.auth.uid == userId || isStaff();
-    //   allow write: if isStaff();
-    // }
-    
-    // match /clients/{userId}/personal%20file/{document=**} {
-    //   allow read, write: if isStaff();
-    // }
-    
-		// match /clients/{userId}/appointment%20history {
-    //   allow read: if request.auth.uid == userId || isStaff();
-    //   allow write: if isStaff();
-    // }
+ 
     match /branches/{branchName}/clients/{userId} {
-      allow read, write: if isStaff() && request.auth.token.branch == branchName;
+      allow read, write: if isStaff() && branchMatch(branchName);
     }
 
     match /branches/{branchName}/contacts/{userId} {
-      allow read, write: if isStaff() && request.auth.token.branch == branchName;
+      allow read, write: if isStaff() && branchMatch(branchName);
     }
 
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 
-class AddContactPage extends StatefulWidget {
-  AddContactPage({Key? key, this.title = ''}) : super(key: key);
+class EditContactRealPage extends StatefulWidget {
+  EditContactRealPage({Key? key, required this.contact}) : super(key: key);
 
-  final String title;
+  final ContactFile contact;
   @override
-  _AddContactPageState createState() => _AddContactPageState();
+  _EditContactRealPageState createState() => _EditContactRealPageState();
 }
 
-class _AddContactPageState extends State<AddContactPage> {
+class _EditContactRealPageState extends State<EditContactRealPage> {
   List<String> _categories = [
     'עו"ס רווחה',
     'פסיכיאטר/ מרפאה בריאות הנפש',
@@ -41,6 +41,12 @@ class _AddContactPageState extends State<AddContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    firstNameTextController.text = widget.contact.firstName;
+    lastNameTextController.text = widget.contact.lastName;
+    phoneNumberTextController.text = widget.contact.phoneNo;
+    emailTextController.text = widget.contact.email ?? "no email";
+    _selectedCategory = widget.contact.field;
+
     final privateNameField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
@@ -151,7 +157,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    'הוספת איש/ת קשר',
+                    'הוספת איש קשר',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -198,11 +204,7 @@ class _AddContactPageState extends State<AddContactPage> {
                     );
                   }).toList(),
                   onChanged: (newValue) {
-                    setState(
-                      () {
-                        _selectedCategory = newValue as String?;
-                      },
-                    );
+                    _selectedCategory = newValue as String?;
                   },
                 ),
                 Padding(
@@ -212,13 +214,18 @@ class _AddContactPageState extends State<AddContactPage> {
                       onPressed: () {
                         if (_formKey.currentState != null &&
                             (_formKey.currentState!).validate()) {
-                          addContactToDatabase(
+                          editContactInFirebase(
                               firstNameTextController.text,
                               lastNameTextController.text,
                               phoneNumberTextController.text,
                               emailTextController.text,
-                              _selectedCategory ?? 'לא מוגדר');
-                          Navigator.of(context, rootNavigator: true).pop();
+                              _selectedCategory ?? 'לא מוגדר',
+                              widget.contact);
+                          var count = 0;
+                          Navigator.of(context, rootNavigator: true)
+                              .popUntil((route) {
+                            return count++ == 2;
+                          });
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -238,7 +245,7 @@ class _AddContactPageState extends State<AddContactPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הוספת איש/ת קשר'), actions: [
+    return AppBar(title: Text('עריכת איש קשר'), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,
@@ -258,10 +265,11 @@ class _AddContactPageState extends State<AddContactPage> {
     ]);
   }
 
-  void addContactToDatabase(String firstName, String lastName, String phone,
-      String email, String field) async {
+  void editContactInFirebase(String firstName, String lastName, String phone,
+      String email, String field, ContactFile contact) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
-    putContact({
+    print(field);
+    updateContact(contact.key, {
       'firstName': firstName,
       'lastName': lastName,
       'field': field,
@@ -269,7 +277,7 @@ class _AddContactPageState extends State<AddContactPage> {
       'email': email,
       'info': ""
     })
-        .then((_) => print('added contact'))
+        .then((_) => print('updated contact'))
         .catchError((e) => print('update failed $e'));
   }
 }

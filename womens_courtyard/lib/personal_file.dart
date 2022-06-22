@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:womens_courtyard/user.dart';
 
+List<String> nonHQBranches = ['נתניה', 'יפו', 'חיפה'];
+
 class Appointment {
   final String description;
   final Timestamp date;
@@ -25,6 +27,43 @@ List<String>? strfy(List<dynamic>? dynamicList) {
   return dynamicList?.map((e) => e.toString()).toList();
 }
 
+class ContactFile {
+  final String key;
+  final String firstName;
+  final String lastName;
+  final String field;
+  final String phoneNo;
+  final String? email;
+  final String info;
+
+  ContactFile(
+      {required this.key,
+      required this.firstName,
+      required this.lastName,
+      required this.field,
+      required this.phoneNo,
+      required this.email,
+      required this.info});
+
+  factory ContactFile.fromDoc(QueryDocumentSnapshot<Map> doc) => ContactFile(
+      key: doc.id,
+      firstName: doc.data()['firstName'],
+      lastName: doc.data()['lastName'],
+      field: doc.data()['field'],
+      phoneNo: doc.data()['phoneNo'],
+      email: doc.data()['email'] ?? 'no email',
+      info: doc.data()['info']);
+
+  factory ContactFile.fromDocNoQuery(DocumentSnapshot<Map> doc) => ContactFile(
+      key: doc.id,
+      firstName: doc.data()?['firstName'],
+      lastName: doc.data()?['lastName'],
+      field: doc.data()?['field'],
+      phoneNo: doc.data()?['phoneNo'],
+      email: doc.data()?['email'] ?? 'no email',
+      info: doc.data()?['info']);
+}
+
 class PersonalFile {
   final String key;
   final String firstName;
@@ -39,6 +78,7 @@ class PersonalFile {
   final List<String> processes;
   final List<Appointment> appointments;
   final List<Attendance> attendances;
+  final List<String> contactKeys;
 
   PersonalFile(
       {required this.key,
@@ -53,7 +93,8 @@ class PersonalFile {
       required this.inAssignment,
       required this.processes,
       required this.appointments,
-      required this.attendances});
+      required this.attendances,
+      required this.contactKeys});
 
   factory PersonalFile.fromDoc(QueryDocumentSnapshot<Map> doc) => PersonalFile(
       key: doc.id,
@@ -83,17 +124,89 @@ class PersonalFile {
       attendances: List<Attendance>.from(doc.data()['attendances']?.map((att) =>
               Attendance(
                   date: att['date']!.toDate(), comment: att['comment']!)) ??
-          []));
+          []),
+      contactKeys: List<String>.from(doc.data()['contacts'] ?? []));
 }
 
-Future<QuerySnapshot<Map<String, dynamic>>> getPersonalFileDocs() async {
+Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+    getPersonalFileDocs() async {
   final branches = FirebaseFirestore.instance.collection('branches');
-  final branchClients = branches.doc(AppUser().branch).collection('clients');
-  return branchClients.get();
+  if (!isHQ()) {
+    final branchClients = branches.doc(AppUser().branch).collection('clients');
+    var res = await branchClients.get();
+    return res.docs;
+  } else {
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> allDocs = [];
+    for (String branch in nonHQBranches) {
+      final branchClients = branches.doc(branch).collection('clients');
+      var currClients = await branchClients.get();
+      allDocs.addAll(currClients.docs);
+    }
+    return allDocs;
+  }
 }
 
-CollectionReference getPersonalFileRef() {
+Future<void> updatePersonalFile(String key, Map<String, Object?> value) async {
   CollectionReference branchRef =
       FirebaseFirestore.instance.collection('branches');
-  return branchRef.doc(AppUser().branch).collection('clients');
+  CollectionReference clientsRef =
+      branchRef.doc(AppUser().branch).collection('clients');
+
+  clientsRef.doc(key).update(value);
+}
+
+Future<void> putPersonalFile(Map<String, Object?> value) async {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  CollectionReference clientsRef =
+      branchRef.doc(AppUser().branch).collection('clients');
+
+  clientsRef.add(value);
+}
+
+Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+    getContactsDocs() async {
+  final branches = FirebaseFirestore.instance.collection('branches');
+  if (!isHQ()) {
+    final branchContacts =
+        branches.doc(AppUser().branch).collection('contacts');
+    var res = await branchContacts.get();
+    return res.docs;
+  } else {
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> allDocs = [];
+    for (String branch in nonHQBranches) {
+      final branchContacts = branches.doc(branch).collection('contacts');
+      var currContacts = await branchContacts.get();
+      allDocs.addAll(currContacts.docs);
+    }
+    return allDocs;
+  }
+}
+
+CollectionReference getContactsCollection() {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  return branchRef.doc(AppUser().branch).collection('contacts');
+}
+
+Future<void> updateContact(String key, Map<String, Object?> value) async {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  CollectionReference contactsRef =
+      branchRef.doc(AppUser().branch).collection('contacts');
+
+  contactsRef.doc(key).update(value);
+}
+
+Future<void> putContact(Map<String, Object?> value) async {
+  CollectionReference branchRef =
+      FirebaseFirestore.instance.collection('branches');
+  CollectionReference contactsRef =
+      branchRef.doc(AppUser().branch).collection('contacts');
+
+  contactsRef.add(value);
+}
+
+bool isHQ() {
+  return AppUser().branch == 'מטה';
 }

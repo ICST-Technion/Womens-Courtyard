@@ -1,19 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/add_contact.dart' as add_contact_page;
-import 'package:womens_courtyard/edit_contact.dart' as edit_contact_page;
 import 'package:womens_courtyard/personal_file.dart';
 
-class SearchContact extends StatefulWidget {
-  SearchContact({Key? key, this.title = ''}) : super(key: key);
+class SearchContactForClient extends StatefulWidget {
+  SearchContactForClient({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
 
   @override
-  _SearchContactState createState() => new _SearchContactState();
+  _SearchContactForClientState createState() =>
+      new _SearchContactForClientState();
 }
 
-class _SearchContactState extends State<SearchContact> {
+class _SearchContactForClientState extends State<SearchContactForClient> {
   TextEditingController controller = new TextEditingController();
 
   // Get json result and convert it to model. Then add
@@ -79,36 +78,6 @@ class _SearchContactState extends State<SearchContact> {
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
                     ? createFilesWidget(_searchResult)
                     : createFilesWidget(_contactDetails)),
-            Padding(
-              padding: const EdgeInsets.all(64.0),
-              child: ElevatedButton(
-                  child: Text('הוספת איש/ת קשר'),
-                  onPressed: () {
-                    if (!isHQ())
-                      Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      add_contact_page.AddContactPage()))
-                          .then((_) => getUserDetails());
-                  },
-                  style: (!isHQ())
-                      ? ElevatedButton.styleFrom(
-                          elevation: 4,
-                          minimumSize: Size(150, 50),
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)))
-                      : ElevatedButton.styleFrom(
-                          primary: Color.fromRGBO(250, 84, 9, 0),
-                          elevation: 4,
-                          minimumSize: Size(150, 50),
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)))),
-            )
           ],
         ),
       ),
@@ -140,17 +109,10 @@ class _SearchContactState extends State<SearchContact> {
           return new Card(
             child: new ListTile(
               leading: Icon(Icons.contact_page),
-              title: new Text(
-                  contacts[index].firstName + ' ' + contacts[index].lastName),
+              title: new Text(contacts[index].firstName),
               subtitle: new Text(contacts[index].field),
               onTap: () {
-                Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                edit_contact_page.EditContactPage(
-                                    contact: contacts[index])))
-                    .then((value) => getUserDetails());
+                Navigator.of(context, rootNavigator: true).pop(contacts[index]);
               },
             ),
             margin: const EdgeInsets.all(0.0),

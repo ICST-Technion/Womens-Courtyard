@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/add_contact.dart' as add_contact_page;
-import 'package:womens_courtyard/bottom_navigation_bar.dart'
-    as bottom_navigation_bar;
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:womens_courtyard/personal_file.dart';
+import 'package:womens_courtyard/search_contact_for_client.dart'
+    as add_contact_page;
 
 class EditClientPage extends StatefulWidget {
-  EditClientPage({Key? key, this.title = '', required this.person})
+  EditClientPage(
+      {Key? key,
+      this.title = '',
+      required this.person,
+      required this.initialContacts})
       : super(key: key);
 
   final String title;
   final PersonalFile person;
+  final List<ContactFile> initialContacts;
 
   @override
-  _EditClientPageState createState() => _EditClientPageState();
+  _EditClientPageState createState() => _EditClientPageState(initialContacts);
 }
 
 class _EditClientPageState extends State<EditClientPage> {
@@ -34,6 +38,11 @@ class _EditClientPageState extends State<EditClientPage> {
 
   List<String> nationalityOptions = ['יהודיה', 'ערביה', 'אחר'];
   String nationality = 'אחר';
+  List<ContactFile> contacts = [];
+
+  _EditClientPageState(List<ContactFile> initialContacts) {
+    contacts.addAll(initialContacts);
+  }
 
   @override
   void dispose() {
@@ -263,25 +272,26 @@ class _EditClientPageState extends State<EditClientPage> {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
+                getContactsContainer(),
                 Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: ElevatedButton(
-                      child: Text('הוספת איש קשר'),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    add_contact_page.AddContactPage()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Color.fromRGBO(250, 84, 9, 0),
-                          elevation: 4,
-                          minimumSize: Size(10, 10),
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 20),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)))),
+                    child: Text('הוספת איש/ת קשר'),
+                    onPressed: () async {
+                      ContactFile chosenContact = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  add_contact_page.SearchContactForClient()));
+                      if (chosenContact != null &&
+                          chosenContact != Null &&
+                          contactIsNotIn(contacts, chosenContact)) {
+                        contacts.add(chosenContact);
+                        setState(() {});
+                        print("added to contacts, and reloded state");
+                      }
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: 10.0,
@@ -313,33 +323,23 @@ class _EditClientPageState extends State<EditClientPage> {
                   padding: const EdgeInsets.all(64.0),
                   child: ElevatedButton(
                       child: Text('סיום ושמירה'),
-                      onPressed: () {
-                        //enter the results from the controllers.text into the firebase, then navigate back.
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (context) {
-                        //     return AlertDialog(
-                        //       content: Text(nameTextController.text),
-                        //     );
-                        //   },
-                        // );
+                      onPressed: () async {
                         if (_formKey.currentState != null &&
                             (_formKey.currentState!).validate()) {
-                          enterFileToDatabase(
+                          await enterFileToDatabase(
                               nameTextController.text,
                               fNameTextController.text,
                               idNoTextController.text,
                               phoneNumberTextController.text,
                               processDescriptionTextController.text,
+                              nationality,
+                              contacts,
                               widget.person);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('עריכת תיק מוצלחת')),
-                          );
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => bottom_navigation_bar
-                                      .MyBottomNavigationBar()));
+                          var count = 0;
+                          Navigator.of(context, rootNavigator: true)
+                              .popUntil((route) {
+                            return count++ == 2;
+                          });
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -358,8 +358,50 @@ class _EditClientPageState extends State<EditClientPage> {
     );
   }
 
+  bool contactIsNotIn(List<ContactFile> existing, ContactFile newContact) {
+    for (int i = 0; i < existing.length; i++) {
+      if (existing[i].key == newContact.key) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  Container getContactsContainer() {
+    if (contacts.length > 0) {
+      return Container(
+        height: 100,
+        child: new ListView.builder(
+          itemCount: contacts.length,
+          itemBuilder: (context, index) {
+            return new Card(
+              child: new ListTile(
+                leading: Icon(Icons.contact_page),
+                trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        contacts.remove(contacts[index]);
+                      });
+                      print("got here" + contacts.length.toString());
+                    }),
+                title: new Text(
+                    contacts[index].firstName + " " + contacts[index].lastName),
+                subtitle: new Text(contacts[index].field),
+                onTap: () {},
+              ),
+              margin: const EdgeInsets.all(0.0),
+            );
+          },
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הזנת תיק אישי'), actions: [
+    return AppBar(title: Text('עריכת תיק אישי'), actions: [
       IconButton(
           onPressed: () {},
           icon: Icon(
@@ -385,32 +427,28 @@ class _EditClientPageState extends State<EditClientPage> {
     );
   }
 
-  void enterFileToDatabase(String name, String fname, String idNo, String phone,
-      String pDec, PersonalFile person) async {
+  Future<Null> enterFileToDatabase(
+      String name,
+      String fname,
+      String idNo,
+      String phoneNo,
+      String pDec,
+      String nationality,
+      List<ContactFile> contacts,
+      PersonalFile person) async {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('clients/$idNo');
-    final response = await getPersonalFileDocs();
-    PersonalFile search_for;
-    var matching_doc;
-    for (final doc in response.docs) {
-      search_for = PersonalFile.fromDoc(doc);
-      if (search_for.firstName == person.firstName &&
-          search_for.lastName == person.lastName) {
-        matching_doc = doc;
-        break;
-      }
-    }
 
-    person.clientNotes.add(pDec);
+    // person.clientNotes.add(pDec);
 
-    getPersonalFileRef()
-        .doc(matching_doc.id)
-        .update({
-          'firstName': name,
-          'lastName': fname,
-          'idNo': idNo,
-          'nationality': '',
-          'clientNotes': person.clientNotes,
-        })
+    updatePersonalFile(person.key, {
+      'firstName': name,
+      'lastName': fname,
+      'idNo': idNo,
+      'phoneNo': phoneNo,
+      'nationality': nationality,
+      'contacts': contacts.map((c) => c.key).toList(),
+      'clientNotes': person.clientNotes,
+    })
         .then((_) => print('updated'))
         .catchError((e) => print('update failed $e'));
   }

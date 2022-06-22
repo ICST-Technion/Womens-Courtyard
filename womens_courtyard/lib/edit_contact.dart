@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/contact.dart';
+import 'package:womens_courtyard/personal_file.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import 'package:womens_courtyard/bottom_navigation_bar.dart'
-    as bottom_navigation_bar;
+import 'package:womens_courtyard/contact_edit_real.dart' as edit_contact;
 
 class EditContactPage extends StatefulWidget {
-  final Contact contact;
+  final ContactFile contact;
 
   EditContactPage({Key? key, this.title = '', required this.contact})
       : super(key: key);
@@ -18,34 +17,13 @@ class EditContactPage extends StatefulWidget {
 
 class _EditContactPageState extends State<EditContactPage> {
   DateTime selectedDate = DateTime.now();
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //       context: context,
-  //       initialDate: selectedDate,
-  //       firstDate: DateTime(2015, 8),
-  //       lastDate: DateTime(2101));
-  //   if (picked != null && picked != selectedDate)
-  //     setState(() {
-  //       selectedDate = picked;
-  //     });
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    //var curr_contact = contacts_data.allContacts[0];
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: getHomepageAppBar(),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.all(15.0),
@@ -54,7 +32,7 @@ class _EditContactPageState extends State<EditContactPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.contact.name,
+                    widget.contact.firstName + " " + widget.contact.lastName,
                     style: TextStyle(fontSize: 35),
                   ),
                 ),
@@ -63,7 +41,7 @@ class _EditContactPageState extends State<EditContactPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.contact.occupation,
+                    widget.contact.field,
                     style: TextStyle(fontSize: 30),
                   ),
                 ),
@@ -72,71 +50,54 @@ class _EditContactPageState extends State<EditContactPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
                   child: Text(
-                    widget.contact.phoneNumber,
+                    widget.contact.phoneNo,
                     style: TextStyle(fontSize: 23),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Text(
+                    widget.contact.email ?? "אין אימייל רשום במערכת",
+                    style: TextStyle(fontSize: 35),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: ElevatedButton(
-                    child: Text('צור קשר'),
-                    onPressed: () {
-                      UrlLauncher.launch('tel://' + widget.contact.phoneNumber);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
+                  child: Text('צור קשר'),
+                  onPressed: () {
+                    UrlLauncher.launch('tel://' + widget.contact.phoneNo);
+                  },
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
-                    child: Text('לעריכה'),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(100, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
+                  child: Text('לעריכה'),
+                  onPressed: () {
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    edit_contact.EditContactRealPage(
+                                        contact: widget.contact)))
+                        .then((_) => setState(() {}));
+                  },
+                ),
               ),
               SizedBox(
                 height: 10.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: TextFormField(
-                    initialValue: widget.contact.info,
-                    minLines: 1,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'מידע נוסף',
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: ElevatedButton(
-                    child: Text('סיום ושמירה'),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => bottom_navigation_bar
-                                  .MyBottomNavigationBar()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(250, 84, 9, 0),
-                        elevation: 4,
-                        minimumSize: Size(150, 50),
-                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)))),
+                child: Title(
+                  title: 'מידע נוסף',
+                  color: Colors.black,
+                  child: Text(widget.contact.info),
+                ),
               ),
             ],
           ),
@@ -146,7 +107,7 @@ class _EditContactPageState extends State<EditContactPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('עריכת איש קשר'), actions: [
+    return AppBar(title: Text('צפייה באיש/ת קשר'), actions: [
       IconButton(
         icon: Icon(
           Icons.account_circle,

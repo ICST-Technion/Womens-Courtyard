@@ -127,7 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          bottom_navigation_bar.MyBottomNavigationBar()));
+                          bottom_navigation_bar.MyBottomNavigationBar())).then(
+                  (value) => Navigator.of(context, rootNavigator: true).pop());
             }
           }
         },

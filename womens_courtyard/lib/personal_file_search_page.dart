@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/edit_personal_file.dart' as edit_personal_page;
+import 'package:womens_courtyard/view_personal_file.dart' as edit_personal_page;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PersonalFileSearchPage extends StatefulWidget {
   PersonalFileSearchPage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
       _personalFiles = [];
       final response = await getPersonalFileDocs();
       _personalFiles = [];
-      for (final doc in response.docs) {
+      for (final doc in response) {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
       _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
@@ -71,8 +72,8 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
             ),
             new Expanded(
                 child: _searchResult.length != 0 || controller.text.isNotEmpty
-                    ? FileList(list: _searchResult)
-                    : FileList(list: _personalFiles)),
+                    ? createPersonalFile(_searchResult)
+                    : createPersonalFile(_personalFiles)),
           ],
         ),
       ),
@@ -96,36 +97,49 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
     setState(() {});
   }
-}
 
-class FileList extends StatelessWidget {
-  final List<PersonalFile> list;
-  FileList({required this.list});
-
-  @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-      // Search query results
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        return new Card(
-          child: new ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          edit_personal_page.PersonalFileEditPage(
-                              title: "", person: list[index])));
-            },
-            leading: Icon(Icons.folder),
-            title: new Text(list[index].firstName + ' ' + list[index].lastName),
-            subtitle: new Text('תעודת זהות: ' + list[index].idNo.toString()),
-          ),
-          margin: const EdgeInsets.all(0.0),
-        );
-      },
+  Container createPersonalFile(List<PersonalFile> personalList) {
+    return Container(
+      height: 750,
+      child: new ListView.builder(
+        // Search query results
+        itemCount: personalList.length,
+        itemBuilder: (context, index) {
+          return new Card(
+            child: new ListTile(
+              leading: Icon(Icons.contact_page),
+              title: new Text(personalList[index].firstName +
+                  " " +
+                  personalList[index].lastName),
+              subtitle: new Text(personalList[index].idNo.toString()),
+              onTap: () async {
+                List<ContactFile> myContacts =
+                    await getContactList(personalList[index].contactKeys);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            edit_personal_page.PersonalFileEditPage(
+                                person: personalList[index],
+                                contacts: myContacts))).then((value) async =>
+                    {await getUserDetails(), print("got here!")});
+              },
+            ),
+            margin: const EdgeInsets.all(0.0),
+          );
+        },
+      ),
     );
+  }
+
+  Future<List<ContactFile>> getContactList(List<String> contactKeys) async {
+    List<ContactFile> result = [];
+    var contactsCollection = getContactsCollection();
+    for (String key in contactKeys) {
+      var currDoc = await contactsCollection.doc(key).get();
+      result.add(ContactFile.fromDocNoQuery(currDoc as DocumentSnapshot<Map>));
+    }
+    return result;
   }
 }
 

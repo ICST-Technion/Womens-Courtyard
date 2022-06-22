@@ -1,0 +1,8 @@
+How to deploy the app as a web app to firebase hosting:
+A humble tutorial by Ittay Alfassi
+
+NOTE: make sure you have the Firebase CLI installed and logged in.
+
+1.  Go to the internal flutter directory (womens_courtyard) and do "flutter build web".
+    It builds the web version.
+2.  Stay in that directory, and hit "firebase deploy".

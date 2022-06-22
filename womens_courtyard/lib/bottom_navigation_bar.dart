@@ -6,6 +6,8 @@ import 'package:womens_courtyard/attendance_search_page.dart'
     as attendance_search_page;
 import 'package:womens_courtyard/search_contact.dart' as view_contact;
 
+import 'personal_file.dart';
+
 //MyBottomNavigationBar()
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   _MyBottomNavigationBarState() {
     _children = [
       home_page.HomePage(),
-      attendance_search_page.AttendanceSearchPage(),
+      if (!isHQ()) attendance_search_page.AttendanceSearchPage(),
       file_search_page.PersonalFileSearchPage(),
       view_contact.SearchContact(),
     ];
@@ -45,10 +47,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               icon: Icon(Icons.home),
               label: 'מסך הבית',
               backgroundColor: Colors.purpleAccent),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
-              label: 'נוכחות יומית',
-              backgroundColor: Colors.purpleAccent),
+          if (!isHQ())
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_today),
+                label: 'נוכחות יומית',
+                backgroundColor: Colors.purpleAccent),
           BottomNavigationBarItem(
               icon: Icon(Icons.insert_drive_file),
               label: 'תיקים',
