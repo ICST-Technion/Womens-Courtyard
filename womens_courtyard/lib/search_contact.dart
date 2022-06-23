@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/add_contact.dart' as add_contact_page;
-import 'package:womens_courtyard/edit_contact.dart' as edit_contact_page;
+import 'package:womens_courtyard/view_contact.dart' as edit_contact_page;
 import 'package:womens_courtyard/personal_file.dart';
 
 class SearchContact extends StatefulWidget {
@@ -25,7 +25,9 @@ class _SearchContactState extends State<SearchContact> {
         _contactDetails.add(ContactFile.fromDoc(doc));
       }
       _contactDetails.sort((a, b) => a.firstName.compareTo(b.firstName));
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     } catch (e) {
       print('caught $e');
     }
@@ -118,7 +120,9 @@ class _SearchContactState extends State<SearchContact> {
   onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
       return;
     }
 
@@ -126,8 +130,9 @@ class _SearchContactState extends State<SearchContact> {
       if (contact.firstName.contains(text)) _searchResult.add(contact);
     });
     _contactDetails.sort((a, b) => a.firstName.compareTo(b.firstName));
-
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Container createFilesWidget(List<ContactFile> contacts) {
@@ -145,12 +150,12 @@ class _SearchContactState extends State<SearchContact> {
               subtitle: new Text(contacts[index].field),
               onTap: () {
                 Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                edit_contact_page.EditContactPage(
-                                    contact: contacts[index])))
-                    .then((value) => getUserDetails());
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => edit_contact_page.EditContactPage(
+                            contact: contacts[index],
+                            displayEdit:
+                                true))).then((value) => getUserDetails());
               },
             ),
             margin: const EdgeInsets.all(0.0),

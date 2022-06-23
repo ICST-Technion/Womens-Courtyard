@@ -109,7 +109,7 @@ class _AddClientPageState extends State<AddClientPage> {
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'הכניסי תעודת זהות';
+            return null;
           }
           //regExp
           RegExp passReg = new RegExp(r'^[0-9]{9}$');
@@ -123,7 +123,7 @@ class _AddClientPageState extends State<AddClientPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
+          prefixIcon: Icon(Icons.badge_outlined),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'תעודת זהות',
           border: OutlineInputBorder(
@@ -153,7 +153,7 @@ class _AddClientPageState extends State<AddClientPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
+          prefixIcon: Icon(Icons.phone),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'מספר טלפון',
           border: OutlineInputBorder(
@@ -174,7 +174,7 @@ class _AddClientPageState extends State<AddClientPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
+          prefixIcon: Icon(Icons.assignment),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'תיאור טיפול',
           border: OutlineInputBorder(

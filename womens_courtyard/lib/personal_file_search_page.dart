@@ -25,7 +25,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
         _personalFiles.add(PersonalFile.fromDoc(doc));
       }
       _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     } catch (e) {
       print('caught $e');
     }
@@ -83,7 +85,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
       return;
     }
 
@@ -95,7 +99,9 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
         _searchResult.add(personalFile);
     });
     _personalFiles.sort((a, b) => a.firstName.compareTo(b.firstName));
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Container createPersonalFile(List<PersonalFile> personalList) {

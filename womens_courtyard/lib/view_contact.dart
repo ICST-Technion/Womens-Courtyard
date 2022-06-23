@@ -6,10 +6,15 @@ import 'package:womens_courtyard/contact_edit_real.dart' as edit_contact;
 class EditContactPage extends StatefulWidget {
   final ContactFile contact;
 
-  EditContactPage({Key? key, this.title = '', required this.contact})
+  EditContactPage(
+      {Key? key,
+      this.title = '',
+      required this.contact,
+      required this.displayEdit})
       : super(key: key);
 
   final String title;
+  final bool displayEdit;
 
   @override
   _EditContactPageState createState() => _EditContactPageState();
@@ -73,21 +78,7 @@ class _EditContactPageState extends State<EditContactPage> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                  child: Text('לעריכה'),
-                  onPressed: () {
-                    Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    edit_contact.EditContactRealPage(
-                                        contact: widget.contact)))
-                        .then((_) => setState(() {}));
-                  },
-                ),
-              ),
+              getEditWidget(),
               SizedBox(
                 height: 10.0,
               ),
@@ -125,5 +116,27 @@ class _EditContactPageState extends State<EditContactPage> {
         onPressed: () {},
       ),
     ]);
+  }
+
+  Padding getEditWidget() {
+    if (widget.displayEdit) {
+      return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ElevatedButton(
+          child: Text('לעריכה'),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => edit_contact.EditContactRealPage(
+                        contact: widget.contact))).then((_) => setState(() {}));
+          },
+        ),
+      );
+    } else {
+      return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text('לעריכה גשי לדף אנשי הקשר'));
+    }
   }
 }

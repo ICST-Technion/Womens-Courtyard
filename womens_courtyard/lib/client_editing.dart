@@ -114,7 +114,7 @@ class _EditClientPageState extends State<EditClientPage> {
         keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'הכניסי תעודת זהות';
+            return null;
           }
           //regExp
           RegExp passReg = new RegExp(r'^[0-9]{9}$');
@@ -128,7 +128,7 @@ class _EditClientPageState extends State<EditClientPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
+          prefixIcon: Icon(Icons.badge_outlined),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'תעודת זהות',
           border: OutlineInputBorder(
@@ -158,7 +158,7 @@ class _EditClientPageState extends State<EditClientPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
+          prefixIcon: Icon(Icons.phone),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'מספר טלפון',
           border: OutlineInputBorder(
@@ -179,7 +179,7 @@ class _EditClientPageState extends State<EditClientPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
+          prefixIcon: Icon(Icons.assignment),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: 'תיאור טיפול',
           border: OutlineInputBorder(
@@ -440,7 +440,7 @@ class _EditClientPageState extends State<EditClientPage> {
 
     // person.clientNotes.add(pDec);
 
-    updatePersonalFile(person.key, {
+    await updatePersonalFile(person.key, {
       'firstName': name,
       'lastName': fname,
       'idNo': idNo,

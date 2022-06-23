@@ -4,7 +4,7 @@ import 'package:womens_courtyard/client_entering.dart' as add_client_page;
 import 'package:womens_courtyard/taskhomepage.dart' as statistics_page;
 import 'package:womens_courtyard/register_screen.dart' as registration_screen;
 import 'package:womens_courtyard/user.dart';
-
+import 'package:womens_courtyard/login_screen.dart' as login_page;
 import 'personal_file.dart';
 
 class HomePage extends StatefulWidget {
@@ -171,6 +171,34 @@ class _HomePageState extends State<HomePage> {
                                             BorderRadius.circular(30.0)))),
                           ),
                         ],
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: ElevatedButton(
+                                child: Text('התנתקות'),
+                                onPressed: () {
+                                  Navigator.popUntil(
+                                      context,
+                                      ModalRoute.withName(
+                                          Navigator.defaultRouteName));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              login_page.LoginScreen()));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 4,
+                                    minimumSize: Size(150, 50),
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0)))),
+                          ),
+                        ],
                       )
                     ],
                   ),
@@ -184,24 +212,27 @@ class _HomePageState extends State<HomePage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Center(child: Text('דף הבית')), actions: [
-      Padding(padding: const EdgeInsets.all(30.0))
-      // IconButton(
-      //   icon: Icon(
-      //     Icons.account_circle,
-      //     size: 30,
-      //     color: Colors.white,
-      //   ),
-      //   onPressed: () {},
-      // ),
-      // IconButton(
-      //   icon: Icon(
-      //     Icons.info,
-      //     size: 30,
-      //     color: Colors.white,
-      //   ),
-      //   onPressed: () {},
-      // ),
-    ]);
+    return AppBar(
+        title: Center(child: Text('דף הבית')),
+        automaticallyImplyLeading: false,
+        actions: [
+          Padding(padding: const EdgeInsets.all(30.0))
+          // IconButton(
+          //   icon: Icon(
+          //     Icons.account_circle,
+          //     size: 30,
+          //     color: Colors.white,
+          //   ),
+          //   onPressed: () {},
+          // ),
+          // IconButton(
+          //   icon: Icon(
+          //     Icons.info,
+          //     size: 30,
+          //     color: Colors.white,
+          //   ),
+          //   onPressed: () {},
+          // ),
+        ]);
   }
 }

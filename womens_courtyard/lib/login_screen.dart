@@ -9,7 +9,7 @@ import 'package:crypto/crypto.dart';
 import 'package:womens_courtyard/user.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen();
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -124,11 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
             } else {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          bottom_navigation_bar.MyBottomNavigationBar())).then(
-                  (value) => Navigator.of(context, rootNavigator: true).pop());
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              bottom_navigation_bar.MyBottomNavigationBar()))
+                  .then((value) => {
+                        Navigator.of(context, rootNavigator: true).pop(),
+                        emailController.text = "",
+                        passController.text = ""
+                      });
             }
           }
         },

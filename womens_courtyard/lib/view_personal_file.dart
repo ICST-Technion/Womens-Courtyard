@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/client_editing.dart' as client_editing_page;
-import 'package:womens_courtyard/edit_contact.dart' as contact_view;
+import 'package:womens_courtyard/view_contact.dart' as contact_view;
 
 class PersonalFileEditPage extends StatefulWidget {
   PersonalFileEditPage({Key? key, required this.person, required this.contacts})
@@ -150,11 +150,12 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
           subtitle: new Text(c.field),
           onTap: () {
             Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            contact_view.EditContactPage(contact: c)))
-                .then((value) => setState(() {}));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => contact_view.EditContactPage(
+                          contact: c,
+                          displayEdit: false,
+                        ))).then((value) => setState(() {}));
           },
         ),
         margin: const EdgeInsets.all(0.0),
