@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 
+/// This file is in charge of handling the adding of another contact to a
+/// contact list.
+///
+/// The fields each contact has are:
+/// * Phone number.
+/// * Name and surname.
+/// * Category of service.
+/// * Email.
+///
+/// Only by adding valid details, the worker is able to add a contact to the
+/// registery.
+
 class AddContactPage extends StatefulWidget {
   AddContactPage({Key? key, this.title = ''}) : super(key: key);
 
@@ -8,6 +20,9 @@ class AddContactPage extends StatefulWidget {
   @override
   _AddContactPageState createState() => _AddContactPageState();
 }
+
+/// The main class that's in charge of the state of each field needed for the
+/// page and the design in the app.
 
 class _AddContactPageState extends State<AddContactPage> {
   List<String> _categories = [
@@ -41,6 +56,12 @@ class _AddContactPageState extends State<AddContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    // This method is rerun every time there's a certain change in the state
+    // of the program., and builds the design of the page.
+
+    // Here starts the definition of all fields containing information regarding
+    // the purpose of the page.
+
     final privateNameField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
@@ -136,6 +157,8 @@ class _AddContactPageState extends State<AddContactPage> {
             borderRadius: BorderRadius.circular(10),
           ),
         ));
+
+    // Here starts the build of the design of the page.
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -257,6 +280,9 @@ class _AddContactPageState extends State<AddContactPage> {
       ),
     ]);
   }
+
+  /// A function that is in charge for the synchronization of the added contacts
+  /// to the firebase database.
 
   void addContactToDatabase(String firstName, String lastName, String phone,
       String email, String field) async {

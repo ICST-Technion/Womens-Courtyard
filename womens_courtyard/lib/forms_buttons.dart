@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// A class containing a template of forms buttons used by other pages in the
+/// app.
+
 class FormsButtonsPage extends StatefulWidget {
   FormsButtonsPage({Key? key, this.title = ''}) : super(key: key);
 

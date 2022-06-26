@@ -4,6 +4,12 @@ import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/view_personal_file.dart' as edit_personal_page;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// A file in charge of searching a personal file.
+/// While searching, the app helps with suggestions of personal files that match
+/// the current text in the search bar.
+/// When a suggestion is pressed, it leads the user to the personal file
+/// selected.
+
 class PersonalFileSearchPage extends StatefulWidget {
   PersonalFileSearchPage({Key? key}) : super(key: key);
 
@@ -15,7 +21,7 @@ class PersonalFileSearchPage extends StatefulWidget {
 class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
   TextEditingController controller = new TextEditingController();
 
-  // Get json result and convert it to model. Then add
+  // Get json result and convert it to model. Then add to the list.
   Future<Null> getUserDetails() async {
     try {
       _personalFiles = [];
@@ -82,6 +88,10 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     );
   }
 
+  /// A function designed to deal with a certain text change -
+  /// For example, while searching if a new letter is added to the searched text,
+  /// we give more accurate search results.
+
   onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
@@ -103,6 +113,8 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
       setState(() {});
     }
   }
+
+  // We create and get the personal files in the following functions.
 
   Container createPersonalFile(List<PersonalFile> personalList) {
     return Container(

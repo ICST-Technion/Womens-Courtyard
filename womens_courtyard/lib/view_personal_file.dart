@@ -3,6 +3,18 @@ import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/client_editing.dart' as client_editing_page;
 import 'package:womens_courtyard/view_contact.dart' as contact_view;
 
+/// This file is in charge of handling the viewing of a personal page, and gives us the
+/// option of editing (moves to another page).
+///
+/// The fields each contact has are:
+/// * Phone number.
+/// * Name and surname.
+/// * Nationality.
+/// * Phone number.
+/// * Information regarding the woman.
+/// * Daily sentences.
+/// * Contacts.
+
 class PersonalFileEditPage extends StatefulWidget {
   PersonalFileEditPage({Key? key, required this.person, required this.contacts})
       : super(key: key);
@@ -56,6 +68,10 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
       ),
     ]);
   }
+
+  /// From here on we define the build of this page as a list of cards showing
+  /// the different aspects of the information and links to other related pages.
+
 
   List<Card> fill_the_list(PersonalFile person, BuildContext context) {
     List<Card> toRet = [];

@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:womens_courtyard/taskhomepage.dart';
 import 'package:womens_courtyard/attendance_search_page.dart' as search_page;
 
+/// This page is in charge of displaying the page leading to the statistics.
+/// Using the database and several options, the app sends a request for certain
+/// data to the database and receives the matching data.
+/// After performing the calculations, we extract a file detailing the
+/// statistics the user asked for.
+
 // void main() {
 //   runApp(MyApp());
 // }
@@ -138,6 +144,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
       ),
     ]);
   }
+
+  /// From here on, multiple widgets all accounting for certain aspects of the
+  /// page.
 
   Drawer getDrawer() {
     return Drawer(

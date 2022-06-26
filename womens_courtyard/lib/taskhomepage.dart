@@ -10,6 +10,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:womens_courtyard/StatisticsLogic.dart';
 import 'dart:ui' as ui;
 
+/// In this page we build the graphs and charts used for the visual presentation
+/// of the calculated and collected statistics.
+
 const String NATION_FIELD = "לאום";
 const String FIRST_NAME_FIELD = "שם פרטי";
 const String LAST_NAME_FIELD = "שם משפחה";
@@ -36,6 +39,9 @@ class _TaskHomePageState extends State<TaskHomePage> {
   List<charts.Series<String, String>> _seriesPieData = [];
   List<charts.Series<String, String>> _seriesBarData = [];
   // Map<String, int> nationalitiesHist;
+
+  /// A function generating data about nationalities using pie charts.
+
   _generatePieChartData(Map<String, int> nationalitiesHist) {
     // List<Nationality> nationatilies = Nationality.makeNationalitiesList(nationalitiesHist);
     _seriesPieData = [];
@@ -53,6 +59,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
       ),
     );
   }
+
+  /// A function generating data about weekday attendance using bar charts.
 
   _generateBarChartData(Map<String, int> weekdaysHist) {
     // List<Nationality> nationatilies = Nationality.makeNationalitiesList(nationalitiesHist);
@@ -123,6 +131,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
         });
   }
 
+  /// Building the pie chart visually.
+
   Widget _buildPieChart(
       BuildContext context, Map<String, int> nationalitiesHist) {
     // mydata = nationalitiesHist;
@@ -173,6 +183,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
       ),
     );
   }
+
+  /// Building the bar chart visually.
 
   Widget _buildBarChart(BuildContext context, Map<String, int> weekdaysHist) {
     // mydata = nationalitiesHist;

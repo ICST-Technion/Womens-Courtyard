@@ -1,6 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:womens_courtyard/user.dart';
 
+/// This file contains every attribute needed for a personal file.
+/// We define here several classes with multiple fields, including:
+/// * Appointment
+/// * Attendance
+/// * Personal file
+///
+/// We get all information needed for the personal file of a certain user
+/// from the database and fill up the classes presented above using it.
+///
+
 List<String> nonHQBranches = ['נתניה', 'יפו', 'חיפה'];
 
 class Appointment {
@@ -128,6 +138,8 @@ class PersonalFile {
       contactKeys: List<String>.from(doc.data()['contacts'] ?? []));
 }
 
+/// Getting all personal files, branch by branch and then adding all together.
+
 Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
     getPersonalFileDocs() async {
   final branches = FirebaseFirestore.instance.collection('branches');
@@ -145,6 +157,8 @@ Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
     return allDocs;
   }
 }
+
+/// Functions updating and inserting personal files.
 
 Future<void> updatePersonalFile(String key, Map<String, Object?> value) async {
   CollectionReference branchRef =
@@ -164,6 +178,8 @@ Future<void> putPersonalFile(Map<String, Object?> value) async {
   clientsRef.add(value);
 }
 
+/// Getting all contacts, branch by branch and then adding all together.
+
 Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
     getContactsDocs() async {
   final branches = FirebaseFirestore.instance.collection('branches');
@@ -182,6 +198,8 @@ Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
     return allDocs;
   }
 }
+
+/// Functions updating and inserting contacts.
 
 CollectionReference getContactsCollection() {
   CollectionReference branchRef =

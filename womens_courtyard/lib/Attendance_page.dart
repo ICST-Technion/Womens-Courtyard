@@ -4,6 +4,12 @@ import 'package:womens_courtyard/bottom_navigation_bar.dart'
     as bottom_navigation_bar;
 import 'package:womens_courtyard/personal_file.dart';
 
+/// This file is in charge of handling the adding of an attendance record for a
+/// certain participant.
+///
+/// each attendance form contains a date and a comment, and is attached to a
+/// certain woman and her personal file.
+
 class AttendancePage extends StatefulWidget {
   AttendancePage({Key? key, this.title = '', required this.file})
       : super(key: key);
@@ -14,6 +20,9 @@ class AttendancePage extends StatefulWidget {
   @override
   _AttendancePageState createState() => _AttendancePageState();
 }
+
+/// The main class that's in charge of the state of each field needed for the
+/// page and the design in the app.
 
 class _AttendancePageState extends State<AttendancePage> {
   DateTime selectedDate = DateTime.now();
@@ -148,6 +157,9 @@ class _AttendancePageState extends State<AttendancePage> {
     ]);
   }
 }
+
+/// A function that is in charge for adding the new attendance record (date and
+/// a daily sentence) to firebase.
 
 void postAttendance(
     DateTime currDate, String clientKey, String dailySentence) async {

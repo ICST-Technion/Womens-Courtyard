@@ -1,3 +1,6 @@
+/// A class containing all possible nationalities, and returns a list taken from
+/// the database of each nationality coupled with the name of the user.
+
 class Nationality {
   final String name;
   final int count;

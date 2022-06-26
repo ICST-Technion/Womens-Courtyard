@@ -8,6 +8,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto/crypto.dart';
 import 'package:womens_courtyard/user.dart';
 
+
+/// Main app login screen.
+/// The login works directly in parallel with the databsae, and confirms the
+/// logging in with it.
+/// The page also makes sure the login details are valid, and only then tries
+/// to login.
+/// Notice that this page is only for login, a regular user can't perform a
+/// registration on her own, and only a meta user needs to register the girls.
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen();
 
@@ -28,6 +37,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    // This method is rerun every time there's a certain change in the state
+    // of the program., and builds the design of the page.
+
+    // Here starts the definition of all fields containing information regarding
+    // the purpose of the page.
+
     //email field
     final emailField = TextFormField(
         textDirection: TextDirection.ltr,
@@ -190,6 +206,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
+/// A class defining a function that tries a dynamic login attempt and returns
+/// the results.
+
 class DynamicLoginHandler {
   final FirebaseFunctions functions;
 
@@ -204,6 +223,10 @@ class DynamicLoginHandler {
     return results;
   }
 }
+
+/// A class defining the behavior during a login, it performs all needed checks
+/// and divides the users by roles, all in order for the client to reach
+/// the part of the app that suits them.
 
 class LoginHandler {
   // firebase instances
@@ -242,6 +265,8 @@ class LoginHandler {
     }
   }
 }
+
+/// A dialog showing the user the stage of the login it's in.
 
 showLoaderDialog(BuildContext context) {
   AlertDialog alert = AlertDialog(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// A file [not finished] containing the settings of a certain meeting in the calendar.
+
 Map<String, Color> roomColor = {
   'room1': Color(0xFF0F8644),
   'room2': Color(0x884432EF)

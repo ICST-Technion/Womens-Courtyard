@@ -2,6 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 
+/// A file in charge of searching a contact for a certain client.
+/// Similar to the regular contact search, here the app gives an option to search
+/// for a contact related to some client.
+/// While searching, the app helps with suggestions of personal files that match
+/// the current text in the search bar.
+
+
 class SearchContactForClient extends StatefulWidget {
   SearchContactForClient({Key? key, this.title = ''}) : super(key: key);
 
@@ -10,11 +17,15 @@ class SearchContactForClient extends StatefulWidget {
   @override
   _SearchContactForClientState createState() =>
       new _SearchContactForClientState();
+
 }
+
+
 
 class _SearchContactForClientState extends State<SearchContactForClient> {
   TextEditingController controller = new TextEditingController();
 
+  /// The future in charge for getting all contact details.
   // Get json result and convert it to model. Then add
   Future<Null> getUserDetails() async {
     try {
@@ -83,6 +94,10 @@ class _SearchContactForClientState extends State<SearchContactForClient> {
       ),
     );
   }
+
+  /// A function designed to deal with a certain text change -
+  /// For example, while searching if a new letter is added to the searched text,
+  /// we give more accurate search results.
 
   onSearchTextChanged(String text) async {
     _searchResult.clear();

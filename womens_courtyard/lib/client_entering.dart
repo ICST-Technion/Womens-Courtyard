@@ -8,6 +8,20 @@ import 'package:womens_courtyard/bottom_navigation_bar.dart'
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// This file details the page regarding the adding
+/// of a new client page in the app.
+/// The fields needed for each client in this file are the following:
+/// * Name and surname.
+/// * Title.
+/// * Nationality.
+/// * Process description.
+/// * ID.
+/// * Phone number.
+///
+/// Additionally there's an option to add extra contacts, and add files for this
+/// account.
+
+
 class AddClientPage extends StatefulWidget {
   AddClientPage({Key? key, this.title = ''}) : super(key: key);
 
@@ -16,6 +30,9 @@ class AddClientPage extends StatefulWidget {
   @override
   _AddClientPageState createState() => _AddClientPageState();
 }
+
+/// The main class that's in charge of the state of each field needed for the
+/// page and the design in the app.
 
 class _AddClientPageState extends State<AddClientPage> {
   //form key
@@ -51,6 +68,13 @@ class _AddClientPageState extends State<AddClientPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // This method is rerun every time there's a certain change in the state
+    // of the program., and builds the design of the page.
+
+    // Here starts the definition of all fields containing information regarding
+    // the purpose of the page.
+
     final privateNameField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
@@ -316,15 +340,9 @@ class _AddClientPageState extends State<AddClientPage> {
                   child: ElevatedButton(
                       child: Text('סיום ושמירה'),
                       onPressed: () {
-                        //enter the results from the controllers.text into the firebase, then navigate back.
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (context) {
-                        //     return AlertDialog(
-                        //       content: Text(firstNameTextController.text),
-                        //     );
-                        //   },
-                        // );
+                        //enter the results from the controllers.text into the firebase,
+                        // then navigate back.
+
                         if (_formKey.currentState != null &&
                             (_formKey.currentState!).validate()) {
                           enterFileToDatabase(
@@ -362,6 +380,8 @@ class _AddClientPageState extends State<AddClientPage> {
       ),
     );
   }
+
+  /// Several functions relating to the use of contacts.
 
   Container getContactsContainer() {
     if (contacts.length > 0) {
@@ -431,6 +451,13 @@ class _AddClientPageState extends State<AddClientPage> {
       onTap: action,
     );
   }
+
+  /// This functions inserts every new file to the database.
+  /// It uses the info gathered for the new client, and inserts it to the
+  /// database in the way needed in order to keep its correctness.
+  ///
+  /// It also prints a message to the console of whether a certain adding action
+  /// succeeded or not.
 
   void enterFileToDatabase(
       {required String firstName,

@@ -5,6 +5,20 @@ import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/search_contact_for_client.dart'
     as add_contact_page;
 
+
+/// This file details the page regarding the editing
+/// of each existing client page in the app.
+/// The fields that are present editable in this file are the following:
+/// * Name and surname.
+/// * Title.
+/// * Nationality.
+/// * Process description.
+/// * ID.
+/// * Phone number.
+///
+/// Additionally there's an option to add extra contacts, and add files for this
+/// account.
+
 class EditClientPage extends StatefulWidget {
   EditClientPage(
       {Key? key,
@@ -20,6 +34,9 @@ class EditClientPage extends StatefulWidget {
   @override
   _EditClientPageState createState() => _EditClientPageState(initialContacts);
 }
+
+/// The main class that's in charge of the state of each field needed for the
+/// page and the design in the app.
 
 class _EditClientPageState extends State<EditClientPage> {
   //form key
@@ -56,6 +73,13 @@ class _EditClientPageState extends State<EditClientPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // This method is rerun every time there's a certain change in the state
+    // of the program., and builds the design of the page.
+
+    // Here starts the definition of all fields containing information regarding
+    // the purpose of the page.
+
     final privateNameField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
@@ -427,6 +451,7 @@ class _EditClientPageState extends State<EditClientPage> {
     );
   }
 
+  /// Future in charge of updating the file in the system.
   Future<Null> enterFileToDatabase(
       String name,
       String fname,

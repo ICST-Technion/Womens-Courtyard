@@ -1,6 +1,11 @@
 // import "FirestoreQueryObjects.dart";
 import 'package:womens_courtyard/personal_file.dart';
 
+/// Here is concentrated the logic behind the queries sent to the database in
+/// order to extract the proper data the user needs.
+/// The queries are split into two types - Nationality induced statistics,
+/// and attendance related one.
+
 const Map<int, String> WEEKDAYS = <int, String>{
   1: 'שני',
   2: 'שלישי',

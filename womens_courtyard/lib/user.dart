@@ -1,3 +1,6 @@
+/// Class defining features for app user, including name, username and branch.
+
+
 class AppUser {
   AppUser._internal();
 

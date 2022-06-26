@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 //import 'package:cloud_functions/cloud_functions.dart';
 
+/// A class testing registration and its validity.
+
 final users = <String, String>{};
 
 //class MockFirebaseFunctions extends Mock implements FirebaseFunctions {}
