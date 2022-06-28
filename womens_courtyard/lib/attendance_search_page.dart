@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/attendance_page.dart' as attendance_page;
 
-
 /// This page is in charge of searching certain parameters and women in the
 /// attendance forms.
 /// For a certain user, this page is able to trace the details of the user's
@@ -14,13 +13,12 @@ class AttendanceSearchPage extends StatefulWidget {
 
   @override
   AttendanceSearchPageState createState() => new AttendanceSearchPageState();
+}
 
+/// The main class that's in charge of the state of each field needed for the
+/// page and the design in the app.
 
-  /// The main class that's in charge of the state of each field needed for the
-  /// page and the design in the app.
-
-
-  class AttendanceSearchPageState extends State<AttendanceSearchPage> {
+class AttendanceSearchPageState extends State<AttendanceSearchPage> {
   TextEditingController controller = new TextEditingController();
 
   // Get json result and convert it to model. Then add
@@ -48,9 +46,8 @@ class AttendanceSearchPage extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
-
-  // This method is rerun every time there's a certain change in the state
-  // of the program., and builds the design of the page.
+    // This method is rerun every time there's a certain change in the state
+    // of the program., and builds the design of the page.
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -99,7 +96,6 @@ class AttendanceSearchPage extends StatefulWidget {
   /// For example, while searching if a new letter is added to the searched text,
   /// we give more accurate search results.
 
-
   onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
@@ -121,7 +117,6 @@ class AttendanceSearchPage extends StatefulWidget {
     setState(() {});
   }
 }
-
 
 /// A class in charge of building the file list showing the structure of the
 /// files suggested using the text search.
