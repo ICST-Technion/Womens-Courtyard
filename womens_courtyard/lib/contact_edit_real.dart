@@ -262,33 +262,7 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('עריכת איש קשר'), actions: [
-      IconButton(
-        icon: Icon(
-          Icons.account_circle,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-        tooltip: "מסך הוספת אשת קשר - שדה הטלפון, המקצוע והשם הם חובה, המייל אופציונלי.",
-      )
-    ]);
+    return AppBar(title: Text('עריכת איש קשר'), actions: []);
   }
 
   /// Function that edits the contact in the firebase using the details updated

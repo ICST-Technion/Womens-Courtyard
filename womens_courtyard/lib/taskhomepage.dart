@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 // import 'package:womens_courtyard/FirestoreQueryObjects.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-// import 'package:excel/excel.dart';
+import 'package:excel/excel.dart';
 import 'package:womens_courtyard/StatisticsLogic.dart';
 import 'dart:ui' as ui;
+import 'dart:convert';
+import 'dart:html';
 
 /// In this page we build the graphs and charts used for the visual presentation
 /// of the calculated and collected statistics.
@@ -18,15 +20,6 @@ const String LAST_NAME_FIELD = "שם משפחה";
 const String VISITS_FIELD = "ביקורים";
 const String EXCEL_NAME = "womens_courtyard_report";
 
-// const Map<int, String> WEEKDAYS = <int, String>{
-//   1: 'שני',
-//   2: 'שלישי',
-//   3: 'רביעי',
-//   4: 'חמישי',
-//   5: 'שישי',
-//   6: 'שבת',
-//   7: 'ראשון',
-// };
 class TaskHomePage extends StatefulWidget {
   @override
   _TaskHomePageState createState() {
@@ -85,15 +78,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
           return Directionality(
             textDirection: ui.TextDirection.rtl,
             child: Scaffold(
-              appBar: AppBar(title: Text('סטטיסטיקה'), actions: [IconButton(
-                icon: Icon(
-                  Icons.info,
-                  size: 30,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
-                tooltip: "מסך הצגת סטטיסטיקות - ניתן לצפות בכמה סוגים של סטטיסטיקות אשר מוצגים בצורות שונות",
-              )]),
+              appBar: AppBar(title: Text('סטטיסטיקה')),
               body: _buildBody(context),
             ),
           );
@@ -126,7 +111,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
                   child: Column(
                     children: <Widget>[
                       _buildPieChart(context, nationalitiesHist),
-                      _buildBarChart(context, visitsHist),
+                      _buildBarChart(context, visitsHist, pfList),
                       // _buildExcelButton(context, givenSnapshots)
                     ],
                   ),
@@ -193,7 +178,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
 
   /// Building the bar chart visually.
 
-  Widget _buildBarChart(BuildContext context, Map<String, int> weekdaysHist) {
+  Widget _buildBarChart(BuildContext context, Map<String, int> weekdaysHist,
+      List<PersonalFile> pf) {
     // mydata = nationalitiesHist;
     _generateBarChartData(weekdaysHist);
     return Padding(
@@ -231,7 +217,22 @@ class _TaskHomePageState extends State<TaskHomePage> {
             // ),
             SizedBox(
               height: 10.0,
-            )
+            ),
+            ElevatedButton(
+                child: Text("ייצוא לאקסל"),
+                onPressed: () {
+                  var myExcel = createExcel(pf);
+                  download(myExcel.encode() ?? [],
+                      downloadName: "courtyard_data.xlsx");
+                },
+                style: ElevatedButton.styleFrom(
+                    elevation: 4,
+                    primary: Colors.purple,
+                    padding: EdgeInsets.all(4),
+                    minimumSize: Size(180, 60),
+                    textStyle: TextStyle(color: Colors.white, fontSize: 22),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0))))
           ],
         ),
       ),
@@ -241,4 +242,97 @@ class _TaskHomePageState extends State<TaskHomePage> {
   // Widget _buildExcelButton(BuildContext context, List<QueryDocumentSnapshot<Object>> snapshots){
   //
   // }
+}
+
+const Map<int, String> WEEKDAYS = <int, String>{
+  1: 'שני',
+  2: 'שלישי',
+  3: 'רביעי',
+  4: 'חמישי',
+  5: 'שישי',
+  6: 'שבת',
+  7: 'ראשון',
+};
+
+List<Visit> createExcelMap(List<PersonalFile> pf) {
+  List<Visit> res = [
+    Visit(
+        date: "תאריך",
+        nationality: "אוכלוסיה",
+        weekDay: "יום בשבוע",
+        description: "משפט יומי")
+  ];
+  for (PersonalFile personalFile in pf) {
+    for (Attendance att in personalFile.attendances) {
+      res.add(Visit(
+          date: att.date.year.toString() +
+              "/" +
+              att.date.month.toString() +
+              "/" +
+              att.date.day.toString(),
+          nationality: personalFile.nationality,
+          weekDay: WEEKDAYS[att.date.weekday] ?? "ראשון",
+          description: att.comment));
+    }
+  }
+
+  return res;
+}
+
+class Visit {
+  final String date;
+  final String nationality;
+  final String weekDay;
+  final String description;
+
+  Visit(
+      {required this.date,
+      required this.nationality,
+      required this.weekDay,
+      required this.description});
+}
+
+Excel createExcel(List<PersonalFile> pf) {
+  List<Visit> visitList = createExcelMap(pf);
+  var excel = Excel.createExcel();
+  Sheet sheetObject = excel['Sheet1'];
+  List<String> column = ["A", "B", "C", "D"];
+  for (int i = 0; i < visitList.length; i++) {
+    for (int j = 0; j < column.length; j++) {
+      var cell = sheetObject
+          .cell(CellIndex.indexByString(column[j] + (i + 1).toString()));
+      if (j == 0) {
+        cell.value = visitList[i].date;
+      } else if (j == 1) {
+        cell.value = visitList[i].nationality;
+      } else if (j == 2) {
+        cell.value = visitList[i].weekDay;
+      } else if (j == 3) {
+        cell.value = visitList[i].description;
+      }
+    }
+  }
+
+  return excel;
+}
+
+void download(
+  List<int> bytes, {
+  String? downloadName,
+}) {
+  // Encode our file in base64
+  final _base64 = base64Encode(bytes);
+  // Create the link with the file
+  final anchor =
+      AnchorElement(href: 'data:application/octet-stream;base64,$_base64')
+        ..target = 'blank';
+  // add the name
+  if (downloadName != null) {
+    anchor.download = downloadName;
+  }
+  // trigger download
+  document.body!.append(anchor);
+  anchor.click();
+  anchor.remove();
+  return;
 }

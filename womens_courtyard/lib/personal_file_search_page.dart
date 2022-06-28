@@ -51,16 +51,18 @@ class _PersonalFileSearchPageState extends State<PersonalFileSearchPage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: new Scaffold(
-        appBar: new AppBar(title: Text('חיפוש תיק אישי')
-        actions: [IconButton(
-          icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-        tooltip: "מסך חיפוש תיק אישי - ניתן לחפש חלק מהטקסט והאפליקציה תשלים לאופציות שונות",
-      )]),
+        appBar: new AppBar(title: Text('חיפוש תיק אישי'), actions: [
+          IconButton(
+            icon: Icon(
+              Icons.info,
+              size: 30,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+            tooltip:
+                "מסך חיפוש תיק אישי - ניתן לחפש חלק מהטקסט והאפליקציה תשלים לאופציות שונות",
+          )
+        ]),
         body: new Column(
           children: <Widget>[
             new Container(

@@ -128,28 +128,13 @@ class _StatisticsPageState extends State<StatisticsPage> {
     return AppBar(title: Text('סטטיסטיקה'), actions: [
       IconButton(
         icon: Icon(
-          Icons.account_circle,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
           Icons.info,
           size: 30,
           color: Colors.white,
         ),
         onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-        tooltip: "מסך יצירת סטטיסטיקה - ניתן להזין סוג סטטיסטיקה, תאריכים ואוכלוסיות ולקבל דוח אקסל של הסטטיסטיקה הנחוצה",
+        tooltip:
+            "מסך יצירת סטטיסטיקה - ניתן להזין סוג סטטיסטיקה, תאריכים ואוכלוסיות ולקבל דוח אקסל של הסטטיסטיקה הנחוצה",
       )
     ]);
   }

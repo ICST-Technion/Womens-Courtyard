@@ -108,24 +108,7 @@ class _EditContactPageState extends State<EditContactPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('צפייה באיש/ת קשר'), actions: [
-      IconButton(
-        icon: Icon(
-          Icons.account_circle,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-    ]);
+    return AppBar(title: Text('צפייה באיש/ת קשר'), actions: []);
   }
 
   /// Gives us the widget allowing access to editing the contact within the app.
