@@ -7,6 +7,15 @@ import 'package:womens_courtyard/user.dart';
 import 'package:womens_courtyard/login_screen.dart' as login_page;
 import 'personal_file.dart';
 
+/// The homepage of the application.
+/// It doesn't hold important information but holds links to features of the app
+/// not noted in the bottom navigation bar.
+/// Including:
+///
+/// * Statistics.
+/// * Adding a user (Both crew and non-crew).
+/// * Calendar.
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key, this.title = ''}) : super(key: key);
 
@@ -217,22 +226,7 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         actions: [
           Padding(padding: const EdgeInsets.all(30.0))
-          // IconButton(
-          //   icon: Icon(
-          //     Icons.account_circle,
-          //     size: 30,
-          //     color: Colors.white,
-          //   ),
-          //   onPressed: () {},
-          // ),
-          // IconButton(
-          //   icon: Icon(
-          //     Icons.info,
-          //     size: 30,
-          //     color: Colors.white,
-          //   ),
-          //   onPressed: () {},
-          // ),
+
         ]);
   }
 }

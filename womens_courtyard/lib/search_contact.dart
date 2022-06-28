@@ -4,6 +4,12 @@ import 'package:womens_courtyard/add_contact.dart' as add_contact_page;
 import 'package:womens_courtyard/view_contact.dart' as edit_contact_page;
 import 'package:womens_courtyard/personal_file.dart';
 
+/// A file in charge of searching a contact.
+/// While searching, the app helps with suggestions of contacts that match
+/// the current text in the search bar.
+/// When a suggestion is pressed, it leads the user to the contact
+/// selected.
+
 class SearchContact extends StatefulWidget {
   SearchContact({Key? key, this.title = ''}) : super(key: key);
 
@@ -117,6 +123,10 @@ class _SearchContactState extends State<SearchContact> {
     );
   }
 
+  /// A function designed to deal with a certain text change -
+  /// For example, while searching if a new letter is added to the searched text,
+  /// we give more accurate search results.
+
   onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
@@ -134,6 +144,9 @@ class _SearchContactState extends State<SearchContact> {
       setState(() {});
     }
   }
+
+  //Here we create the widget symbolizing files, by using query results from
+  //the data base.
 
   Container createFilesWidget(List<ContactFile> contacts) {
     return Container(

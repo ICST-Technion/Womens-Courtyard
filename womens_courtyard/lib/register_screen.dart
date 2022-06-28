@@ -10,6 +10,15 @@ import 'package:womens_courtyard/user.dart';
 
 import 'personal_file.dart';
 
+/// Main app registration screen.
+/// The registration works directly in parallel with the database, and sends the
+/// information there
+/// The page also makes sure the registration details are valid, and only then tries
+/// to perform the action.
+/// Notice that this page is only for registration, a regular user can't reach
+/// this page on her own, only a meta user can do so.
+
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -35,6 +44,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     //full name field
+
+    // Here starts the definition of all fields containing information regarding
+    // the purpose of the page.
+
     final fullNameField = TextFormField(
         autofocus: false,
         controller: fullnameEditingController,
@@ -272,6 +285,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 }
 
+/// A class defining a function that tries a dynamic registration attempt and returns
+/// the results.
+
 class RegisterFunctionHandle {
   final FirebaseFunctions functions;
 
@@ -293,6 +309,9 @@ class RegisterFunctionHandle {
     return results;
   }
 }
+
+/// A class defining the behavior during registration, it performs all needed checks
+/// and delivers the user to the home page.
 
 class RegisterHandle {
   final RegisterFunctionHandle registerFunctionHandle;

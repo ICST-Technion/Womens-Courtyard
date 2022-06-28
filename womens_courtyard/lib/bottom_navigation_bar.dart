@@ -6,6 +6,12 @@ import 'package:womens_courtyard/attendance_search_page.dart'
     as attendance_search_page;
 import 'package:womens_courtyard/search_contact.dart' as view_contact;
 
+/// This page is in charge of the bottom navigation bar, containing:
+/// * A Home screen.
+/// * An attendance records screen.
+/// * A files screen.
+/// * A contacts screen.
+
 import 'personal_file.dart';
 
 //MyBottomNavigationBar()

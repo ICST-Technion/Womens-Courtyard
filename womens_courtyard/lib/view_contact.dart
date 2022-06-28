@@ -3,6 +3,16 @@ import 'package:womens_courtyard/personal_file.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:womens_courtyard/contact_edit_real.dart' as edit_contact;
 
+/// This file is in charge of handling the viewing of a contact, and gives us the
+/// option of editing (moves to another page).
+///
+/// The fields each contact has are:
+/// * Phone number.
+/// * Name and surname.
+/// * Category of service.
+/// * Email.
+///
+
 class EditContactPage extends StatefulWidget {
   final ContactFile contact;
 
@@ -117,6 +127,8 @@ class _EditContactPageState extends State<EditContactPage> {
       ),
     ]);
   }
+
+  /// Gives us the widget allowing access to editing the contact within the app.
 
   Padding getEditWidget() {
     if (widget.displayEdit) {

@@ -5,10 +5,27 @@ import 'package:date_format/date_format.dart';
 // import 'package:intl/intl.dart';
 import 'package:intl/intl.dart';
 
+/// This file is in charge of handling the adding of an event to the calendar.
+///
+/// The fields each contact has are:
+/// * Time.
+/// * Date.
+/// * Room.
+/// * Name of activity.
+///
+/// Only by adding valid details, the worker is able to add an event to the
+/// calendar.
+/// Didn't have time to finish the building of the calendar in the second sprint
+/// , left as a template for the future.
+
 class AddEventPage extends StatefulWidget {
   @override
   _AddEventPageState createState() => _AddEventPageState();
 }
+
+
+/// The main class that's in charge of the state of each field needed for the
+/// page and the design in the app.
 
 class _AddEventPageState extends State<AddEventPage> {
   String? _selectedRoom;
@@ -20,6 +37,8 @@ class _AddEventPageState extends State<AddEventPage> {
     meetingNameController.dispose();
     super.dispose();
   }
+
+  // Definition of several futures and variables containing date info.
 
   String? _setTime, _setDate;
 
@@ -78,18 +97,9 @@ class _AddEventPageState extends State<AddEventPage> {
 
   @override
   Widget build(BuildContext context) {
-    // _height = MediaQuery.of(context).size.height;
-    // _width = MediaQuery.of(context).size.width;
+    // This method is rerun every time there's a certain change in the state
+    // of the program., and builds the design of the page.
     dateTime = DateFormat.yMd().format(DateTime.now());
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    // return Directionality(
-    //     textDirection: TextDirection.rtl,
-    //     child: Scaffold(
     return Scaffold(
       appBar: getHomepageAppBar(),
       body: Center(
@@ -199,7 +209,6 @@ class _AddEventPageState extends State<AddEventPage> {
               child: ElevatedButton(
                   child: Text('סיום ושמירה'),
                   onPressed: () {
-                    // ToDo: update all values
                     // var date = DateTime.parse(_setDate + _setTime);
                     // meetings.add(Meeting(meetingNameController.text,
                     // _selectedRoom, date, date, false));

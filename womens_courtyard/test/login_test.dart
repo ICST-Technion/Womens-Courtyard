@@ -1,9 +1,7 @@
 // @dart=2.9
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_functions/cloud_functions.dart';
-import 'package:womens_courtyard/login_screen.dart';
+import
+
+/// A class testing login and its validity.
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
   @override

@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 
+/// This file is in charge of handling the editing of a contact..
+///
+/// The fields each contact has are:
+/// * Phone number.
+/// * Name and surname.
+/// * Category of service.
+/// * Email.
+///
+/// Only by adding valid details, the worker is able to add a contact to the
+/// registery.
+
 class EditContactRealPage extends StatefulWidget {
   EditContactRealPage({Key? key, required this.contact}) : super(key: key);
 
@@ -41,6 +52,13 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // This method is rerun every time there's a certain change in the state
+    // of the program., and builds the design of the page.
+
+    // Here starts the definition of all fields containing information regarding
+    // the purpose of the page.
+
     firstNameTextController.text = widget.contact.firstName;
     lastNameTextController.text = widget.contact.lastName;
     phoneNumberTextController.text = widget.contact.phoneNo;
@@ -264,6 +282,9 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
       ),
     ]);
   }
+
+  /// Function that edits the contact in the firebase using the details updated
+  /// by the user in the app.
 
   void editContactInFirebase(String firstName, String lastName, String phone,
       String email, String field, ContactFile contact) async {

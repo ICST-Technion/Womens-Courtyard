@@ -10,6 +10,11 @@ import 'package:cloud_functions/cloud_functions.dart';
 
 const bool USE_EMULATOR = true;
 
+/// This file is in charge of connecting to the firebase emulator.
+/// When starting the app, this file is called, and it handles the start of the
+/// app and navigates the user to the login page.
+
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(App());

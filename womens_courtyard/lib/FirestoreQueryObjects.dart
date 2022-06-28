@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// This file contains the firestore query objects that connect the backend to
+/// the frontend of the app.
+
 // collection name
 const PERSONAL_FILE_COLLECTION_NAME = "clients";
 // personal file fields
