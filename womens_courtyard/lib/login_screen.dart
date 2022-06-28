@@ -164,10 +164,10 @@ class _LoginScreenState extends State<LoginScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           appBar: new AppBar(
-            title: new Padding(
-                padding: EdgeInsets.all(100), child: Text('התחברות')),
+            title: Text('התחברות'),
             titleSpacing: 100,
             elevation: 0.0,
+            backgroundColor: Colors.purpleAccent,
           ),
           backgroundColor: Colors.purple,
           body: Center(
