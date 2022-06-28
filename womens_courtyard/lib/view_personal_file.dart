@@ -132,9 +132,14 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
     ));
 
     String comments_on_person = 'משפטים יומיים על הצעירה:\n';
+    person.attendances.sort((a, b) => a.date.compareTo(b.date));
     for (int i = 0; i < person.attendances.length; i++) {
       comments_on_person += '\n' +
-          person.attendances[i].date.toString() +
+          person.attendances[i].date.year.toString() +
+          "-" +
+          person.attendances[i].date.month.toString() +
+          "-" +
+          person.attendances[i].date.day.toString() +
           ':\n' +
           person.attendances[i].comment;
     }

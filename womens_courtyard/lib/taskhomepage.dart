@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
-    show FirebaseFirestore, QueryDocumentSnapshot, QuerySnapshot;
+    show QueryDocumentSnapshot;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:womens_courtyard/FirestoreQueryObjects.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/user.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 // import 'package:excel/excel.dart';
 import 'package:womens_courtyard/StatisticsLogic.dart';

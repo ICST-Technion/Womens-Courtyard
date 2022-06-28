@@ -51,164 +51,48 @@ class _HomePageState extends State<HomePage> {
               textDirection: TextDirection.rtl,
               child: Scaffold(
                 appBar: getHomepageAppBar(),
-                body: Center(
-                  child: ListView(
+                body: SingleChildScrollView(
+                  child: Column(
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Center(
-                            child: Text(
-                          'שלום ' + data['name'],
-                          style: TextStyle(fontSize: 30),
-                        )),
+                      PaddedText('שלום ' + data['name'], 30),
+                      PaddedText('סניף ' + AppUser().branch!, 20),
+                      Center(
+                        child: Column(children: [
+                          MenuButton('סטטיסטיקה', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        statistics_page.TaskHomePage()));
+                          }),
+                          MenuButton('הוספת צעירה', () {
+                            if (!isHQ())
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          add_client_page.AddClientPage()));
+                          }, isHQ: isHQ()),
+                          MenuButton('הוספת צוות', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => registration_screen
+                                        .RegistrationScreen()));
+                          }),
+                          MenuButton('התנתקות', () {
+                            Navigator.popUntil(
+                                context,
+                                ModalRoute.withName(
+                                    Navigator.defaultRouteName));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        login_page.LoginScreen()));
+                          })
+                        ]),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Center(
-                            child: Text(
-                          'סניף ' + AppUser().branch!,
-                          style: TextStyle(fontSize: 20),
-                        )),
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: ElevatedButton(
-                                child: Text('סטטיסטיקה'),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              statistics_page.TaskHomePage()));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    elevation: 4,
-                                    minimumSize: Size(150, 50),
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0)))),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          // if(!isHQ())
-                          Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: ElevatedButton(
-                                child: Text('הוספת צעירה'),
-                                onPressed: () {
-                                  if (!isHQ())
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                add_client_page
-                                                    .AddClientPage()));
-                                },
-                                style: (!isHQ())
-                                    ? ElevatedButton.styleFrom(
-                                        elevation: 4,
-                                        minimumSize: Size(150, 50),
-                                        textStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0)))
-                                    : ElevatedButton.styleFrom(
-                                        primary: Color.fromRGBO(250, 84, 9, 0),
-                                        elevation: 4,
-                                        minimumSize: Size(150, 50),
-                                        textStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0)))),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: ElevatedButton(
-                                child: Text('יומן פעילוית'),
-                                onPressed: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             calendar_page.Calendar()));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    primary: Color.fromRGBO(250, 84, 9, 0),
-                                    elevation: 4,
-                                    minimumSize: Size(150, 50),
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0)))),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: ElevatedButton(
-                                child: Text('הוספת צוות'),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              registration_screen
-                                                  .RegistrationScreen()));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    elevation: 4,
-                                    minimumSize: Size(150, 50),
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0)))),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(30.0),
-                            child: ElevatedButton(
-                                child: Text('התנתקות'),
-                                onPressed: () {
-                                  Navigator.popUntil(
-                                      context,
-                                      ModalRoute.withName(
-                                          Navigator.defaultRouteName));
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              login_page.LoginScreen()));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    elevation: 4,
-                                    minimumSize: Size(150, 50),
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0)))),
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -220,9 +104,37 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
+  Widget MenuButton(String txt, Function() buttonFunc, {isHQ = false}) {
+    return Container(
+      margin: const EdgeInsets.all(16.0),
+      child: ElevatedButton(
+          child: Text(txt),
+          onPressed: buttonFunc,
+          style: ElevatedButton.styleFrom(
+              elevation: 4,
+              primary: isHQ ? Color.fromRGBO(250, 84, 9, 0) : Colors.purple,
+              padding: EdgeInsets.all(4),
+              minimumSize: Size(180, 60),
+              textStyle: TextStyle(color: Colors.white, fontSize: 22),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)))),
+    );
+  }
+
+  Padding PaddedText(String txt, double fontSize) {
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Center(
+          child: Text(
+        txt,
+        style: TextStyle(fontSize: fontSize),
+      )),
+    );
+  }
+
   AppBar getHomepageAppBar() {
     return AppBar(
-        title: Center(child: Text('דף הבית')),
+        title: Text('דף הבית', textAlign: TextAlign.center),
         automaticallyImplyLeading: false,
         actions: [Padding(padding: const EdgeInsets.all(30.0))]);
   }
