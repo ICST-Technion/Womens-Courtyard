@@ -224,9 +224,6 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
         title: Center(child: Text('דף הבית')),
         automaticallyImplyLeading: false,
-        actions: [
-          Padding(padding: const EdgeInsets.all(30.0))
-
-        ]);
+        actions: [Padding(padding: const EdgeInsets.all(30.0))]);
   }
 }

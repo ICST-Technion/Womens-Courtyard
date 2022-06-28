@@ -52,7 +52,6 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
 
   @override
   Widget build(BuildContext context) {
-
     // This method is rerun every time there's a certain change in the state
     // of the program., and builds the design of the page.
 

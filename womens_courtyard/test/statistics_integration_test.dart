@@ -61,7 +61,7 @@ void main() {
   tearDown(() {
     all_files.clear();
   });
-
+  // attendance statistics test
   test("test statistics attendance initial", () async {
     Map<String, int> res = makeVisitsHist(all_files);
     expect(res["ראשון"], 0);
@@ -135,6 +135,38 @@ void main() {
     expect(res_prev["שישי"], res_after["שישי"] - 1);
     expect(res_prev["שבת"], res_after["שבת"] - 1);
   });
+  test("test statistics attendance stress test 1", () async {
+    Map<String, int> res_prev = makeVisitsHist(all_files);
+    mockatt.desClientkeySetup("client1", "אוכלוסיה יהודית");
+    mockatt.postAttendance(DateTime.parse('2022-07-02 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-07-01 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-30 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-29 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-28 20:18:04Z'), "hello");
+    mockatt.postAttendance(DateTime.parse('2022-06-27 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-26 08:00:00Z'), "hello2");
+    mockatt.desClientkeySetup("client2", "אוכלוסיה ערבית");
+    mockatt.postAttendance(DateTime.parse('2022-07-02 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-07-01 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-30 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-29 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-28 20:18:04Z'), "hello");
+    mockatt.postAttendance(DateTime.parse('2022-06-27 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-26 08:00:00Z'), "hello2");
+    mockatt.desClientkeySetup("client3", "אוכלוסיה ערבית");
+    mockatt.postAttendance(DateTime.parse('2022-06-25 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-24 08:00:00Z'), "hello2");
+    mockatt.postAttendance(DateTime.parse('2022-06-23 08:00:00Z'), "hello2");
+
+    Map<String, int> res_after = makeVisitsHist(all_files);
+    expect(res_prev["שלישי"], res_after["שלישי"] - 2);
+    expect(res_prev["שני"], res_after["שני"] - 2);
+    expect(res_prev["ראשון"], res_after["ראשון"] - 2);
+    expect(res_prev["רביעי"], res_after["רביעי"] - 2);
+    expect(res_prev["חמישי"], res_after["חמישי"] - 3);
+    expect(res_prev["שישי"], res_after["שישי"] - 3);
+    expect(res_prev["שבת"], res_after["שבת"] - 3);
+  });
   test("test statistics attendance multiple insertions multiple clients",
       () async {
     Map<String, int> res_prev = makeVisitsHist(all_files);
@@ -168,11 +200,12 @@ void main() {
     expect(res_prev["שישי"], res_after["שישי"] - 3);
     expect(res_prev["שבת"], res_after["שבת"] - 3);
   });
+  // nationalities distribution tests
   test("test statistics distribution initial", () async {
     Map<String, int> res = makeNationalitiesHist(all_files);
     expect(res.isEmpty, true);
   });
-  test("test statistics distribution single client single insertion", () async {
+  test("test statistics distribution single client", () async {
     Map<String, int> res = makeNationalitiesHist(all_files);
     expect(res.isEmpty, true);
     mockatt.desClientkeySetup("client1", "אוכלוסיה יהודית");
@@ -185,13 +218,22 @@ void main() {
     mockatt.desClientkeySetup("client1", "");
     res = makeNationalitiesHist(all_files);
     expect(res["לא ידוע"], 1);
+    expect(res[""], null);
   });
-  test("test statistics distribution initial", () async {
+  test("test statistics distribution multiple clients", () async {
     Map<String, int> res = makeNationalitiesHist(all_files);
     expect(res.isEmpty, true);
-  });
-  test("test statistics distribution initial", () async {
-    Map<String, int> res = makeNationalitiesHist(all_files);
-    expect(res.isEmpty, true);
+    mockatt.desClientkeySetup("client1", "אוכלוסיה יהודית");
+    mockatt.desClientkeySetup("client2", "אוכלוסיה יהודית");
+    mockatt.desClientkeySetup("client3", "אוכלוסיה ערבית");
+    mockatt.desClientkeySetup("client4", "אוכלוסיה אתיופית");
+    mockatt.desClientkeySetup("client5", "");
+    res = makeNationalitiesHist(all_files);
+
+    expect(res["אוכלוסיה יהודית"], 2);
+    expect(res["אוכלוסיה ערבית"], 1);
+    expect(res["אוכלוסיה אתיופית"], 1);
+    expect(res["לא ידוע"], 1);
+    expect(res[""], null);
   });
 }

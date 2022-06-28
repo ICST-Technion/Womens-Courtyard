@@ -21,7 +21,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 /// Additionally there's an option to add extra contacts, and add files for this
 /// account.
 
-
 class AddClientPage extends StatefulWidget {
   AddClientPage({Key? key, this.title = ''}) : super(key: key);
 
@@ -68,7 +67,6 @@ class _AddClientPageState extends State<AddClientPage> {
 
   @override
   Widget build(BuildContext context) {
-
     // This method is rerun every time there's a certain change in the state
     // of the program., and builds the design of the page.
 

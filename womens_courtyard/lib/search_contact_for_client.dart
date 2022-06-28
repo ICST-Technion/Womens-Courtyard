@@ -8,7 +8,6 @@ import 'package:womens_courtyard/personal_file.dart';
 /// While searching, the app helps with suggestions of personal files that match
 /// the current text in the search bar.
 
-
 class SearchContactForClient extends StatefulWidget {
   SearchContactForClient({Key? key, this.title = ''}) : super(key: key);
 
@@ -17,10 +16,7 @@ class SearchContactForClient extends StatefulWidget {
   @override
   _SearchContactForClientState createState() =>
       new _SearchContactForClientState();
-
 }
-
-
 
 class _SearchContactForClientState extends State<SearchContactForClient> {
   TextEditingController controller = new TextEditingController();

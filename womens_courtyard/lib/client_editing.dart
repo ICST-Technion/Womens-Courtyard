@@ -5,7 +5,6 @@ import 'package:womens_courtyard/personal_file.dart';
 import 'package:womens_courtyard/search_contact_for_client.dart'
     as add_contact_page;
 
-
 /// This file details the page regarding the editing
 /// of each existing client page in the app.
 /// The fields that are present editable in this file are the following:
@@ -73,7 +72,6 @@ class _EditClientPageState extends State<EditClientPage> {
 
   @override
   Widget build(BuildContext context) {
-
     // This method is rerun every time there's a certain change in the state
     // of the program., and builds the design of the page.
 

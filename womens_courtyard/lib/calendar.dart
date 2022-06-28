@@ -4,7 +4,6 @@ import 'package:womens_courtyard/meeting.dart';
 import 'package:womens_courtyard/meetings.dart';
 import 'package:womens_courtyard/add_event.dart';
 
-
 /// This page is in charge of the calendar in the app.
 /// It builds the calendar, all of its possible events, and has an option of
 /// adding different events to the calendar.

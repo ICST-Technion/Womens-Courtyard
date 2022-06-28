@@ -72,7 +72,6 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
   /// From here on we define the build of this page as a list of cards showing
   /// the different aspects of the information and links to other related pages.
 
-
   List<Card> fill_the_list(PersonalFile person, BuildContext context) {
     List<Card> toRet = [];
     toRet.add(Card(

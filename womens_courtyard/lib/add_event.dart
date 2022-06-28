@@ -23,7 +23,6 @@ class AddEventPage extends StatefulWidget {
   _AddEventPageState createState() => _AddEventPageState();
 }
 
-
 /// The main class that's in charge of the state of each field needed for the
 /// page and the design in the app.
 

@@ -1,8 +1,6 @@
 import 'package:womens_courtyard/meeting.dart';
 
-
 /// A class [not finished] containing a list of meetings and their properties.
-
 
 final DateTime today = DateTime.now();
 final DateTime startTime =

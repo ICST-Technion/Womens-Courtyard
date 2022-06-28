@@ -18,7 +18,6 @@ import 'personal_file.dart';
 /// Notice that this page is only for registration, a regular user can't reach
 /// this page on her own, only a meta user can do so.
 
-
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 

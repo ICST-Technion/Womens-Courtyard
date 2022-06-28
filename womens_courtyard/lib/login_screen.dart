@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:crypto/crypto.dart';
 import 'package:womens_courtyard/user.dart';
 
-
 /// Main app login screen.
 /// The login works directly in parallel with the databsae, and confirms the
 /// logging in with it.
@@ -37,7 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     // This method is rerun every time there's a certain change in the state
     // of the program., and builds the design of the page.
 
