@@ -14,7 +14,9 @@ const Map<int, String> WEEKDAYS = <int, String>{
 Map<String, int> makeNationalitiesHist(List<PersonalFile> pfList) {
   var nationalitiesHist = Map<String, int>();
   print("starting to generate nationalities");
-  pfList.map<String>((pf) => pf.nationality).forEach((nationality) {
+  pfList
+      .map<String>((pf) => pf.nationality == "" ? "לא ידוע" : pf.nationality)
+      .forEach((nationality) {
     // if(!nationalitiesHist.containsKey(nationality)) {
     //   nationalitiesHist[nationality] = 1;
     // } else {

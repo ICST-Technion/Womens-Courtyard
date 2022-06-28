@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/bottom_navigation_bar.dart'
-    as bottom_navigation_bar;
 import 'package:womens_courtyard/personal_file.dart';
 
 class AttendancePage extends StatefulWidget {
@@ -17,7 +15,7 @@ class AttendancePage extends StatefulWidget {
 
 class _AttendancePageState extends State<AttendancePage> {
   DateTime selectedDate = DateTime.now();
-
+  AttendancePoster? attendancePoster;
   final TextEditingController dailySentenceController =
       new TextEditingController();
 
@@ -35,6 +33,8 @@ class _AttendancePageState extends State<AttendancePage> {
 
   @override
   Widget build(BuildContext context) {
+    this.attendancePoster = AttendancePoster(clientKey: widget.file.key);
+
     final dailySentenceField = TextFormField(
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
@@ -59,8 +59,6 @@ class _AttendancePageState extends State<AttendancePage> {
       child: Scaffold(
         appBar: getHomepageAppBar(),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.all(15.0),
@@ -109,8 +107,8 @@ class _AttendancePageState extends State<AttendancePage> {
                 child: ElevatedButton(
                     child: Text('הזנה וסיום'),
                     onPressed: () {
-                      postAttendance(selectedDate, widget.file.key,
-                          dailySentenceController.text);
+                      this.attendancePoster!.postAttendance(
+                          selectedDate, dailySentenceController.text);
                       Navigator.of(context, rootNavigator: true).pop();
                     },
                     style: ElevatedButton.styleFrom(
@@ -149,14 +147,19 @@ class _AttendancePageState extends State<AttendancePage> {
   }
 }
 
-void postAttendance(
-    DateTime currDate, String clientKey, String dailySentence) async {
-  updatePersonalFile(clientKey, {
-    'attendances': FieldValue.arrayUnion([
-      {'date': currDate, 'comment': dailySentence}
-    ])
-  })
-      .then((_) => print('attendance updated'))
-      .catchError((e) => print('attendance update failed $e'));
-  ;
+class AttendancePoster {
+  AttendancePoster({required this.clientKey});
+
+  final String clientKey;
+
+  void postAttendance(DateTime currDate, String dailySentence) async {
+    updatePersonalFile(this.clientKey, {
+      'attendances': FieldValue.arrayUnion([
+        {'date': currDate, 'comment': dailySentence}
+      ])
+    })
+        .then((_) => print('attendance updated'))
+        .catchError((e) => print('attendance update failed $e'));
+    ;
+  }
 }
