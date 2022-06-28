@@ -142,6 +142,15 @@ class _StatisticsPageState extends State<StatisticsPage> {
         ),
         onPressed: () {},
       ),
+      IconButton(
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+        tooltip: "מסך יצירת סטטיסטיקה - ניתן להזין סוג סטטיסטיקה, תאריכים ואוכלוסיות ולקבל דוח אקסל של הסטטיסטיקה הנחוצה",
+      )
     ]);
   }
 

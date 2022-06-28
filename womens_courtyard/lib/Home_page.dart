@@ -96,6 +96,8 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                // This trailing comma makes auto-formatting nicer for build methods.
+              );
               ),
             );
           }
@@ -136,6 +138,15 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
         title: Text('דף הבית', textAlign: TextAlign.center),
         automaticallyImplyLeading: false,
-        actions: [Padding(padding: const EdgeInsets.all(30.0))]);
+        actions: [Padding(padding: const EdgeInsets.all(30.0)),
+          IconButton(
+            icon: Icon(
+              Icons.info,
+              size: 30,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+            tooltip: "עמוד הבית - מכאן אפשר לעבור לאזורים רבים באפליקציה, שימו לב גם לאופציות בתחתית המסך.",
+          ),]);
   }
 }

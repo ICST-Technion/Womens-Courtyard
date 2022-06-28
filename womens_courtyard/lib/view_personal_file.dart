@@ -66,6 +66,15 @@ class _PersonalFileEditPageState extends State<PersonalFileEditPage> {
         ),
         onPressed: () {},
       ),
+      IconButton(
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+        tooltip: "מסך צפייה בתיק האישי - ניתן לצפות בפרטי התיק האישי, ועל ידי לחיצה על כפתור העריכה ניתן גם לערוך",
+      )
     ]);
   }
 

@@ -85,7 +85,15 @@ class _TaskHomePageState extends State<TaskHomePage> {
           return Directionality(
             textDirection: ui.TextDirection.rtl,
             child: Scaffold(
-              appBar: AppBar(title: Text('סטטיסטיקה')),
+              appBar: AppBar(title: Text('סטטיסטיקה'), actions: [IconButton(
+                icon: Icon(
+                  Icons.info,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+                tooltip: "מסך הצגת סטטיסטיקות - ניתן לצפות בכמה סוגים של סטטיסטיקות אשר מוצגים בצורות שונות",
+              )]),
               body: _buildBody(context),
             ),
           );

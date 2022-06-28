@@ -438,6 +438,15 @@ class _EditClientPageState extends State<EditClientPage> {
             size: 30,
             color: Colors.white,
           )),
+      IconButton(
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+        tooltip: "מסך הזנת פרטי צעירה - שימו לב כי שדות החובה היחידים הם שם פרטי ולאום, השאר אופציונליים",
+      ),]);
     ]);
   }
 

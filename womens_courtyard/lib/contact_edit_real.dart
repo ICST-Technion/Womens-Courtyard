@@ -279,6 +279,15 @@ class _EditContactRealPageState extends State<EditContactRealPage> {
         ),
         onPressed: () {},
       ),
+      IconButton(
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+        tooltip: "מסך הוספת אשת קשר - שדה הטלפון, המקצוע והשם הם חובה, המייל אופציונלי.",
+      )
     ]);
   }
 

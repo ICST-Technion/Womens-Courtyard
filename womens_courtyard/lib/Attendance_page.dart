@@ -143,6 +143,15 @@ class _AttendancePageState extends State<AttendancePage> {
         ),
         onPressed: () {},
       ),
+      IconButton(
+        icon: Icon(
+          Icons.info,
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+        tooltip: "מסך הזנת נוכחות - ניתן להזין תאריך מסוים וגם משפט יומי על הצעירה",
+      )
     ]);
   }
 }

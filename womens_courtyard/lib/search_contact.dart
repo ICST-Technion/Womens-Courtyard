@@ -54,6 +54,17 @@ class _SearchContactState extends State<SearchContact> {
         appBar: new AppBar(
           title: new Text('חיפוש אשת קשר'),
           elevation: 0.0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.info,
+                size: 30,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+              tooltip: "מסך חיפוש אשת קשר - ניתן לחפש חלק מהטקסט והאפליקציה תשלים לאופציות שונות",
+            )
+          ]
         ),
         body: new Column(
           children: <Widget>[
