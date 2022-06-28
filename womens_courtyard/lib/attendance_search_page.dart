@@ -55,6 +55,18 @@ class AttendanceSearchPageState extends State<AttendanceSearchPage> {
         appBar: new AppBar(
           title: new Text('הזנת נוכחות'),
           elevation: 0.0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.info,
+                size: 30,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+              tooltip:
+                  "מסך חיפוש ועדכון נוכחות, כאן תוכלי ללחוץ על הצעירה המתאימה ואז להזין לה נוכחות",
+            )
+          ],
         ),
         body: new Column(
           children: <Widget>[

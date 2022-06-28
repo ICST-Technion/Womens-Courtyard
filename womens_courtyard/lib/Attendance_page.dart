@@ -129,28 +129,13 @@ class _AttendancePageState extends State<AttendancePage> {
     return AppBar(title: Text('הזנת נוכחות'), actions: [
       IconButton(
         icon: Icon(
-          Icons.account_circle,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
           Icons.info,
           size: 30,
           color: Colors.white,
         ),
         onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-        tooltip: "מסך הזנת נוכחות - ניתן להזין תאריך מסוים וגם משפט יומי על הצעירה",
+        tooltip:
+            "מסך הזנת נוכחות - ניתן להזין תאריך מסוים וגם משפט יומי על הצעירה",
       )
     ]);
   }

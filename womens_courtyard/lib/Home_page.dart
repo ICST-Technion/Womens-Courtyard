@@ -48,58 +48,56 @@ class _HomePageState extends State<HomePage> {
             Map<String, dynamic> data =
                 snapshot.data?.data() as Map<String, dynamic>;
             return Directionality(
-              textDirection: TextDirection.rtl,
-              child: Scaffold(
-                appBar: getHomepageAppBar(),
-                body: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      PaddedText('שלום ' + data['name'], 30),
-                      PaddedText('סניף ' + AppUser().branch!, 20),
-                      Center(
-                        child: Column(children: [
-                          MenuButton('סטטיסטיקה', () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        statistics_page.TaskHomePage()));
-                          }),
-                          MenuButton('הוספת צעירה', () {
-                            if (!isHQ())
+                textDirection: TextDirection.rtl,
+                child: Scaffold(
+                  appBar: getHomepageAppBar(),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        PaddedText('שלום ' + data['name'], 30),
+                        PaddedText('סניף ' + AppUser().branch!, 20),
+                        Center(
+                          child: Column(children: [
+                            MenuButton('סטטיסטיקה', () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          add_client_page.AddClientPage()));
-                          }, isHQ: isHQ()),
-                          MenuButton('הוספת צוות', () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => registration_screen
-                                        .RegistrationScreen()));
-                          }),
-                          MenuButton('התנתקות', () {
-                            Navigator.popUntil(
-                                context,
-                                ModalRoute.withName(
-                                    Navigator.defaultRouteName));
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        login_page.LoginScreen()));
-                          })
-                        ]),
-                      ),
-                    ],
+                                          statistics_page.TaskHomePage()));
+                            }),
+                            MenuButton('הוספת צעירה', () {
+                              if (!isHQ())
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            add_client_page.AddClientPage()));
+                            }, isHQ: isHQ()),
+                            MenuButton('הוספת צוות', () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => registration_screen
+                                          .RegistrationScreen()));
+                            }),
+                            MenuButton('התנתקות', () {
+                              Navigator.popUntil(
+                                  context,
+                                  ModalRoute.withName(
+                                      Navigator.defaultRouteName));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          login_page.LoginScreen()));
+                            })
+                          ]),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                // This trailing comma makes auto-formatting nicer for build methods.
-              );
-              ),
-            );
+                  // This trailing comma makes auto-formatting nicer for build methods.
+                ));
           }
 
           return Text('loading');
@@ -138,7 +136,8 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
         title: Text('דף הבית', textAlign: TextAlign.center),
         automaticallyImplyLeading: false,
-        actions: [Padding(padding: const EdgeInsets.all(30.0)),
+        actions: [
+          Padding(padding: const EdgeInsets.all(30.0)),
           IconButton(
             icon: Icon(
               Icons.info,
@@ -146,7 +145,9 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
             ),
             onPressed: () {},
-            tooltip: "עמוד הבית - מכאן אפשר לעבור לאזורים רבים באפליקציה, שימו לב גם לאופציות בתחתית המסך.",
-          ),]);
+            tooltip:
+                "עמוד הבית - מכאן אפשר לעבור לאזורים רבים באפליקציה, שימו לב גם לאופציות בתחתית המסך.",
+          ),
+        ]);
   }
 }

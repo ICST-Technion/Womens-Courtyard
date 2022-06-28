@@ -425,28 +425,15 @@ class _EditClientPageState extends State<EditClientPage> {
   AppBar getHomepageAppBar() {
     return AppBar(title: Text('עריכת תיק אישי'), actions: [
       IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
-      IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
-      IconButton(
         icon: Icon(
           Icons.info,
           size: 30,
           color: Colors.white,
         ),
         onPressed: () {},
-        tooltip: "מסך הזנת פרטי צעירה - שימו לב כי שדות החובה היחידים הם שם פרטי ולאום, השאר אופציונליים",
-      ),]);
+        tooltip:
+            "מסך הזנת פרטי צעירה - שימו לב כי שדות החובה היחידים הם שם פרטי ולאום, השאר אופציונליים",
+      ),
     ]);
   }
 

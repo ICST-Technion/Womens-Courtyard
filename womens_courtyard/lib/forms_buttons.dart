@@ -70,23 +70,6 @@ class _FormsButtonsPageState extends State<FormsButtonsPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('דף הבית'), actions: [
-      IconButton(
-        icon: Icon(
-          Icons.account_circle,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: Icon(
-          Icons.info,
-          size: 30,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-    ]);
+    return AppBar(title: Text('דף הבית'), actions: []);
   }
 }

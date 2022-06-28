@@ -424,22 +424,7 @@ class _AddClientPageState extends State<AddClientPage> {
   }
 
   AppBar getHomepageAppBar() {
-    return AppBar(title: Text('הזנת תיק אישי'), actions: [
-      IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Colors.white,
-          )),
-      IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.info,
-            size: 30,
-            color: Colors.white,
-          )),
-    ]);
+    return AppBar(title: Text('הזנת תיק אישי'));
   }
 
   ListTile getListTile(text, icon, action) {
