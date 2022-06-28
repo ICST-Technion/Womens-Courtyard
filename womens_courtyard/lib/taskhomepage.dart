@@ -260,7 +260,10 @@ List<Visit> createExcelMap(List<PersonalFile> pf) {
         date: "תאריך",
         nationality: "אוכלוסיה",
         weekDay: "יום בשבוע",
-        description: "משפט יומי")
+        description: "משפט יומי",
+        pName: "שם פרטי",
+        lName: "שם משפחה",
+        idNo: "תעודת זהות")
   ];
   for (PersonalFile personalFile in pf) {
     for (Attendance att in personalFile.attendances) {
@@ -272,7 +275,10 @@ List<Visit> createExcelMap(List<PersonalFile> pf) {
               att.date.day.toString(),
           nationality: personalFile.nationality,
           weekDay: WEEKDAYS[att.date.weekday] ?? "ראשון",
-          description: att.comment));
+          description: att.comment,
+          pName: personalFile.firstName,
+          lName: personalFile.lastName,
+          idNo: personalFile.idNo));
     }
   }
 
@@ -284,19 +290,25 @@ class Visit {
   final String nationality;
   final String weekDay;
   final String description;
+  final String pName;
+  final String lName;
+  final String? idNo;
 
   Visit(
       {required this.date,
       required this.nationality,
       required this.weekDay,
-      required this.description});
+      required this.description,
+      required this.pName,
+      required this.lName,
+      required this.idNo});
 }
 
 Excel createExcel(List<PersonalFile> pf) {
   List<Visit> visitList = createExcelMap(pf);
   var excel = Excel.createExcel();
   Sheet sheetObject = excel['Sheet1'];
-  List<String> column = ["A", "B", "C", "D"];
+  List<String> column = ["A", "B", "C", "D", "E", "F", "G"];
   for (int i = 0; i < visitList.length; i++) {
     for (int j = 0; j < column.length; j++) {
       var cell = sheetObject
@@ -309,6 +321,12 @@ Excel createExcel(List<PersonalFile> pf) {
         cell.value = visitList[i].weekDay;
       } else if (j == 3) {
         cell.value = visitList[i].description;
+      } else if (j == 4) {
+        cell.value = visitList[i].pName;
+      } else if (j == 5) {
+        cell.value = visitList[i].lName;
+      } else if (j == 6) {
+        cell.value = visitList[i].idNo ?? "";
       }
     }
   }
