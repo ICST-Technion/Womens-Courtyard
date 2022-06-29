@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:womens_courtyard/Attendance_page.dart';
 import 'package:womens_courtyard/personal_file.dart';
-import 'package:womens_courtyard/StatisticsLogic.dart';
+import 'package:womens_courtyard/statistics_logic.dart';
 
 List<PersonalFile> all_files = [];
 

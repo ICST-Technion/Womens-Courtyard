@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:womens_courtyard/personal_file.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:excel/excel.dart';
-import 'package:womens_courtyard/StatisticsLogic.dart';
+import 'package:womens_courtyard/statistics_logic.dart';
 import 'dart:ui' as ui;
 import 'dart:convert';
 import 'dart:html';

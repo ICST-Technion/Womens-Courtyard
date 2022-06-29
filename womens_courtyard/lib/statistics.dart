@@ -1,7 +1,7 @@
 // import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:womens_courtyard/taskhomepage.dart';
+import 'package:womens_courtyard/statistic_home_page.dart';
 import 'package:womens_courtyard/attendance_search_page.dart' as search_page;
 
 /// This page is in charge of displaying the page leading to the statistics.

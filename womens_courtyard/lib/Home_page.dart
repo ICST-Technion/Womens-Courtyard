@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:womens_courtyard/client_entering.dart' as add_client_page;
-import 'package:womens_courtyard/taskhomepage.dart' as statistics_page;
+import 'package:womens_courtyard/statistic_home_page.dart' as statistics_page;
 import 'package:womens_courtyard/register_screen.dart' as registration_screen;
 import 'package:womens_courtyard/user.dart';
 import 'package:womens_courtyard/login_screen.dart' as login_page;
